@@ -1570,16 +1570,13 @@ const googleFbAuthRoute = require("./routes/auth");
 
 //route usages
 app.use("/auth", googleFbAuthRoute);
-// app.use("/user", userRoutes2);
+app.use("/user", userRoutes2);
 
 app.use("/admin", adminRoutes);
 app.use("/users", userRoutes);
 app.use("/", homeRoutes);
 
-// app.get('*',(req,res,next)=>{
-//   // res.render('admin/page404')
-//   console.log("yoh")
-// })
+
 
 app.get('*', function(req, res){
   res.render('admin/page404');

@@ -86,7 +86,7 @@
                 <!-- /.info-box -->
               </div>
               <!-- /.col -->
-              
+
 
               <!-- fix for small devices only -->
               <div class="clearfix hidden-md-up"></div>
@@ -204,9 +204,9 @@
                             <td class="text-capitalize">
                               <a href="/admin/order-info/<%=order._id%>">
                               <%=order.user.name%>
-                              
+
                               </a></td>
-                            
+
                             <!-- <td><%=order.payMentStatus%></td> -->
                             <td>
                               <% if(order.Delivered==true){%>
@@ -218,7 +218,7 @@
 
                               <%}%>
                             </td>
-                            
+
                               <td>
                           <%if(!order.Delivered==true){%>
                     <form action="/admin/order-delivered/<%=order._id%>" method="POST" id="myForm">
@@ -242,7 +242,7 @@
 
                               <%}%>
                             </td>
-                          
+
                               <td>   <%if(!order.payMentStatus==true){%>
                     <form action="/admin/order-paid/<%=order._id%>" method="POST" id="myForm">
                     <button type="submit" id="disableMe" class="btn btn-outline-success float-right w-auto"><i class="fas fa-money-check-alt"></i> Change Payment Status To Paid
@@ -255,15 +255,15 @@
                   </form>
                 <%}%></td>
                  <td>
-                      
+
                           <form action="/admin/order/<%=order._id%>/delete?_method=DELETE"  id="myForm" method="POST">
-                    <div class="mx-3 mt-3 mb-2"><button type="submit"  id="disableMe" class="btn btn-outline-warning "  onclick="return confirm('Are You Sure You Want To Delete This ORDER?')"><small>DELETE ORDER</small></a></div> 
+                    <div class="mx-3 mt-3 mb-2"><button type="submit"  id="disableMe" class="btn btn-outline-warning "  onclick="return confirm('Are You Sure You Want To Delete This ORDER?')"><small>DELETE ORDER</small></a></div>
                   </form>
-                  
+
                         </td>
                   <td>
-                              
-                             
+
+
                         <div
                                 class="sparkbar"
                                 data-color="#00a65a"
@@ -272,9 +272,9 @@
                                 <%=new Date(order.createdAt).toDateString()%>
                               </div>
                             </td>
-                        
-                      
-                     
+
+
+
                           </tr>
                           <%}%>
                         </tbody>
@@ -326,8 +326,8 @@
                           <td>
                             <% let
                             pctLeft=product.countInStock/product.originalCountInStock*100
-                            %> <%pctLeft=Math.floor(pctLeft)%> 
-                                      
+                            %> <%pctLeft=Math.floor(pctLeft)%>
+
                             <%if((pctLeft=>0) &&  (pctLeft<=20)){%>
                                         <div class="progress progress-xs">
 
@@ -365,7 +365,7 @@ style="width: <%=pctLeft%>%"
 
 
 
-                            
+
                           </td>
 
                           <td>
@@ -474,7 +474,7 @@ style="width: <%=pctLeft%>%"
                           />
                         </div>
                         <div class="product-info text-capitalize">
-                          <a href="/admin/product/<%=product._id%>" class="product-title"
+                          <a href="/admin/product/<%=product.slug%>" class="product-title"
                             ><%=product.name%>
                             <span class="badge badge-warning float-right"
                               >₵<%=product.price%></span
