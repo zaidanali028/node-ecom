@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include('../layouts/admin/head')%>
+  <body
+    class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed"
+  >
+    <div class="wrapper">
+      <!-- Navbar -->
+      <%-include('../layouts/admin/main-nav.ejs')%>
+      <!-- /.navbar -->
+
+      <!-- Main Sidebar Container -->
+      <%-include('../layouts/admin/sidenav')%>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <%-include('../layouts/flashes.ejs')%>
+                <h1 class="m-0">Add A New Product</h1>
+              </div>
+              <!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                  <li class="breadcrumb-item active">add-product</li>
+                </ol>
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card card-secondary">
+                <div class="card-header">
+                  <h3 class="card-title">General</h3>
+
+                  <div class="card-tools">
+                    <button
+                      type="button"
+                      class="btn btn-tool"
+                      data-card-widget="collapse"
+                      title="Collapse"
+                    >
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <form action="/admin/product/<%=product._id%>/edit/" enctype="multipart/form-data" method="POST" id="myForm">
+                      
+                    <!-- put am here oo -->
+                    <label for="inputName">Product Name</label>
+                    <input
+                      type="text"
+                      id="inputName"
+                      name="name"
+                      class="form-control"
+                      value="<%= typeof name != 'undefined' ? name : product.name %>"
+
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="inputDescription"
+                      >Product Description(Make It Short)</label
+                    >
+                    <textarea
+                      id="inputDescription"
+                      name="desc"
+                      class="form-control"
+                      rows="2"
+                     
+
+                    > <%= typeof desc != 'undefined' ? desc : product.description%></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputDescription"
+                      >Project's Rich Description</label
+                    >
+                    <textarea
+                      id="inputDescription"
+                      name="rdesc"
+                      class="form-control"
+                      rows="4"
+                    ><%= typeof rdesc != 'undefined' ? rdesc : product.richDescription%></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="customFile">Product Image(MAIN)</label>
+                    <div class="card w-25">
+                        <img
+                          src="<%=product.image[0]%>"
+                          class="card-img-top "
+                          alt="<%=product.name%>"
+                          
+                        />
+                       
+                      </div>
+                    <div class="mb-3">
+                      
+                      <input class="form-control" type="file" name="image" id="formFile">
+                    </div>
+                    
+                   <% for(let i=1;i<=3;i++){%>
+                    <label for="customFile">Product Gallery(<%=i%>)</label>
+                    <input class="form-control" type="file" name="image" id="formFile">
+                    <br>
+                    <div class="card w-25">
+                        <img
+                          src="<%=product.image[i]%>"
+                          class="card-img-top "
+                          alt="<%=product.name%>"
+                          
+                        />
+                        <div class="card-body">
+                        
+                          
+                        </div>
+                      </div>
+                 <% }%>
+              
+                  <div class="form-group">
+                    <label for="inputStatus">Category</label>
+                    <select id="inputStatus" name="category" class="form-control custom-select">
+                      <option disabled="">Select one</option>
+                      <option value="<%=chosenCategory._id%>" selected="selected" class="text-capitalize"><%=chosenCategory.name%></option>
+                      <%  categories.forEach(category=>{%>
+                        <%if(category.name!==chosenCategory.name){ %>
+                        <option value="<%=category._id%>" class="text-capitalize"><%=category.name%></option>
+                    <%}%>
+
+                   <%   })%>
+                     
+                    </select>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="inputClientCompany">Product Price</label>
+                    <input
+                      type="text"
+                      id="inputClientCompany"
+                      class="form-control"
+                      name="price"
+                     value="<%= typeof price != 'undefined' ? price : product.price%>"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="inputProjectLeader">Count In Stock</label>
+                    <input
+                      type="text"
+                      id="inputProjectLeader"
+                      class="form-control"
+                      name="stockCount"
+                      value="<%= typeof stockCount != 'undefined' ? stockCount : product.countInStock%>"
+
+
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="inputProjectLeader"
+                      >Feature Status(Is Product Featured?)</label
+                    >
+                    <div
+                      class="btn-group btn-group-toggle"
+                      data-toggle="buttons"
+                    >
+                    <%if(product.isFeatured){%>
+                      <label class="btn btn-secondary">
+                        <input
+                          type="radio"
+                          name="feature" checked value="true"
+                        />
+                        Featured
+                      </label>
+                      <%}else{%>
+                        <label class="btn btn-secondary">
+                          <input
+                            type="radio"
+                            name="feature" value="true"
+                          />
+                          Featured
+                        </label>
+                      <%}%>
+                    <%if(!product.isFeatured){%>
+                      <label class="btn btn-secondary">
+                        <input
+                          type="radio"
+                          name="feature"
+                          id="option_a2"
+                          autocomplete="off"
+                         
+                          value="false"
+                          checked
+                        />
+                        Not Featured
+                      </label>
+                      <%}else{%>
+                        <label class="btn btn-secondary">
+                          <input
+                            type="radio"
+                            name="feature"
+                            id="option_a2"
+                            autocomplete="off"
+                            value="false"
+                          />
+                          Not Featured
+                        </label>
+                        <%}%>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputProjectLeader"
+                      >50% Off Status(Does Product Have 50%Off Discount?)</label
+                    >
+                    <div
+                      class="btn-group btn-group-toggle"
+                      data-toggle="buttons"
+                    >
+                      <%if(product.isFiftyOff){%>
+                        <label class="btn btn-primary">
+                          <input
+                            type="radio"
+                            name="dsc"
+                            id="option_a1"
+                            autocomplete="off"
+                            checked=""
+                            value="true"
+                            checked
+                          />
+                          50% Off
+                        </label>
+                        <%}else{%>
+                          <label class="btn btn-primary">
+                            <input
+                              type="radio"
+                              name="dsc"
+                              id="option_a1"
+                              autocomplete="off"
+                             
+                              value="true"
+                            />
+                            50% Off
+                          </label>
+                        <%}%>
+                      <%if(!product.isFiftyOff){%>
+                        <label class="btn btn-primary">
+                        <input
+                          type="radio"
+                          name="dsc"
+                          id="option_a2"
+                          autocomplete="off"
+                          value="false"
+                          checked
+                        />
+                        No Discount
+                      </label>
+                      <%}else{%> 
+                        <label class="btn btn-primary">
+                          <input
+                            type="radio"
+                            name="dsc"
+                            id="option_a2"
+                            autocomplete="off"
+                            value="false"
+                            
+                          />
+                          No Discount
+                        </label>
+
+                        <%}%>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <a href="#" class="btn btn-secondary">Cancel</a>
+              <input
+                type="submit"
+                id="disableMe"
+                value="UpdateProduct"
+                class="btn btn-outline-success float-right"
+              />
+            </form>
+            </div>
+          </div>
+        </section>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+      </aside>
+      <!-- /.control-sidebar -->
+
+      <!-- Main Footer -->
+      <div class="mt-5">  
+      <%-include('../layouts/admin/main-footer')%>
+      </div>
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED SCRIPTS -->
+    <%-include('../layouts/admin/scripts')%>
+  </body>
+</html>

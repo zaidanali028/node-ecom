@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<%-include('../layouts/admin/head')%>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+  <!-- Navbar -->
+ <%-include('../layouts/admin/main-nav.ejs')%>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%-include('../layouts/admin/sidenav')%>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">All Products With 50% off</h1>
+            <%-include("../layouts/flashes.ejs")%>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+              <li class="breadcrumb-item active">donko-products</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <%  if(products){%>
+        <%products.forEach(product=>{ %>
+
+          <div class="col-sm-4">
+            <div class="card"> <img src="<%=product.image[0]%>" class="card-img-top img" >
+                <div class="card-body pt-0 px-0">
+                    <div class="d-flex flex-row justify-content-between mb-0 px-3"> <small class="text-muted mt-1">STARTING AT</small>
+                        <h6>GH₵<%=product.price%></h6>
+                    </div>
+                    <hr class="mt-2 mx-3">
+                    <div class="d-flex flex-row justify-content-between px-3 pb-4">
+                       
+                    </div>
+                    <div class="d-flex flex-row justify-content-between p-3 mid">
+                        <div class="d-flex flex-column"><small class="text-muted mb-1">VIEWS</small>
+                           
+                        </div>
+                        <div class="d-flex flex-column"><small class="text-muted mb-2"><%=product.viewCount%></small>
+                            
+                        </div>
+                    </div>
+                    <small class="text-muted key pl-3">Product Name
+                      <br>
+
+                </small>
+                <p class="text-muted key pl-3" class="text-capitalize" ><%=product.name%>.</p>
+                    <small class="text-muted key pl-3">Brief Description
+                          <br>
+
+                    </small>
+                    <p class="text-muted key pl-3" ><%=product.description%>.</p>
+
+                    
+                    <div class="mx-3 mt-3 mb-2"><a type="button"  href="/admin/product/<%=product._id%>/edit"class="btn btn-outline-info btn-block"><small>EDIT PRODUCT</small></a></div> 
+                      
+                      <form action="/admin/product/<%=product._id%>/edit?_method=DELETE" method="POST" id="myForm">
+                    <div class="mx-3 mt-3 mb-2"><button  id="disableMe" type="submit" class="btn btn-outline-warning btn-block"  onclick="return confirm('Are You Sure You Want To Delete This PRODUCT?')"><small>DELETE PRODUCT</small></a></div> 
+                  </form>
+                  <%if(product.isFiftyOff==true){%>
+                  <form action="/admin/donko-to-previous/<%=product._id%> " method="POST" id="myForm">
+                    <div class="mx-3 mt-3 mb-2"><button  id="disableMe" type="submit" class="btn btn-outline-danger btn-block"><small>REMOVE 50% OFF DISCOUNT</small></a></div> 
+                  </form>
+                  <%}%>
+                </div>
+            </div>
+        </div>
+       <%})%>
+      <% if(!products.length==0){%>
+       <%-include("../layouts/admin/paginate-donko")%>
+       <%}%>
+
+       <%   } else{%>
+        <h5>No Products Has 50% Off Discount,Please Add A New <a href="/admin/add-product">Product</a>  To View Them Here</h5>
+      <% }%>
+
+        
+      
+      </div>
+     
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+ <%-include('../layouts/admin/main-footer')%>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+<%-include('../layouts/admin/scripts')%>

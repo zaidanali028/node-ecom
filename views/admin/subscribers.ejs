@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<%-include('../layouts/admin/head')%>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+  <style>
+    table{
+   display: block !important;
+   overflow-x: auto !important;
+   width: 100% !important;
+ }
+  </style>
+<div class="wrapper">
+  <!-- Navbar -->
+ <%-include('../layouts/admin/main-nav.ejs')%>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%-include('../layouts/admin/sidenav')%>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-secondary">Subscribers</h1>
+            <%-include("../layouts/flashes.ejs")%>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+              <li class="breadcrumb-item active">subscribers</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <section class="content">
+        <div class="container">
+        <div class="row">
+            <div class="col-md-11">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Subscribers Table</h3>
+                    
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <table class="table table-bordered" id="tble">
+                      
+                      <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Email</th>
+                          <th>Date Subscribed</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <%let count=0;%>
+                          <%for(sub of subs){%>
+                            <%count+=1%>
+                        <tr>
+                          <td><%=count%>.</td>
+                          <td><%=sub.email%></td>
+                          <td>
+                            <%=new Date(sub.createdAt).toDateString()%>
+                          </td>
+                        </tr>
+                        <%}%>
+                      
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer clearfix">
+                    <%-include("../layouts/admin/paginate-subs")%>
+
+                  </div>
+                </div>
+                <!-- /.card -->
+    
+              
+
+        </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+               <div class="card-body  card-primary card-outline"  id="">
+
+                  
+            </div>
+            <div class="form-group">
+                <input type="text" name="msg"  placeholder="Enter your message in html formate here"id="">
+
+            </div>
+                   
+                    <!-- /.card -->
+                  </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    
+
+    <!-- /.content -->
+  </div>
+
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+ <%-include('../layouts/admin/main-footer')%>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+<%-include('../layouts/admin/scripts')%>

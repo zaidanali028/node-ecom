@@ -1,0 +1,251 @@
+<html lang="en"><head>
+    <title><%=hero?hero.title:"" %>-<%=product.name%></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <%-include('../layouts/admin/head.ejs')%>
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+    <link rel="stylesheet" href="/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/toastr.css">
+    <link rel='shortcut icon' type='image/x-icon' href='https://res.cloudinary.com/dlbclykto/image/upload/v1624566392/Images/favicon_boblhz.ico' />
+
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+
+
+    <link rel="stylesheet" href="/css/aos.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    
+  </head>
+  <body data-aos-easing="slide" data-aos-duration="800" data-aos-delay="0">
+    <%-include('../layouts/home/preloader.ejs')%>
+
+  
+  <div class="site-wrap">
+    <%-include('../layouts/home/header.ejs')%>
+
+  </div>
+
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black text-capitalize"><%=product.name%></strong></div>
+        </div>
+      </div>
+    </div>  
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                
+                <div class="col-12">
+                  
+                  <%-include('../layouts/flashes.ejs')%>
+                  <style>
+                    
+                  
+                    .image{
+                      max-width: 100%;
+                    }
+                                      </style>
+                               
+                <div class="image">
+                  <img src="<%=product.image[0]%>" text-align="center"  style="" class="  product-image cc  " alt="Product Image">
+                </div>
+
+              
+                </div>
+                <div class="product-image-thumbs">
+                  <div class="product-image-thumb active"><img src="<%=product.image[0]%>" alt="Product Image" class=""></div>
+                  <div class="product-image-thumb"><img src="<%=product.image[1]%>" alt="Product Image"></div>
+                  <div class="product-image-thumb"><img src="<%=product.image[2]%>" alt="Product Image"></div>
+                  <div class="product-image-thumb"><img src="<%=product.image[3]%>" alt="Product Image"></div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <h2 class="text-black text-capitalize"><%=product.name%></h2>
+                <p class="text-capitalize"><%=product.description%></p>
+
+                <p class="text-capitalize"><%=product.richDescription%></p>
+
+                <div class="row">
+                  <div class="">
+                <p class="mt-2"><strong class="   text-primary h1">₵<%=product.price%></strong></p>
+                <div class="row mt-5 ml-1">
+                <div class="card" style="color:white;background:black;">  
+                <div class="ml-1" ><%=product.discount%>%Off</div>
+              </div>
+              <div class="card" style="color:black;background:white;">  
+                <div class="ml-1" ><del>₵<%=product.oldPrice%></del></div>
+              </div>
+            </div>
+
+              </div>
+                <style>
+                .fav{
+                  border:none;
+                  background:white;
+                  padding: 13px;
+                  color: #7971ea;
+                  }
+                  
+                  
+                </style>
+                <%if( LoggedIn===true){%>
+                <div class="" style="margin-left:-30px">
+                 <% if(!userFavs.includes(product._id)){%>
+                <form action="/favourites/<%=product._id%>"  method="POST">
+                <button class="icon icon-heart-o fav fa-2X mr-5" type="submit"></button>
+              </form>
+            <%}else{%>
+              <form action="/remove-favourites/<%=product._id%>" method="POST">
+                <button class="icon icon-heart fav fa-2X " type="submit"></button>
+              </form>
+
+              <%}%>
+
+                </div>
+              <%}else{%>
+                <div class="col-md-2">
+                  <form action="/favourites/<%=product._id%>" method="POST">
+                    <button class="icon icon-heart-o fav fa-2X " type="submit"></button>
+                  </form>
+
+                </div>
+
+              <%}%>
+
+              </div>
+                
+                
+                <div class="mb-1 d-flex">
+                  <label for="option-sm" class="d-flex mr-3 mb-3">
+                  <form action="/add-to-cart/<%=product._id%>"  id="myForm" method="POST">
+                   
+                </div>
+                <div class="mb-5">
+                  <div class="input-group mb-3" style="max-width: 120px;">
+                  <div class="input-group-prepend">
+                    <button class="btn btn-outline-primary js-btn-minus" type="button">−</button>
+                  </div>
+                  <input type="text" class="form-control text-center" name="qty" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-primary js-btn-plus" type="button">+</button>
+                  </div>
+                </div>
+    
+                </div>
+               
+                <p><%if(product.countInStock<=0){%>
+                  <button type="submit" disabled class="buy-now btn btn-sm btn-primary">Currently Out Of Stock</button>
+                  <%}else{%>
+                  <button type="submit"class="buy-now btn btn-sm btn-primary" id="disableMe"> Add To Cart</button>
+                  <%}%>
+
+                </p>
+                
+                  
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section block-3 site-blocks-2 bg-light">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-7 site-section-heading text-center pt-4">
+            <h2>Featured Products</h2>
+          </div>
+        </div>
+        <div class="row">
+          <style>
+ 
+
+.custom-badge {
+    background-color: #343a40 !important;
+    color: #fff;
+    font-size: 11px;
+    padding: 5px;
+    padding-left: 11px;
+    padding-right: 11px;
+    border-radius: 7px
+}
+
+.card {
+    border: none;
+    padding: 15px;
+    cursor: pointer
+}
+
+.time i {
+    color: #cacacaa3
+}
+          </style>
+          <div class="site-section container mt-5">
+            <div class="d-flex justify-content-between align-items-center mb-3"> <span>Hottest Giveaways</span>  <a href="/shop"><span class="custom-badge text-uppercase">See More</span></a> </div>
+            <div class="row">
+              <%for(featuredProduct of products){%>  
+                <div class="col-md-4 mt-4">
+              <a href="/shop-product/<%=featuredProduct.slug%>/">
+
+                    <div class="card">
+                      <%let dbDate=new Date(featuredProduct.createdAt)%>
+                      <%let today=new Date()%>
+                      <%let oneDay=1000*60*60*24%>
+                      <%let diffInTime=today.getTime() -dbDate.getTime() %>
+                      <% let diffInDays=Math.round(diffInTime / oneDay);%>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <%if(diffInDays>=2){%>
+                            <div class="d-flex flex-row align-items-center time"> <i class="fa fa-clock-o"></i> <small class="ml-1">Posted <%=diffInDays %> days ago</small> </div> <img src="https://i.imgur.com/suuFVrQ.png" width="20">
+                          <%}else if(diffInDays==1){%>
+                            <div class="d-flex flex-row align-items-center time"> <i class="fa fa-clock-o"></i> <small class="ml-1">Posted <%=diffInDays %> day ago</small> </div> <img src="https://i.imgur.com/suuFVrQ.png" width="20">
+                            <%}else{%>
+                            <div class="d-flex flex-row align-items-center time"> <i class="fa fa-clock-o"></i> <small class="ml-1">Posted Today</small> </div> <img src="https://i.imgur.com/suuFVrQ.png" width="20">
+                              
+                            <%}%>
+                          </div>
+                        <div class="text-center"> <img src="<%=featuredProduct.image[0]%>" alt="<%=featuredProduct.name%>" width="250"> </div>
+                        <div class="text-center">
+                            <h5 class="text-capitalize"><%=featuredProduct.name%></h5> <span class="text-success">₵<%=featuredProduct.price%> value</span>
+                        </div>
+                    </div>
+              </a>
+                
+                  </div>
+                <%}%>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+
+    <%-include('../layouts/home/footer.ejs')%>
+   
+  </div>
+
+
+
+  <script src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/jquery-ui.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/jquery.magnific-popup.min.js"></script>
+  <script src="/js/aos.js"></script>
+
+  <script src="/js/main.js"></script>
+<%-include('../layouts/home/preloaderJS.ejs')%>
+<%-include('../layouts/admin/scripts.ejs')%>
+
+
+</body></html>

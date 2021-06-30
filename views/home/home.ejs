@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%=hero?hero.title:"" %>-Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/product.css">
+    <link rel="stylesheet" href="/css/toastr.css">
+    <link rel='shortcut icon' type='image/x-icon' href='https://res.cloudinary.com/dlbclykto/image/upload/v1624566392/Images/favicon_boblhz.ico' />
+
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+<link rel="stylesheet" href="/css/toastr.css">
+<link rel="stylesheet" href="/plugins/sweetalert2/sweetalert2.min.css">
+
+
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    
+  </head>
+  <body>
+    <%-include('../layouts/home/preloader.ejs')%>
+
+
+
+
+  <div class="site-wrap">
+    <%-include('../layouts/home/header.ejs')%>
+    <%if(coupons>=1){%> 
+
+      
+      <div class="alert alert-success alert-dismissible fixed-top">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-bullhorn "></i> FREE COUPON IN CART!</h5>
+        <%for(coupon of allCoupons){%>
+          <%if(coupon.isActive==true){%>
+          A GH₵<%=coupon.worth%> Free Cash Off When You Use <span class="p-1 bage badge-info"><%=coupon.code%></span> Coupon Code On Your Cart Items <br> <br>
+      <%  }%>
+      <%  }%>
+      </div>
+      <%}%>
+
+
+      
+
+    <div class="site-blocks-cover" style="background-image: url('<%=hero?hero.image:" "%>');" data-aos="fade">
+      <div class="container">
+        <div class="row align-items-start align-items-md-center justify-content-end">
+          <div class="col-md-5 text-center text-md-left pt-5 pt-md-0">
+            <h1 class="mb-2  text-white" ><%=hero?hero.sDesc:""%></h1>
+            <div class="intro-text text-center text-md-left">
+              <p class="h5 mb-4 text-white"><%=hero?hero.sRDesc:""%> </p>
+              <p>
+                <a href="/shop" class="btn btn-sm btn-primary">Shop Now</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section site-section-sm site-blocks-1" >
+      <div class="container" id="features">
+        <div class="row"   >
+          <%-include('../layouts/home/site-feature')%>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section site-blocks-2">
+      <div class="container">
+        <div class="row">
+          
+        <%categories.forEach(category=>{%>
+          <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="" data-aos-delay="">
+            <a class="block-2-item" href="/shop/<%=category.slug%>/">
+              <figure class="image">
+                <img src="<%=category.catCover%>"  alt="" class="img-fluid cd- mt-4">
+              </figure>
+              <div class="text">
+                <span class="text-uppercase">COLLECTIONS</span>
+                <h3 class="text-uppercase"><%=category.name%></h3>
+              </div>
+            </a>
+          </div>
+        <%})%>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section block-3 site-blocks-2 bg-light">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-7 site-section-heading text-center pt-4">
+            <h2>Featured Products</h2>
+          </div>
+        </div>
+        <div class="row">
+          <style>
+ 
+
+.custom-badge {
+    background-color: #343a40 !important;
+    color: #fff;
+    font-size: 11px;
+    padding: 5px;
+    padding-left: 11px;
+    padding-right: 11px;
+    border-radius: 7px
+}
+
+.card {
+    border: none;
+    padding: 15px;
+    cursor: pointer
+}
+
+.time i {
+    color: #cacacaa3
+}
+          </style>
+          <div class="site-section container mt-5">
+            <div class="d-flex justify-content-between align-items-center mb-3"> <span>Hottest Giveaways</span>  <a href="/shop"><span class="custom-badge text-uppercase">See More</span></a> </div>
+            <div class="row">
+              <%for(featuredProduct of products){%>  
+                <div class="col-md-4 mt-4">
+              <a href="/shop-product/<%=featuredProduct.slug%>/">
+
+                    <div class="card">
+                      <%let dbDate=new Date(featuredProduct.createdAt)%>
+                      <%let today=new Date()%>
+                      <%let oneDay=1000*60*60*24%>
+                      <%let diffInTime=today.getTime() -dbDate.getTime() %>
+                      <% let diffInDays=Math.round(diffInTime / oneDay);%>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <%if(diffInDays>=2){%>
+                            <div class="d-flex flex-row align-items-center time"> <i class="fa fa-clock-o"></i> <small class="ml-1">Posted <%=diffInDays %> Days ago</small> </div> <img src="https://i.imgur.com/suuFVrQ.png" width="20">
+                            <%}else if(diffInDays==1){%>
+                              <div class="d-flex flex-row align-items-center time"> <i class="fa fa-clock-o"></i> <small class="ml-1">Posted Yesterday</small> </div> <img src="https://i.imgur.com/suuFVrQ.png" width="20">
+                              <%}else{%>
+                              <div class="d-flex flex-row align-items-center time"> <i class="fa fa-clock-o"></i> <small class="ml-1">Posted  Today</small> </div> <img src="https://i.imgur.com/suuFVrQ.png" width="20">
+
+                              <%}%>
+                        </div>
+                        <div class="text-center"> <img src="<%=featuredProduct.image[0]%>" alt="<%=featuredProduct.name%>" width="250"> </div>
+                        <div class="text-center">
+                            <h5 class="text-capitalize"><%=featuredProduct.name%></h5> <span class="text-success">₵<%=featuredProduct.price%> value</span>
+                        </div>
+                    </div>
+              </a>
+                
+                  </div>
+                <%}%>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section block-8">
+      <div class="container">
+        <div class="row justify-content-center  mb-5">
+          <div class="col-md-7 site-section-heading text-center pt-4">
+            <h2>Big Sale!</h2>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-md-12 col-lg-7 mb-5">
+            <a href="#"><img src="<%=ad?ad.adImg:""%>" alt="Image placeholder" class="img-fluid rounded"></a>
+          </div>
+          <div class="col-md-12 col-lg-5 text-center pl-md-5">
+            <h2><a href="#"><%=ad?ad.adTitle:""%></a></h2>
+            <p class="post-meta mb-4">By <a href="#"><%=ad?ad.user.name:""%></a> <span class="block-8-sep">&bullet;</span> <%=ad?new Date(ad.createdAt).toDateString():""%></p>
+            <p><%=ad?ad.adDescription:""%></p>
+            <p><a href="/offItems" class="btn btn-primary btn-sm">Shop Now</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%-include('../layouts/home/footer.ejs')%>
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/aos.js"></script>
+
+  <script src="js/main.js"></script>
+<%-include('../layouts/home/preloaderJS.ejs')%>
+<%-include('../layouts/admin/scripts.ejs')%>
+
+
+
+    
+  </body>
+</html>

@@ -1,0 +1,40 @@
+
+  <%if(stockErr.length > 0){%>
+<%for(stock of stockErr){%>
+<%  if(stock!=='undefined' && stock.length>0){%>
+  <div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h5><i class="icon far fa-warning"></i> Alert!</h5>
+<%=stock%>
+</div>
+
+<%}%>
+   
+<%}%>
+<%}%>
+
+<%if(errors.length > 0){%>
+  <%for(error of errors){%>
+  <%  if(error!=='undefined' && error.length>0){%>
+    <div class="alert alert-danger alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      <h5><i class="icon far fa-warning"></i> Alert!</h5>
+  <%=error%>
+  </div>
+  
+  <%}%>
+     
+  <%}%>
+  <%}%>
+
+<%if(error!=""){%>
+  <div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h5><i class="icon far fa-warning"></i> Alert</h5>
+<%=error%>
+</div>
+<%}%>
+
+
+  
+

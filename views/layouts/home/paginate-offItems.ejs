@@ -1,0 +1,38 @@
+<%let home='/offItems?'%>
+<div class="col-md-12 text-center">
+  <div class="site-block-27">
+<% if (pages > 0) { %>
+   
+    <ul>
+        <% if (currentPage == 1) { %>
+            <li><a href="#">&lt;</a></li>
+
+            <% } else { %>
+            <li class="">
+              <a class="" href="<%=home%>page=1">&lt;</a>
+            </li>
+            <% } %> <% var i = (Number(currentPage) > 5 ? Number(currentPage) - 4 : 1) %> <% if (i
+            !== 1) { %>
+            <li class=" disabled"><a class="">...</a></li>
+            <% } %> <% for (; i <= (Number(currentPage) + 4) && i <= pages; i++) { %> <% if (i
+            == currentPage) { %>
+            <li class=" active"><a class=""><%= i %></a></li>
+            <% } else { %>
+            <li class="">
+              <a class="" href="<%=home%>page=<%= i %>"><%= i %></a>
+            </li>
+            <% } %> <% if (i == Number(currentPage) + 4 && i < pages) { %>
+            <li class=" disabled"><a class="">...</a></li>
+            <% } %> <% } %> <% if (currentPage == pages) { %>
+            <li class=" disabled"><a class="">&gt;</a></li>
+            <% } else { %>
+            <li class="">
+              <a class="" href="<%=home%>page=<%= pages %>">&gt;</a>
+            </li>
+            <% } %>
+    </ul>
+
+<%}%>
+  </div>
+</div>
+

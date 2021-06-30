@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%=hero?hero.title:"" %>-Login</title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+    <link rel="stylesheet" href="/fonts/icomoon/style.css">
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/toastr.css">
+
+
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+
+
+    <link rel="stylesheet" href="/css/aos.css">
+    <link rel='shortcut icon' type='image/x-icon' href='https://res.cloudinary.com/dlbclykto/image/upload/v1624566392/Images/favicon_boblhz.ico' />
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" integrity="sha512-NXUhxhkDgZYOMjaIgd89zF2w51Mub53Ru3zCNp5LTlEzMbNNAjTjDbpURYGS5Mop2cU4b7re1nOIucsVlrx9fA==" crossorigin="anonymous" />
+    
+  </head>
+  <body>
+    <%-include('../layouts/home/preloader.ejs')%>
+
+  
+  <div class="site-wrap">
+    <%-include('../layouts/home/header.ejs')%>
+    <div class="bg-light py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">login</strong></div>
+              </div>
+        </div>
+      </div>
+     
+          </div>
+          
+
+          
+          <div class="site-section border-bottom aos-init aos-animate" data-aos="fade" style="background: url('/svgs/bgs/bg2.svg');">
+            <div class="container" >
+            
+      <div class="row">
+                  <div class="col-md-6 mb-4 ">
+                    <div class="w-auto"  style="border-radius:5%;padding: 480px 0px 0 ;background: url('/svgs/log.svg');
+                    background-repeat: no-repeat;
+                    background-position: center;
+                     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);">
+
+                    </div>
+                    
+                  </div>
+                  <div class="col-md-6 ">
+                    <div class="register-box " style="
+                     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 13px 0 rgba(0, 0, 0, 0.19);">
+                   
+                      <div class="register-logo">
+                      </div>
+                      <div class="login-box " width="100">
+                        <!-- /.login-logo -->
+                        <div class="card card-outline card-primary ">
+                          <div class="card-header text-center">
+                           <h1> <a href="/"><%=hero?hero.title:"" %></a></h1>
+
+                          </div>
+                          <div class="card-body">
+                            <p align="center" class="login-box-msg ">Sign in to start your session</p>
+        <%-include('../layouts/flashes.ejs')%>
+
+                      
+                            <form action="/users/login" method="post" id="myForm">
+                              <div class="input-group mb-3">
+                                <input type="email" name="email" class="form-control" placeholder="Email">
+                                <div class="input-group-append">
+                                  <div class="input-group-text">
+                                    <span class="fas fa-envelope " style="color:#7971ea"></span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="input-group mb-3">
+                                <input type="password" class="form-control" placeholder="Password" name="password">
+                                <div class="input-group-append">
+                                  <div class="input-group-text">
+                                    <span class="fas fa-lock" style="color:#7971ea"></span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="icheck-primary">
+                                    <input type="checkbox" id="remember">
+                                    <label for="remember">
+                                      Remember Me
+                                    </label>
+                                  </div>
+                                </div>
+                                <!-- <div class="col-md-12 mb-3">
+                                  <a href="/auth/facebook" class="btn btn-block btn-primary">
+                                    <i class="fab fa-facebook "></i> Sign in using Facebook
+                                  </a>
+                                <a href="/auth/google" class=" btn btn-block btn-warning">
+                                  <i class="  fab fa-google "></i> Sign in using Google
+                                </a>
+                                            
+
+                                </div> -->
+
+                                <!-- /.col -->
+                                <div class="col-md-12">
+                                  <button type="submit" class="btn btn-outline-primary btn-block" id="disableMe">Sign In</button>
+                                </div>
+                                <!-- /.col -->
+                              </div>
+                            </form>
+                      
+                            <!-- <div class="social-auth-links text-center mt-2 mb-3">
+                              <a href="#" class="btn btn-block btn-primary">
+                                <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                              </a>
+                              <a href="#" class="btn btn-block btn-danger">
+                                <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                              </a>
+                            </div> -->
+                            <!-- /.social-auth-links -->
+                      
+                            <p class="mt-1" align="center">
+                              <a href="/users/forgot">I forgot my password</a>
+                            </p>
+                            <p class="mb-0" align="center">
+                              <a href="/users/register" >Register a new membership</a>
+                            </p>
+                          </div>
+                          <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                      </div>
+                
+                    </div>
+                  </div>
+                </div>
+                 
+                    
+                 
+              </div>
+            </div>
+          </div>
+        
+          <div class="site-section site-section-sm site-blocks-1">
+            <div class="container-fluid">
+              <div class="row">
+                <%-include('../layouts/home/site-feature')%>
+      
+                
+              </div>
+            </div>
+          </div>
+
+    <%-include('../layouts/home/footer.ejs')%>
+  </div>
+
+  <script src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/jquery-ui.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/jquery.magnific-popup.min.js"></script>
+  <script src="/js/aos.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.js" integrity="sha512-mgZL3SZ/vIooDg2mU2amX6NysMlthFl/jDbscSRgF/k3zmICLe6muAs7YbITZ+61FeUoo1plofYAocoR5Sa1rQ==" crossorigin="anonymous"></script>
+<%-include('../layouts/home/preloaderJS.ejs')%>
+<%-include('../layouts/admin/scripts')%>
+
+
+  
+    
+  </body>
+</html>

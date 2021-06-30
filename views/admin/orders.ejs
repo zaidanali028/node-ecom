@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<%-include('../layouts/admin/head')%>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+  <style>
+    table{
+   display: block !important;
+   overflow-x: auto !important;
+   width: 100% !important;
+ }
+  </style>
+<div class="wrapper">
+  <!-- Navbar -->
+ <%-include('../layouts/admin/main-nav.ejs')%>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%-include('../layouts/admin/sidenav')%>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Orders</h1>
+            <%-include("../layouts/flashes.ejs")%>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+              <li class="breadcrumb-item active">orders</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="info-box bg-warning">
+              <span class="info-box-icon"><i class="fas fa-clock"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Orders On Pending</span>
+                <span class="info-box-number"><%=notDeliveredOrders%></span>
+
+
+                <div class="progress">
+                  <div class="progress-bar" style="width: <%=notDeliveredOrdersPct%>%"></div>
+                </div>
+                <span class="progress-description">
+                  <%=notDeliveredOrdersPct%>% Out of Total Orders
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-6">
+            <div class="info-box bg-success">
+              <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Orders Delivered</span>
+                <span class="info-box-number"> <%=DeliveredOrders%></span>
+
+                <div class="progress">
+                  <div class="progress-bar" style="width: <%=DeliveredOrdersPct%>%"></div>
+                </div>
+                <span class="progress-description">
+                  <%=DeliveredOrdersPct%>%  Out of Total Orders
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-12">
+            <div class="info-box bg-primary">
+              <span class="info-box-icon"><i class="fas fa-shopping-basket"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">All Orders</span>
+                <span class="info-box-number"><%=orderCount%></span>
+
+               
+                <span class="progress-description">
+                  All Orders From The E-shop
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+    
+          <!-- /.col -->
+        </div>
+      
+      </div>
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header border-transparent">
+                  <h3 class="card-title">All Orders</h3>
+  
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table m-0" id="tble">
+                      <thead>
+                      <tr>
+                        <th>Order ID</th>
+                        <th>User</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                          <%for(order of orders){%>
+                      <tr>
+                        <td><a href="/admin/order-info/<%=order._id%>"><%=order._id%></a></td>
+                        <td><%=order.user.name%></td>
+                        <td>
+                        <%if(order.Delivered==true){%>
+                            <span class="badge badge-success">Delivered</span>
+                        <%}else{%>
+                            <span class="badge badge-warning">Yet To Get Delivered</span>
+
+                        <%}%>
+                        </td>
+
+                        <td>
+                          <div class="sparkbar" data-color="#00a65a" data-height="20"><%=new Date(order.createdAt).toDateString()%></div>
+                        </td>
+                      </tr>
+                    <%}%>
+                      </tbody>
+                    </table>
+
+                  </div>
+              <%-include("../layouts/admin/paginate-orders")%>
+
+                  <!-- /.table-responsive -->
+                </div>
+                <!-- /.card-body -->
+                
+                <!-- /.card-footer -->
+              </div>
+            
+        
+
+            </div>
+    </section>
+
+    <!-- /.content -->
+  </div>
+
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+ <%-include('../layouts/admin/main-footer')%>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+<%-include('../layouts/admin/scripts')%>

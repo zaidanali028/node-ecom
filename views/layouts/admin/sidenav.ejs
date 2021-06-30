@@ -1,0 +1,482 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Brand Logo -->
+   <a href="/admin" class="brand-link">
+    <img src='<%=siteLogo!==" "?siteLogo:"/dist/img/AdminLTELogo.png"%>' alt="logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light"><%=hero?hero.name:" "%></span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img src='<%=user.dp!==""?user.dp:"/dist/img/avatar5.png"%>'width="160" height="160" class="img-circle elevation-2" alt="User Image">
+      </div>
+      <div class="info">
+        <a href="#" class="d-block"><%=user.name%></a>
+      </div>
+    </div>
+
+   
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+             with font-awesome or any other icon font library -->
+        <li class="nav-item menu-open">
+          <!-- <a href="#" class="nav-link active">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              Dashboard
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a> -->
+          <!-- <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="./index.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Dashboard v1</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="./index2.html" class="nav-link active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Dashboard v2</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="./index3.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Dashboard v3</p>
+              </a>
+            </li>
+          </ul> -->
+        <!-- </li> -->
+        <!-- <li class="nav-item">
+          <a href="pages/widgets.html" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+              Widgets
+              <span class="right badge badge-danger">New</span>
+            </p>
+          </a>
+        </li> -->
+        <!-- <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-copy"></i>
+            <p>
+              Layout Options
+              <i class="fas fa-angle-left right"></i>
+              <span class="badge badge-info right">6</span>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="pages/layout/top-nav.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Top Navigation</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Top Navigation + Sidebar</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/layout/boxed.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Boxed</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/layout/fixed-sidebar.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Fixed Sidebar</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/layout/fixed-sidebar-custom.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Fixed Sidebar <small>+ Custom Area</small></p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/layout/fixed-topnav.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Fixed Navbar</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/layout/fixed-footer.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Fixed Footer</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Collapsed Sidebar</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-chart-pie"></i>
+            <p>
+              Charts
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="pages/charts/chartjs.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>ChartJS</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/charts/flot.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Flot</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/charts/inline.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Inline</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/charts/uplot.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>uPlot</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-tree"></i>
+            <p>
+              UI Elements
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="pages/UI/general.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>General</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/UI/icons.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Icons</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/UI/buttons.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Buttons</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/UI/sliders.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Sliders</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/UI/modals.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Modals & Alerts</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/UI/navbar.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Navbar & Tabs</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/UI/timeline.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Timeline</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/UI/ribbons.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Ribbons</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-edit"></i>
+            <p>
+              Forms
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="pages/forms/general.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>General Elements</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/forms/advanced.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Advanced Elements</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/forms/editors.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Editors</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/forms/validation.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Validation</p>
+              </a>
+            </li>
+          </ul>
+        </li> -->
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-shopping-basket"></i>
+            <p>
+              Products
+              <i class="fas fa-angle-left right"></i>
+              <p>
+              
+                <span class="badge  badge-pill badge-success right"><%=pcount%></span>
+              </p>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="/admin/add-product" class="nav-link">
+                <i class="fas fa-plus-circle nav-icon"></i>
+                <p>Add A New Product</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/admin/subscribers" class="nav-link">
+                <i class="nav-icon fas fa-mail-bulk"></i>
+                <p>
+                  Email Subscribers</p>
+              </a>
+            </li>
+            
+            
+            <li class="nav-item">
+              <a href="/admin/add-category" class="nav-link">
+                <i class="fa fa-list-alt nav-icon"></i>
+                <p>Add A New Category</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/admin/edit/category" class="nav-link">
+                <i class="fas fa-pen"></i>
+                <p>Edit Categories</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/admin/products/all" class="nav-link">
+                <i class="fas fa-ad"></i>
+                <p>View Products</p>
+              </a>
+            </li>
+            
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="/admin/stocks" class="nav-link">
+            <i class="nav-icon fas fa-chart-line"></i>
+            <p>
+              Products Stocks
+                
+              </span>
+
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/admin/subscribers" class="nav-link">
+            <i class="nav-icon fas fa-mail-bulk"></i>
+            <p>
+              Email Subscribers
+              <span class="badge badge-pill badge-secondary right"><%=subCount%></span>
+            
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/admin/discount" class="nav-link">
+            <i class="fa fa-fire"></i>
+            <p>
+              Discount
+            
+            </p>
+          </a>
+        </li>
+        <li class="nav-header">MISCELLANNEOUS</li>
+        <li class="nav-item">
+          <a href="/admin/coupon" class="nav-link">
+            <i class="nav-icon fas fa-gift -alt"></i>
+            <p>
+              Coupon Generator
+              <span class="badge  badge-pill badge-info right"><%=cCount%></span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/admin/donko-products" class="nav-link">
+            <i class="nav-icon fas fa-percent"></i>
+            <p>
+              50% Off Items
+              <span class="badge  badge-pill badge-info right">
+                <%=fiftyOffProductsCount%>
+              </span>
+
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/admin/orders" class="nav-link">
+            <i class="nav-icon fas fa-shopping-cart"></i>
+            <p>
+              Orders
+              <span class="badge  badge-pill badge-danger right"><%=orderCount%></span>
+
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/admin/dp-change" class="nav-link">
+            <i class="nav-icon fas fa-person-booth"></i>
+            <p>
+              Change Your Dp
+
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/admin/logo-change" class="nav-link">
+            <i class="fab fa-connectdevelop"></i>
+            <p>
+              Change Site Logo
+
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-plus-circle text-info"></i>
+            <p>
+              Extras
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" style="display: none;">
+         
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="far fa-circle nav-icon text-success"></i>
+                <p>
+                  Homepage Builder 
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/admin/hero" class="nav-link">
+                    <i class="far fa-dot-circle nav-icon text-warning"></i>
+                    <p>Build Homepage</p>
+                  </a>
+                </li>
+               <% if(hero){%>
+                <li class="nav-item">
+                  <a href="/admin/hero-edit" class="nav-link">
+                    <i class="far fa-dot-circle nav-icon text-warning" ></i>
+                    <p>Edit Homepage</p>
+                  </a>
+                </li>
+              <%}%>
+                
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="far fa-circle nav-icon text-success"></i>
+                <p>
+                  50%  Off Items Advert 
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/admin/post-ad" class="nav-link">
+                    <i class="far fa-dot-circle nav-icon text-warning"></i>
+                    <p>Post Advert</p>
+                  </a>
+                </li>
+                <% if(ad50){%>
+                  <li class="nav-item">
+                    <a href="/admin//edit-ad" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon text-warning" ></i>
+                      <p>Edit Ad</p>
+                    </a>
+                  </li>
+                <%}%>
+              
+                
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="far fa-circle nav-icon text-success"></i>
+                <p>
+                  Address Info 
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/admin/add-address" class="nav-link">
+                    <i class="far fa-map nav-icon text-warning"></i>
+                    <p>Add Address</p>
+                  </a>
+                </li>
+               <% if(addresS){%>
+                <li class="nav-item">
+                  <a href="/admin/edit-address" class="nav-link">
+                    <i class="fas fa-map-marked nav-icon text-warning" ></i>
+                    <p>Edit Address</p>
+                  </a>
+                </li>
+              <%}%>
+              
+                
+              </ul>
+            </li>
+          </ul>
+        </li>
+  
+    
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

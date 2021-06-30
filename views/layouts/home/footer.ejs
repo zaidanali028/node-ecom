@@ -1,0 +1,98 @@
+<footer class="site-footer border-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="footer-heading mb-4">Navigations</h3>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <ul class="list-unstyled">
+                <li><a href="#top">Back To Top</a></li>
+                <li><a href="/#features">Features</a></li>
+                <li><a href="/favourites">Favourites</a></li>
+                <li><a href="/offItems">50% offItems</a></li>
+
+              </ul>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <ul class="list-unstyled">
+                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="/about">Read About Us</a></li>
+                <li><a href="/my-cart">Your Shopping cart</a></li>
+
+              </ul>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <ul class="list-unstyled">
+                <li><a href="/shop">Point of sale</a></li>
+                <%if(!(LoggedIn)){%>
+                  <li><a href="/users/register">Register</a></li>
+                  <li><a href="/users/login">Login</a></li>
+        
+        
+                  <%}%>
+        
+             
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+          <h3 class="footer-heading mb-4">Promo</h3>
+          <a href="#" class="block-6">
+            <img src="<%=ad?ad.adImg:""%>" alt="Image placeholder" class="img-fluid rounded mb-4">
+            <a href="/offItems" class="font-weight-light  mb-0"><%=ad?ad.adTitle:""%></a>
+            <p>Hurry!While Stocks Last!</p>
+          </a>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="block-5 mb-5">
+            <h3 class="footer-heading mb-4">Contact Info</h3>
+            <ul class="list-unstyled">
+              <li class="address"><%=address?address.address:""%></li>
+              <li class="phone"><a href="tel://<%=address?address.phoneNumber:""%>"><%=address?address.phoneNumber:""%></a></li>
+              <li class="email"><%=address?address.email:""%></li>
+            </ul>
+          </div>
+
+          <div class="block-7">
+            <form action="/subscribe" method="post">
+              <label for="email_subscribe" class="footer-heading">Subscribe To Our NewsLetter For Awesome Offers</label>
+              <div class="form-group">
+                <input type="email" class="form-control py-4" id="email_subscribe"  name="subscribe" placeholder="Email">
+                <input type="submit" class="btn btn-sm btn-primary" value="Send">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="row pt-5 mt-5 text-center">
+        <div class="col-md-12">
+          <p>
+          <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          Copyright &copy;<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All rights reserved | <%=hero?hero.name:""%>  <i class="icon-heart" aria-hidden="true"></i>
+          <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </p>
+        </div>
+        
+      </div>
+    </div>
+  </footer>
+  <script>
+      window.onload=function(){
+
+<% if (success_msg != ""){ %>
+
+toastr.success('<%= success_msg %>'); 
+
+
+<% } %>
+
+<%        if (error_msg != ""){ %>
+    toastr.error('<%= error_msg %>'); 
+<% } %>
+
+
+}
+  </script>
