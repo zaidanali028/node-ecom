@@ -20,6 +20,24 @@ const { ensureAuthenticated, ensureGuest } = require("../../config/auth");
 PUBLIC_KEY = process.env.PUBLIC_KEY;
 SECRET_KEY = process.env.SECRET_KEY;
 
+router.get("/sitemap.xml", async (req, res) => {
+  try {
+    let xml_content = [
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+      "  <url>",
+      "    <loc>https://yutamart.com/</loc>",
+      "    <lastmod>2021-06-30</lastmod>",
+      "  </url>",
+      "</urlset>",
+    ];
+    res.set("Content-Type", "text/xml");
+    res.send(xml_content.join("\n"));
+  } catch (e) {}
+});
+
+
+
 router.get("/logout", (req, res) => {
   req.logOut();
   req.flash("success_msg", "You Have Successfully Logged Out");
@@ -1376,20 +1394,5 @@ router.post("/subscribe", async (req, res) => {
   res.redirect(req.headers.referer);
 });
 
-router.get("/sitemap.xml", async (req, res) => {
-  try {
-    let xml_content = [
-      '<?xml version="1.0" encoding="UTF-8"?>',
-      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-      "  <url>",
-      "    <loc>https://yutamart.com/</loc>",
-      "    <lastmod>2021-06-30</lastmod>",
-      "  </url>",
-      "</urlset>",
-    ];
-    res.set("Content-Type", "text/xml");
-    res.send(xml_content.join("\n"));
-  } catch (e) {}
-});
 
 module.exports = router;
