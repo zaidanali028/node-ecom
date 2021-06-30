@@ -15,33 +15,31 @@ const Hero = require("../../models/hero");
 const Ad = require("../../models/post-ad");
 const Address = require("../../models/add-address");
 const Mail = require("../../models/mail-list");
-const { ensureAuthenticated,ensureGuest } = require("../../config/auth");
-
+const { ensureAuthenticated, ensureGuest } = require("../../config/auth");
 
 PUBLIC_KEY = process.env.PUBLIC_KEY;
 SECRET_KEY = process.env.SECRET_KEY;
 
-router.get('/logout',(req,res)=>{
-  req.logOut()
-  req.flash('success_msg','You Have Successfully Logged Out')
-  res.redirect('/users/login')
-})
+router.get("/logout", (req, res) => {
+  req.logOut();
+  req.flash("success_msg", "You Have Successfully Logged Out");
+  res.redirect("/users/login");
+});
 
 //success-checkout view
 router.get("/success-checkout", ensureAuthenticated, async (req, res) => {
   try {
-    
-    let userId, userFav,isAdmin;
+    let userId, userFav, isAdmin;
     if (req.isAuthenticated()) {
       userId = req.user._id;
       userFav = await User.findOne({ _id: userId });
-        userFav =userFav? userFav.fav.length:"";
+      userFav = userFav ? userFav.fav.length : "";
 
-      isAdmin=req.user.isAdmin;
-    }else{
-        isAdmin=false
-      }
-  
+      isAdmin = req.user.isAdmin;
+    } else {
+      isAdmin = false;
+    }
+
     let cartCount;
     const userItemCart = await Cart.find({ user: userId });
     let ad = await Ad.findOne({}).populate("user");
@@ -65,8 +63,8 @@ router.get("/success-checkout", ensureAuthenticated, async (req, res) => {
       hero,
       ad,
       cartCount,
-      LoggedIn: req.isAuthenticated(),isAdmin
-
+      LoggedIn: req.isAuthenticated(),
+      isAdmin,
     });
   } catch (e) {
     console.log(e);
@@ -115,18 +113,18 @@ router.post("/remove-favourites/:id", ensureAuthenticated, async (req, res) => {
 });
 
 router.get("/favourites", async (req, res) => {
-  req.session.currentUrl=req.originalUrl
+  req.session.currentUrl = req.originalUrl;
 
   let userId;
-  let userFav,isAdmin;
+  let userFav, isAdmin;
   if (req.isAuthenticated()) {
     userId = req.user._id;
     let products = await User.findOne({ _id: userId }).populate("fav");
     userFav = products.fav.length;
-    isAdmin=req.user.isAdmin;
-  }else{
-      isAdmin=false
-    }
+    isAdmin = req.user.isAdmin;
+  } else {
+    isAdmin = false;
+  }
 
   if (typeof userFav == "undefined") {
     userFav = 0;
@@ -182,27 +180,26 @@ router.get("/favourites", async (req, res) => {
     products,
     categories,
     catCountArr,
-    category:typeof category!== 'undefined'?category:"",
+    category: typeof category !== "undefined" ? category : "",
     userFav,
     LoggedIn: req.isAuthenticated(),
-    isAdmin
-
+    isAdmin,
   });
 });
 
 router.get("/about", async (req, res) => {
-  let userId, userFav,isAdmin;
-  req.session.currentUrl=req.originalUrl
+  let userId, userFav, isAdmin;
+  req.session.currentUrl = req.originalUrl;
 
   if (req.isAuthenticated()) {
     userId = req.user._id;
     userFav = await User.findOne({ _id: userId });
-      userFav =userFav? userFav.fav.length:"";
+    userFav = userFav ? userFav.fav.length : "";
 
-    isAdmin=req.user.isAdmin;
-  }else{
-      isAdmin=false
-    }
+    isAdmin = req.user.isAdmin;
+  } else {
+    isAdmin = false;
+  }
 
   const userItemCart = await Cart.find({ user: userId });
 
@@ -220,23 +217,30 @@ router.get("/about", async (req, res) => {
   let hero = await Hero.findOne({});
   let address = await Address.findOne({});
 
-  res.render("home/about", {isAdmin, ad, userFav, hero, address, cartCount , LoggedIn: req.isAuthenticated(),
+  res.render("home/about", {
+    isAdmin,
+    ad,
+    userFav,
+    hero,
+    address,
+    cartCount,
+    LoggedIn: req.isAuthenticated(),
   });
 });
 
 router.get("/contact", async (req, res) => {
-  req.session.currentUrl=req.originalUrl
+  req.session.currentUrl = req.originalUrl;
 
-  let userId, userFav,isAdmin;
+  let userId, userFav, isAdmin;
   if (req.isAuthenticated()) {
     userId = req.user._id;
     userFav = await User.findOne({ _id: userId });
-      userFav =userFav? userFav.fav.length:"";
+    userFav = userFav ? userFav.fav.length : "";
 
-    isAdmin=req.user.isAdmin;
-  }else{
-      isAdmin=false
-    }
+    isAdmin = req.user.isAdmin;
+  } else {
+    isAdmin = false;
+  }
 
   const userItemCart = await Cart.find({ user: userId });
 
@@ -253,21 +257,28 @@ router.get("/contact", async (req, res) => {
     cartCount = 0;
   }
 
-  res.render("home/contact", {       LoggedIn: req.isAuthenticated(),
- ad, address, hero, userFav, cartCount,isAdmin });
+  res.render("home/contact", {
+    LoggedIn: req.isAuthenticated(),
+    ad,
+    address,
+    hero,
+    userFav,
+    cartCount,
+    isAdmin,
+  });
 });
 
 router.post("/contact", async (req, res) => {
   try {
-    let userId, userFav,isAdmin;
+    let userId, userFav, isAdmin;
     if (req.isAuthenticated()) {
       userId = req.user._id;
       userFav = await User.findOne({ _id: userId });
-        userFav =userFav? userFav.fav.length:"";
+      userFav = userFav ? userFav.fav.length : "";
 
-      isAdmin=req.user.isAdmin;
-  }else{
-      isAdmin=false
+      isAdmin = req.user.isAdmin;
+    } else {
+      isAdmin = false;
     }
 
     let ad = await Ad.findOne({}).populate("user");
@@ -327,7 +338,7 @@ router.post("/contact", async (req, res) => {
         ad,
         hero,
         LoggedIn: req.isAuthenticated(),
-        isAdmin
+        isAdmin,
       });
     }
     validation.passes(() => {
@@ -385,18 +396,18 @@ router.post("/contact", async (req, res) => {
 });
 
 router.get("/shipping", async (req, res) => {
-  req.session.currentUrl=req.originalUrl
+  req.session.currentUrl = req.originalUrl;
 
-  let userId, userFav,isAdmin;
+  let userId, userFav, isAdmin;
   if (req.isAuthenticated()) {
     userId = req.user._id;
     userFav = await User.findOne({ _id: userId });
-      userFav =userFav? userFav.fav.length:"";
+    userFav = userFav ? userFav.fav.length : "";
 
-    isAdmin=req.user.isAdmin;
-  }else{
-      isAdmin=false
-    }
+    isAdmin = req.user.isAdmin;
+  } else {
+    isAdmin = false;
+  }
 
   const userItemCart = await Cart.find({ user: userId });
   if (userItemCart[0]) {
@@ -413,23 +424,30 @@ router.get("/shipping", async (req, res) => {
     userFav = 0;
   }
 
-  res.render("home/shipping", {      LoggedIn: req.isAuthenticated(),
-    userFav, ad, hero, address, cartCount,isAdmin });
+  res.render("home/shipping", {
+    LoggedIn: req.isAuthenticated(),
+    userFav,
+    ad,
+    hero,
+    address,
+    cartCount,
+    isAdmin,
+  });
 });
 
 router.get("/my-cart", async (req, res) => {
-  req.session.currentUrl=req.originalUrl
+  req.session.currentUrl = req.originalUrl;
 
-  let userId, userFav,isAdmin;
+  let userId, userFav, isAdmin;
   if (req.isAuthenticated()) {
     userId = req.user._id;
     userFav = await User.findOne({ _id: userId });
-      userFav =userFav? userFav.fav.length:"";
+    userFav = userFav ? userFav.fav.length : "";
 
-    isAdmin=req.user.isAdmin;
-  }else{
-      isAdmin=false
-    }
+    isAdmin = req.user.isAdmin;
+  } else {
+    isAdmin = false;
+  }
 
   const coupons = await Coupons.countDocuments();
   let ad = await Ad.findOne({}).populate("user");
@@ -477,24 +495,23 @@ router.get("/my-cart", async (req, res) => {
     cartCount,
     userFav,
     LoggedIn: req.isAuthenticated(),
-    isAdmin
-
+    isAdmin,
   });
 });
 
 router.get("/offItems", async (req, res) => {
-  req.session.currentUrl=req.originalUrl
+  req.session.currentUrl = req.originalUrl;
 
-  let userId, userFav,isAdmin;;
+  let userId, userFav, isAdmin;
   if (req.isAuthenticated()) {
     userId = req.user._id;
     userFav = await User.findOne({ _id: userId });
-      userFav =userFav? userFav.fav.length:"";
+    userFav = userFav ? userFav.fav.length : "";
 
-    isAdmin=req.user.isAdmin;
-  }else{
-      isAdmin=false
-    }
+    isAdmin = req.user.isAdmin;
+  } else {
+    isAdmin = false;
+  }
 
   if (typeof userFav == "undefined") {
     userFav = 0;
@@ -546,27 +563,26 @@ router.get("/offItems", async (req, res) => {
     products,
     categories,
     catCountArr,
-    category:typeof category!== 'undefined'?category:"",
+    category: typeof category !== "undefined" ? category : "",
     userFav,
     LoggedIn: req.isAuthenticated(),
-    isAdmin
-
+    isAdmin,
   });
 });
 
 router.get("/shop", async (req, res) => {
-  req.session.currentUrl=req.originalUrl
+  req.session.currentUrl = req.originalUrl;
 
-  let userId, userFav,isAdmin;
+  let userId, userFav, isAdmin;
   if (req.isAuthenticated()) {
     userId = req.user._id;
     userFav = await User.findOne({ _id: userId });
-      userFav =userFav? userFav.fav.length:"";
+    userFav = userFav ? userFav.fav.length : "";
 
-    isAdmin=req.user.isAdmin;
-  }else{
-      isAdmin=false
-    }
+    isAdmin = req.user.isAdmin;
+  } else {
+    isAdmin = false;
+  }
   let cartCount;
   let products;
   let msg = [];
@@ -594,7 +610,7 @@ router.get("/shop", async (req, res) => {
   let category = req.query.category;
   const count = await Product.count();
   if (category) {
-  category=category.toLowerCase()
+    category = category.toLowerCase();
 
     catQuery = await Category.findOne({ name: category });
     // console.log(catQuery._id)
@@ -608,7 +624,7 @@ router.get("/shop", async (req, res) => {
         .limit(itemPerPage);
     } else if (!catQuery) {
       msg.push("The category " + category + " is not available");
-      products = await Product.find({createdAt:-1})
+      products = await Product.find({ createdAt: -1 })
 
         .sort({ name: 1 })
         .skip(itemPerPage * page - itemPerPage)
@@ -647,31 +663,30 @@ router.get("/shop", async (req, res) => {
     products,
     categories,
     catCountArr,
-    category:typeof category!== 'undefined'?category:"",
+    category: typeof category !== "undefined" ? category : "",
 
     catQuery,
     userFav,
     LoggedIn: req.isAuthenticated(),
-    isAdmin
-
+    isAdmin,
   });
 });
 
 //when a user visits a category by its slug
 router.get("/shop/:slug", async (req, res) => {
   try {
-  req.session.currentUrl=req.originalUrl
+    req.session.currentUrl = req.originalUrl;
 
-    let userId, userFav,isAdmin;
+    let userId, userFav, isAdmin;
     if (req.isAuthenticated()) {
       userId = req.user._id;
       userFav = await User.findOne({ _id: userId });
-        userFav =userFav? userFav.fav.length:"";
+      userFav = userFav ? userFav.fav.length : "";
 
-      isAdmin=req.user.isAdmin;
-    }else{
-        isAdmin=false
-      }
+      isAdmin = req.user.isAdmin;
+    } else {
+      isAdmin = false;
+    }
     let slug = req.params.slug;
     const foundCategory = await Category.findOne({ slug: req.params.slug });
     let ad = await Ad.findOne({}).populate("user");
@@ -730,31 +745,28 @@ router.get("/shop/:slug", async (req, res) => {
       slug,
       userFav,
       LoggedIn: req.isAuthenticated(),
-      isAdmin
-
+      isAdmin,
     });
   } catch (e) {
     console.log(e);
   }
 });
 
-
-
 //production-checkout
 router.post("/checkout", async (req, res) => {
   try {
-    let userId, userFav,isAdmin;
+    let userId, userFav, isAdmin;
 
     if (req.isAuthenticated()) {
       userId = req.user._id;
       userFav = await User.findOne({ _id: userId });
-        userFav =userFav? userFav.fav.length:"";
+      userFav = userFav ? userFav.fav.length : "";
 
-      isAdmin=req.user.isAdmin;
-    }else{
-        isAdmin=false
-      }
-      
+      isAdmin = req.user.isAdmin;
+    } else {
+      isAdmin = false;
+    }
+
     let cartCount;
     const userItemCart = await Cart.find({ user: userId });
     let ad = await Ad.findOne({}).populate("user");
@@ -851,69 +863,77 @@ router.post("/checkout", async (req, res) => {
         phone,
         name,
         LoggedIn: req.isAuthenticated(),
-        isAdmin
-
+        isAdmin,
       });
     } else {
       validation.passes(async () => {
-        let ghPhone=req.body.phone
-        ghPhone="+233"+ghPhone.substring(1)
-        let user = await User.findByIdAndUpdate({_id:userId},{
-          $set:{
-            country:req.body.country,
-          address:req.body.C_address,
-          region:req.body.region,
-          appartment:typeof req.body.appartment != "undefined" ?req.body.appartment : "",
-          phone:ghPhone,
-          name:req.body.name,
-          email: req.body.email
-          }
-        },{new:true});
-        
+        let ghPhone = req.body.phone;
+        ghPhone = "+233" + ghPhone.substring(1);
+        let user = await User.findByIdAndUpdate(
+          { _id: userId },
+          {
+            $set: {
+              country: req.body.country,
+              address: req.body.C_address,
+              region: req.body.region,
+              appartment:
+                typeof req.body.appartment != "undefined"
+                  ? req.body.appartment
+                  : "",
+              phone: ghPhone,
+              name: req.body.name,
+              email: req.body.email,
+            },
+          },
+          { new: true }
+        );
+
         user = await user.save();
-        let stockErr=[]
+        let stockErr = [];
         for (product of userCart.items) {
           // console.log(product)
           let pr = await Product.findById(product.productId);
-  
-          let productIndex=userCart.items.indexOf(product)
-          if(pr.countInStock<userCart.items[productIndex].qty){
-            if(pr.countInStock>=1){
-            stockErr.push(`${pr.name} is left with just ${pr.countInStock} Quantity,Please reduce the amount you need in your cart to ${pr.countInStock} for product  ${pr.name}  `)
-          }else{
-          stockErr.push(`${pr.name} is finished,Please remove it from your cart  `)
-        }
-  
-          
+
+          let productIndex = userCart.items.indexOf(product);
+          if (pr.countInStock < userCart.items[productIndex].qty) {
+            if (pr.countInStock >= 1) {
+              stockErr.push(
+                `${pr.name} is left with just ${pr.countInStock} Quantity,Please reduce the amount you need in your cart to ${pr.countInStock} for product  ${pr.name}  `
+              );
+            } else {
+              stockErr.push(
+                `${pr.name} is finished,Please remove it from your cart  `
+              );
+            }
           }
-          if(stockErr.length>0 && stockErr!=='undefined' ){
-            res.render("home/checkout",{
+          if (stockErr.length > 0 && stockErr !== "undefined") {
+            res.render("home/checkout", {
               stockErr,
-              address,hero,
-          ad,
-          cartCount,
-          allCoupons,
-          coupons,
-          myCart,
-          userFav,
-          errors,
-          C_address,
-          appartment,
-          orderNotes,
-          country,
-          region,
-          email,
-          phone,
-          name,
-          LoggedIn: req.isAuthenticated(),
-          isAdmin
-  
-            })
-          }else{
-          pr.countInStock = pr.countInStock - product.qty;
-          pr = await pr.save();
+              address,
+              hero,
+              ad,
+              cartCount,
+              allCoupons,
+              coupons,
+              myCart,
+              userFav,
+              errors,
+              C_address,
+              appartment,
+              orderNotes,
+              country,
+              region,
+              email,
+              phone,
+              name,
+              LoggedIn: req.isAuthenticated(),
+              isAdmin,
+            });
+          } else {
+            pr.countInStock = pr.countInStock - product.qty;
+            pr = await pr.save();
+          }
         }
-  }
 
         let order = new Order({
           user: userId,
@@ -933,10 +953,13 @@ router.post("/checkout", async (req, res) => {
           //   // paymentRef: ref,
         });
         order = await order.save();
-      
-        await Cart.findByIdAndDelete(userCart._id)
-     
-        req.flash("success_msg","Your order has been successfully made,we will remember your choices next time!")
+
+        await Cart.findByIdAndDelete(userCart._id);
+
+        req.flash(
+          "success_msg",
+          "Your order has been successfully made,we will remember your choices next time!"
+        );
         res.redirect("/success-checkout");
       });
     }
@@ -947,18 +970,18 @@ router.post("/checkout", async (req, res) => {
 
 //checkout
 router.get("/my-cart/checkout", ensureAuthenticated, async (req, res) => {
-  let userId, userFav, user,isAdmin;
-  req.session.currentUrl=req.originalUrl
+  let userId, userFav, user, isAdmin;
+  req.session.currentUrl = req.originalUrl;
 
   if (req.isAuthenticated()) {
     userId = req.user._id;
     userFav = await User.findOne({ _id: userId });
-      userFav =userFav? userFav.fav.length:"";
+    userFav = userFav ? userFav.fav.length : "";
 
     user = await User.findOne({ _id: userId });
-    isAdmin=req.user.isAdmin;
-}else{
-    isAdmin=false
+    isAdmin = req.user.isAdmin;
+  } else {
+    isAdmin = false;
   }
   let cartCount;
   const userItemCart = await Cart.find({ user: userId });
@@ -1005,8 +1028,7 @@ router.get("/my-cart/checkout", ensureAuthenticated, async (req, res) => {
     userFav,
     user,
     LoggedIn: req.isAuthenticated(),
-    isAdmin
-
+    isAdmin,
   });
 });
 
@@ -1018,25 +1040,25 @@ router.post("/plus-to-cart/:id", ensureAuthenticated, async (req, res) => {
   }
   let productId = req.params.id;
   let product = await Product.findById(productId);
-  let stockLeft=product.countInStock
-  if(stockLeft<=0){
-    req.flash("error_msg","Sorry,you cannot add more,we are short on stocks for "+product.name)
+  let stockLeft = product.countInStock;
+  if (stockLeft <= 0) {
+    req.flash(
+      "error_msg",
+      "Sorry,you cannot add more,we are short on stocks for " + product.name
+    );
     res.redirect(req.headers.referer);
+  } else {
+    let userCart = await Cart.findOne({ user: userId });
+    const itemIndex = userCart.items.findIndex((p) => p.productId == productId);
+    userCart.items[itemIndex].qty++;
+    userCart.items[itemIndex].price += product.price;
+    userCart.totalCost += product.price;
+    userCart.totalQty++;
+    const updatedCart = await userCart.save();
+    req.flash("success_msg", "Added one " + product.name);
 
-
-  }else{
-let userCart = await Cart.findOne({ user: userId });
-  const itemIndex = userCart.items.findIndex((p) => p.productId == productId);
-  userCart.items[itemIndex].qty++;
-  userCart.items[itemIndex].price += product.price;
-  userCart.totalCost += product.price;
-  userCart.totalQty++;
-  const updatedCart = await userCart.save();
-  req.flash("success_msg","Added one "+product.name)
-
-
-  res.redirect(req.headers.referer);
-}
+    res.redirect(req.headers.referer);
+  }
 });
 
 //when user presses - from cart
@@ -1054,8 +1076,7 @@ router.post("/minus-from-cart/:id", async (req, res) => {
   userCart.totalCost -= product.price;
   userCart.totalQty--;
   const updatedCart = await userCart.save();
-  req.flash("success_msg","Reduced one "+product.name)
-
+  req.flash("success_msg", "Reduced one " + product.name);
 
   res.redirect(req.headers.referer);
 });
@@ -1063,7 +1084,7 @@ router.post("/minus-from-cart/:id", async (req, res) => {
 //reducing user's cart price
 router.post("/apply-coupon/:id", ensureAuthenticated, async (req, res) => {
   const { coupon } = req.body;
-  console.log(coupon)
+  console.log(coupon);
   let userCart = await Cart.findOne({ _id: req.params.id });
   const checkCoupon = await Coupons.findOne({ code: coupon });
   if (checkCoupon) {
@@ -1135,7 +1156,7 @@ router.put("/reduce/:id", ensureAuthenticated, async (req, res) => {
   }
 });
 //when a user clicks on add to cart for each item
-router.post("/add-to-cart/:id", ensureAuthenticated,async (req, res) => {
+router.post("/add-to-cart/:id", ensureAuthenticated, async (req, res) => {
   try {
     let userId, userFav;
 
@@ -1155,43 +1176,48 @@ router.post("/add-to-cart/:id", ensureAuthenticated,async (req, res) => {
       // if user has a cart,I wil dynamically access the cart and manipulate it
     }
     const product = await Product.findById(req.params.id);
-    let stockLeft=product.countInStock
+    let stockLeft = product.countInStock;
 
     const itemIndex = cart.items.findIndex((p) => p.productId == productId);
     if (itemIndex > -1) {
       //update
-      if(stockLeft<req.body.qty){
-        req.flash("error_msg","Sorry,please reduce the amount you want,the quantity you want is a bit more than what we have")
-       return res.redirect(req.headers.referer)
-      }else{
-      // if product exists in the cart, update the quantity
-      cart.items[itemIndex].qty += parseInt(req.body.qty);
+      if (stockLeft < req.body.qty) {
+        req.flash(
+          "error_msg",
+          "Sorry,please reduce the amount you want,the quantity you want is a bit more than what we have"
+        );
+        return res.redirect(req.headers.referer);
+      } else {
+        // if product exists in the cart, update the quantity
+        cart.items[itemIndex].qty += parseInt(req.body.qty);
 
-      //remove old price of this item from total cost
-      cart.totalCost -= cart.items[itemIndex].price;
-      cart.items[itemIndex].price = cart.items[itemIndex].qty * product.price;
-      cart.totalQty += parseInt(req.body.qty);
-      cart.totalCost += cart.items[itemIndex].price;
+        //remove old price of this item from total cost
+        cart.totalCost -= cart.items[itemIndex].price;
+        cart.items[itemIndex].price = cart.items[itemIndex].qty * product.price;
+        cart.totalQty += parseInt(req.body.qty);
+        cart.totalCost += cart.items[itemIndex].price;
       }
     } else {
       // if product does not exists in cart, find it in the db to retrieve its price and add new item
-        //update
-        if(stockLeft<req.body.qty){
-          req.flash("error_msg","Sorry,please reduce the amount you want,the quantity you want is a bit more than what we have")
-         return res.redirect(req.headers.referer)
-        }else{
-      
-      const singlePrice = parseInt(req.body.qty) * product.price;
-      // console.log(singlePrice)
-      cart.items.push({
-        productId: productId,
-        qty: parseInt(req.body.qty),
-        price: singlePrice,
-        title: product.name,
-      });
-      cart.totalQty += parseInt(req.body.qty);
-      cart.totalCost += singlePrice;
-    }
+      //update
+      if (stockLeft < req.body.qty) {
+        req.flash(
+          "error_msg",
+          "Sorry,please reduce the amount you want,the quantity you want is a bit more than what we have"
+        );
+        return res.redirect(req.headers.referer);
+      } else {
+        const singlePrice = parseInt(req.body.qty) * product.price;
+        // console.log(singlePrice)
+        cart.items.push({
+          productId: productId,
+          qty: parseInt(req.body.qty),
+          price: singlePrice,
+          title: product.name,
+        });
+        cart.totalQty += parseInt(req.body.qty);
+        cart.totalCost += singlePrice;
+      }
     }
     //   cart.user = req.user._id;
     cart.user = userId;
@@ -1205,20 +1231,19 @@ router.post("/add-to-cart/:id", ensureAuthenticated,async (req, res) => {
   }
 });
 
-router.get("/", ensureGuest,async (req, res) => {
+router.get("/", ensureGuest, async (req, res) => {
   try {
-    req.session.currentUrl=req.originalUrl
-    let userId, userFav,isAdmin;
+    req.session.currentUrl = req.originalUrl;
+    let userId, userFav, isAdmin;
     if (req.isAuthenticated()) {
       userId = req.user._id;
       userFav = await User.findOne({ _id: userId });
-        userFav =userFav? userFav.fav.length:"";
+      userFav = userFav ? userFav.fav.length : "";
 
-      isAdmin=req.user.isAdmin;
-
-    }else{
-    isAdmin=false
-  }
+      isAdmin = req.user.isAdmin;
+    } else {
+      isAdmin = false;
+    }
     const allCoupons = await Coupons.find({}).sort({ createdAt: -1 });
     let ad = await Ad.findOne({}).populate("user");
     let hero = await Hero.findOne({});
@@ -1255,7 +1280,7 @@ router.get("/", ensureGuest,async (req, res) => {
       hero,
       address,
       userFav,
-      isAdmin
+      isAdmin,
     });
   } catch (e) {
     console.log(e);
@@ -1264,11 +1289,8 @@ router.get("/", ensureGuest,async (req, res) => {
 
 //getting a product
 router.get("/shop-product/:slug/", async (req, res) => {
-
   try {
- 
-
-  req.session.currentUrl=req.originalUrl
+    req.session.currentUrl = req.originalUrl;
 
     let userId;
     let userFav;
@@ -1277,20 +1299,19 @@ router.get("/shop-product/:slug/", async (req, res) => {
     if (req.isAuthenticated()) {
       userId = req.user._id;
       userFav = await User.findOne({ _id: userId }).populate("fav");
-        userFav =userFav? userFav.fav.length:"";
-
+      userFav = userFav ? userFav.fav.length : "";
 
       userFavs = await User.findOne({ _id: userId });
       userFavs = userFavs.fav;
-      isAdmin=req.user.isAdmin
-    }else{
-      isAdmin=false
+      isAdmin = req.user.isAdmin;
+    } else {
+      isAdmin = false;
     }
     // console.log(userFav)
     if (typeof userFav == "undefined") {
       userFav = 0;
     }
-    const product = await Product.findOne({slug:req.params.slug})
+    const product = await Product.findOne({ slug: req.params.slug });
 
     let productCounter = await Product.findByIdAndUpdate(
       product._id,
@@ -1309,9 +1330,7 @@ router.get("/shop-product/:slug/", async (req, res) => {
 
     // const product = await Product.findOne({slug:req.params.slug}).populate("category");
 
-
     //gettin featured products(latest to last)
-
 
     // .limit(5);
     let cartCount;
@@ -1334,7 +1353,7 @@ router.get("/shop-product/:slug/", async (req, res) => {
       userFav,
       LoggedIn: req.isAuthenticated(),
       isAdmin,
-      products
+      products,
     });
   } catch (e) {
     console.log(e);
@@ -1357,5 +1376,20 @@ router.post("/subscribe", async (req, res) => {
   res.redirect(req.headers.referer);
 });
 
+router.get("/sitemap.xml", async (req, res) => {
+  try {
+    let xml_content = [
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+      "  <url>",
+      "    <loc>https://yutamart.com/</loc>",
+      "    <lastmod>2021-06-30</lastmod>",
+      "  </url>",
+      "</urlset>",
+    ];
+    res.set("Content-Type", "text/xml");
+    res.send(xml_content.join("\n"));
+  } catch (e) {}
+});
 
 module.exports = router;

@@ -64,7 +64,7 @@
               
                 </div>
                 <div class="product-image-thumbs">
-                  <div class="product-image-thumb active"><img src="<%=product.image[0]%>" alt="Product Image" class=""></div>
+                  <div class="product-image-thumb active"><img src="<%=product.image[0]%>" alt="Product Image" ></div>
                   <div class="product-image-thumb"><img src="<%=product.image[1]%>" alt="Product Image"></div>
                   <div class="product-image-thumb"><img src="<%=product.image[2]%>" alt="Product Image"></div>
                   <div class="product-image-thumb"><img src="<%=product.image[3]%>" alt="Product Image"></div>
@@ -76,56 +76,117 @@
 
                 <p class="text-capitalize"><%=product.richDescription%></p>
 
-                <div class="row">
-                  <div class="">
-                <p class="mt-2"><strong class="   text-primary h1">₵<%=product.price%></strong></p>
-             <%if(product.discount>0){%>
-              <div class="row mt-5 ml-1">
-                <div class="card" style="color:white;background:black;">  
-                <div class="ml-1" ><%=product.discount%>%Off</div>
-              </div>
-              <div class="card" style="color:black;background:white;">  
-                <div class="ml-1" ><del>₵<%=product.oldPrice%></del></div>
-              </div>
-            </div>
-              <%}%>
+                <%if(LoggedIn==true){%>
+                  <div class="row">
 
-              </div>
-                <style>
-                .fav{
-                  border:none;
-                  background:white;
-                  padding: 13px;
-                  color: #7971ea;
-                  }
-                  
-                  
-                </style>
-                <%if( LoggedIn===true){%>
-                <div class="" style="margin-left:-30px">
-                 <% if(!userFavs.includes(product._id)){%>
-                <form action="/favourites/<%=product._id%>"  method="POST">
-                <button class="icon icon-heart-o fav fa-2X mr-5" type="submit"></button>
-              </form>
-            <%}else{%>
-              <form action="/remove-favourites/<%=product._id%>" method="POST">
-                <button class="icon icon-heart fav fa-2X " type="submit"></button>
-              </form>
-
-              <%}%>
-
+                    <div class="flex mr-5">
+                  <p class="mt-2"><strong class="   text-primary h1">₵<%=product.price%></strong></p>
+                   <div class="row mt-5 ml-1">
+               <%if(product.discount>0){%>
+  
+                  <div class="card" style="color:white;background:black;">  
+                  <div class="ml-1" ><%=product.discount%>%Off</div>
                 </div>
+                <div class="card" style="color:black;background:white;">  
+                  <div class="ml-1" ><del>₵<%=product.oldPrice%></del></div>
+                </div>
+                <%}%>
+             
+              </div>
+  
+                </div>
+                  <style>
+                  .fav{
+                    border:none;
+                    background:white;
+                    padding: 13px;
+                    color: #7971ea;
+                    }
+                    
+                    
+                  </style>
+                  <%if( LoggedIn===true){%>
+                  <div class="" style="margin-left:-30px">
+                   <% if(!userFavs.includes(product._id)){%>
+                  <form action="/favourites/<%=product._id%>"  method="POST">
+                  <button class="icon icon-heart-o fav fa-2X mr-5" type="submit"></button>
+                </form>
               <%}else{%>
-                <div class="col-md-2">
-                  <form action="/favourites/<%=product._id%>" method="POST">
-                    <button class="icon icon-heart-o fav fa-2X " type="submit"></button>
-                  </form>
-
+                <form action="/remove-favourites/<%=product._id%>" method="POST">
+                  <button class="icon icon-heart fav fa-2X mr-5 " type="submit"></button>
+                </form>
+  
+                <%}%>
+  
+                  </div>
+                <%}else{%>
+                  <div class="col-md-2">
+                    <form action="/favourites/<%=product._id%>" method="POST">
+                      <button class="icon icon-heart-o fav fa-2X " type="submit"></button>
+                    </form>
+  
+                  </div>
+  
+                <%}%>
+  
                 </div>
 
-              <%}%>
+                <%}else{%>
+                  <div class="row">
 
+                    <div class="flex ">
+                  <p class="mt-2"><strong class="   text-primary h1">₵<%=product.price%></strong></p>
+                   <div class="row mt-5 ml-1">
+               <%if(product.discount>0){%>
+  
+                  <div class="card" style="color:white;background:black;">  
+                  <div class="ml-1" ><%=product.discount%>%Off</div>
+                </div>
+                <div class="card" style="color:black;background:white;">  
+                  <div class="ml-1" ><del>₵<%=product.oldPrice%></del></div>
+                </div>
+                <%}%>
+             
               </div>
+  
+                </div>
+                  <style>
+                  .fav{
+                    border:none;
+                    background:white;
+                    padding: 13px;
+                    color: #7971ea;
+                    }
+                    
+                    
+                  </style>
+                  <%if( LoggedIn===true){%>
+                  <div class="" style="margin-left:-30px">
+                   <% if(!userFavs.includes(product._id)){%>
+                  <form action="/favourites/<%=product._id%>"  method="POST">
+                  <button class="icon icon-heart-o fav fa-2X mr-5" type="submit"></button>
+                </form>
+              <%}else{%>
+                <form action="/remove-favourites/<%=product._id%>" method="POST">
+                  <button class="icon icon-heart fav fa-2X mr-5 " type="submit"></button>
+                </form>
+  
+                <%}%>
+  
+                  </div>
+                <%}else{%>
+                  <div class="col-md-2">
+                    <form action="/favourites/<%=product._id%>" method="POST">
+                      <button class="icon icon-heart-o fav fa-2X " type="submit"></button>
+                    </form>
+  
+                  </div>
+  
+                <%}%>
+  
+                </div>
+                <%}%>
+               
                 
                 
                 <div class="mb-1 d-flex">
