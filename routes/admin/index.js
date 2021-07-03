@@ -805,9 +805,6 @@ router.post("/upload",ensureAuthenticated, adminAuth,async(req, res) => {
       price: req.body.price,
       countInStock: req.body.stockCount,
       keyFeatures:req.body.keyFeatures
-   
-   
-    
     },
     {
       name: "string|required",
@@ -912,6 +909,8 @@ router.post("/upload",ensureAuthenticated, adminAuth,async(req, res) => {
     });
     
     newProduct = await newProduct.save();
+    console.log(product)
+
     if (newProduct.isFiftyOff == true) {
       let offCalc =newProduct.price -(50 / 100) * newProduct.price;
       newProduct=await Product.findByIdAndUpdate({_id:newProduct._id},{

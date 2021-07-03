@@ -109,13 +109,13 @@
                     
                   </style>
                   <%if( LoggedIn===true){%>
-                  <div class="" style="margin-left:-70px;margin-top:15px">
+                  <div class="" style="margin-left:-10px;margin-top:15px">
                    <% if(!userFavs.includes(product._id)){%>
                   <form action="/favourites/<%=product._id%>"  method="POST">
                   <button class="icon icon-heart-o fav fa-2X mr-5" type="submit"></button>
                 </form>
               <%}else{%>
-                                <div class="margin-left:-70px;margin-top:15px">
+                                <div class="margin-left:-10px;margin-top:15px">
 
                 <form action="/remove-favourites/<%=product._id%>" method="POST">
                   <button class="icon icon-heart fav fa-2X mr-5 " type="submit"></button>
@@ -125,7 +125,7 @@
   
                   </div>
                 <%}else{%>
-                  <div class="" style="margin-left:-170px;margin-top:15px">
+                  <div class="" style="margin-left:-10px;margin-top:15px">
                     <form action="/favourites/<%=product._id%>" method="POST">
                       <button class="icon icon-heart-o fav fa-2X " type="submit"></button>
                     </form>
@@ -169,7 +169,7 @@
                   
                 </style>
                 <%if( LoggedIn===true){%>
-                <div class="" style="margin-left:-70px;margin-top:15px">
+                <div class="" style="margin-left:-10px;margin-top:15px">
                  <% if(!userFavs.includes(product._id)){%>
                 <form action="/favourites/<%=product._id%>"  method="POST">
                 <button class="icon icon-heart-o fav fa-2X mr-5" type="submit"></button>
@@ -184,7 +184,7 @@
 
                 </div>
               <%}else{%>
-                <div class="margin-left:-70px;margin-top:15px">
+                <div class="margin-left:-10px;margin-top:15px">
                   <form action="/favourites/<%=product._id%>" method="POST">
                     <button class="icon icon-heart-o fav fa-2X " type="submit"></button>
                   </form>
