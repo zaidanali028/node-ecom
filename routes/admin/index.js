@@ -905,7 +905,7 @@ router.post("/upload",ensureAuthenticated, adminAuth,async(req, res) => {
       isFeatured: req.body.feature,
       isFiftyOff: req.body.dsc,
       oldPrice:req.body.price,
-      keyFeatures,
+      keyFeatures:req.body.keyFeatures,
        image: urls,
        discount: disCount,
       originalCountInStock: req.body.stockCount,

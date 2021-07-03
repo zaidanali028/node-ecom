@@ -147,10 +147,10 @@
                     <label for="inputStatus">Category</label>
                     <select id="inputStatus" name="category" class="form-control custom-select">
                       <option disabled="">Select one</option>
-                      <option value="<%=chosenCategory._id%>" selected="selected" class="text-capitalize"><%=chosenCategory.name%></option>
+                      <option value="<%=chosenCategory._id%>" selected="selected" class="text-uppercase"><%=chosenCategory.name%></option>
                       <%  categories.forEach(category=>{%>
                         <%if(category.name!==chosenCategory.name){ %>
-                        <option value="<%=category._id%>" class="text-capitalize"><%=category.name%></option>
+                        <option value="<%=category._id%>" class="text-uppercase"><%=category.name%></option>
                     <%}%>
 
                    <%   })%>
