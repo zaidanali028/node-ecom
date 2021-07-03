@@ -21,6 +21,12 @@ richDescription:{
         default:"no rich description",
         trim:true,
 },
+keyFeatures:{
+    type:String,
+     required: true,
+     default:"no key features",
+     trim:true,
+},
 
 price:{
    type:Number,

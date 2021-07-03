@@ -95,6 +95,20 @@
                       rows="4"
                     ><%= typeof rdesc != 'undefined' ? rdesc : product.richDescription%></textarea>
                   </div>
+
+                  <div class="form-group">
+                    <label for="inputDescription"
+                    >Key Features Of Product</label>
+                    <textarea
+                    id="inputDescription"
+                    name="keyFeatures"
+                    class="form-control"
+                    rows="5"
+                   
+                    ><%=typeof keyFeatures != 'undefined'? keyFeatures:product.keyFeatures%>
+                    
+                </textarea>
+                  </div>
                   <div class="form-group">
                     <label for="customFile">Product Image(MAIN)</label>
                     <div class="card w-25">

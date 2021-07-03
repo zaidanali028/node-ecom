@@ -136,7 +136,7 @@
                           <%for(order of orders){%>
                       <tr>
                         <td><a href="/admin/order-info/<%=order._id%>"><%=order._id%></a></td>
-                        <td><%=order.user.name%></td>
+                        <td class="text-capitalize"><%=order.user.name%></td>
                         <td>
                         <%if(order.Delivered==true){%>
                             <span class="badge badge-success">Delivered</span>

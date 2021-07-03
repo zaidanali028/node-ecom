@@ -795,7 +795,7 @@ router.post("/upload",ensureAuthenticated, adminAuth,async(req, res) => {
 
   let fiftyOffProductsCount = await Product.count({ isFiftyOff: true });
 
-  const { desc, name, rdesc, category, price, stockCount } = req.body;
+  const { desc, name, rdesc, category, price, stockCount,keyFeatures } = req.body;
   const validation = new Validator(
     {
       name: req.body.name,
@@ -804,6 +804,7 @@ router.post("/upload",ensureAuthenticated, adminAuth,async(req, res) => {
       category: req.body.category,
       price: req.body.price,
       countInStock: req.body.stockCount,
+      keyFeatures:req.body.keyFeatures
    
    
     
@@ -815,10 +816,8 @@ router.post("/upload",ensureAuthenticated, adminAuth,async(req, res) => {
       category: "required",
       price: "numeric|required",
       countInStock: "numeric|required",
-   
-    
-     
-    }
+      keyFeatures:'required'
+   }
   );
   if (validation.fails()) {
     const errName = validation.errors.get("name");
@@ -827,6 +826,8 @@ router.post("/upload",ensureAuthenticated, adminAuth,async(req, res) => {
     const errCat = validation.errors.get("category");
     const errPrc = validation.errors.get("price");
     const errCStock = validation.errors.get("countInStock");
+    const errKeyFeatures = validation.errors.get("keyFeatures");
+
  
  
  
@@ -843,8 +844,7 @@ router.post("/upload",ensureAuthenticated, adminAuth,async(req, res) => {
       errCat,
       errPrc,
       errCStock,
-     
-    
+      errKeyFeatures
     );
   let categories=await  Category.find({}).sort({ name: 1 })
      res.render("admin/addproduct", {
@@ -860,7 +860,7 @@ router.post("/upload",ensureAuthenticated, adminAuth,async(req, res) => {
           cCount,
           fiftyOffProductsCount,
           orderCount,
-          hero,ad50,addresS,categories,subCount,siteLogo,
+          hero,ad50,addresS,categories,subCount,siteLogo,keyFeatures,
           user
         });
       
@@ -905,10 +905,9 @@ router.post("/upload",ensureAuthenticated, adminAuth,async(req, res) => {
       isFeatured: req.body.feature,
       isFiftyOff: req.body.dsc,
       oldPrice:req.body.price,
-    
-     image: urls,
-   
-      discount: disCount,
+      keyFeatures,
+       image: urls,
+       discount: disCount,
       originalCountInStock: req.body.stockCount,
     });
     
@@ -1401,7 +1400,7 @@ router.post("/product/:id/edit/",ensureAuthenticated,adminAuth,async (req, res) 
     res.redirect("/users/login")
   }
   errors = [];
-  const { desc, name, rdesc, category, price, stockCount } = req.body;
+  const { desc, name, rdesc, category, price, stockCount,keyFeatures } = req.body;
 
   //console.log(desc);
   const validation = new Validator(
@@ -1413,6 +1412,7 @@ router.post("/product/:id/edit/",ensureAuthenticated,adminAuth,async (req, res) 
       price: req.body.price,
       countInStock: req.body.stockCount,
       featured: req.body.feature,
+      keyFeatures:req.body.keyFeatures
     },
     {
       name: "string|required",
@@ -1422,6 +1422,8 @@ router.post("/product/:id/edit/",ensureAuthenticated,adminAuth,async (req, res) 
       price: "numeric|required",
       countInStock: "numeric|required",
       featured: "required",
+      keyFeatures: "required",
+
     }
   );
   if (validation.fails()) {
@@ -1442,6 +1444,7 @@ router.post("/product/:id/edit/",ensureAuthenticated,adminAuth,async (req, res) 
     const errCStock = validation.errors.get("countInStock");
     const errFeatured = validation.errors.get("featured");
     const errWorth = validation.errors.get("worth");
+    const errKeyFeatures= validation.errors.get("keyFeatures")
 
     errors.push(
       errName,
@@ -1451,7 +1454,8 @@ router.post("/product/:id/edit/",ensureAuthenticated,adminAuth,async (req, res) 
       errPrc,
       errCStock,
       errFeatured,
-      errWorth
+      errWorth,
+      errKeyFeatures
     );
     Category.find({})
       .sort({ name: 1 })
@@ -1471,7 +1475,7 @@ router.post("/product/:id/edit/",ensureAuthenticated,adminAuth,async (req, res) 
               stockCount,
               ad50,
               hero,addresS,subCount,cCount,pcount,fiftyOffProductsCount,orderCount,siteLogo,
-              user
+              user,keyFeatures
             });
           });
         });
@@ -1519,6 +1523,7 @@ router.post("/product/:id/edit/",ensureAuthenticated,adminAuth,async (req, res) 
         product.originalCountInStock=req.body.stockCount;
         product.isFiftyOff=req.body.dsc;
         product.image=urls
+        product.keyFeatures=req.body.keyFeatures
         await product.save();
         req.flash("success_msg",`Successfully Updated ${product.name}`)
         res.redirect("/admin/")
@@ -1535,6 +1540,8 @@ router.post("/product/:id/edit/",ensureAuthenticated,adminAuth,async (req, res) 
         product.originalCountInStock=req.body.stockCount;
         product.isFiftyOff=req.body.dsc;
         product.image=urls;
+        product.keyFeatures=req.body.keyFeatures
+
 
         await product.save();
         req.flash("success_msg",`Successfully Updated ${product.name}`)

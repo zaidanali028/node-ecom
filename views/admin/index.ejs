@@ -172,7 +172,7 @@
                                 ><%=order._id%></a
                               >
                             </td>
-                            <td><%=order.user.name%></td>
+                            <td class="text-capitalize"><%=order.user.name%></td>
                             <td>
                               <% if(order.Delivered==true){%>
                               <span class="badge badge-success">Delivered</span>
@@ -239,7 +239,7 @@
 
                         <tr>
                           <td><%=counter%></td>
-                          <td><a href="/admin/product/<%=product._id%>">   <%=product.name%> </a></td>
+                          <td class="text-capitalize"><a href="/admin/product/<%=product._id%>">   <%=product.name%> </a></td>
                           <td>
                             <% let
                             pctLeft=product.countInStock/product.originalCountInStock*100
@@ -390,7 +390,7 @@ style="width: <%=pctLeft%>%"
                             class="img-size-50"
                           />
                         </div>
-                        <div class="product-info">
+                        <div class="product-info text-capitalize">
                           <a href="/admin/product/<%=product._id%>" class="product-title"
                             ><%=product.name%>
                             <span class="badge badge-warning float-right"
