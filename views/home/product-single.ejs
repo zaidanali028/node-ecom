@@ -76,6 +76,14 @@
 
 
                 <p class="text-capitalize"><%=product.richDescription%></p>
+                <% if(product.keyFeatures!=undefined){ %>
+                  <h2 class="text-black text-capitalize">key features</h2>
+                 <%let keyFeaturesList =product.keyFeatures.split(".")%>
+                 <% for(let i=0;i<=keyFeaturesList.length;i++){%>
+                  <p class="text-capitalize"><%=keyFeaturesList[i]%></p>
+                            <%}%>
+                            <%}%>
+  
                 
                 
 
