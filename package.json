@@ -20,6 +20,7 @@
     "flutterwave-node-v3": "^1.0.6",
     "force-ssl-heroku": "^1.0.2",
     "googleapis": "^76.0.0",
+    "jimp": "^0.16.1",
     "mazzuma-node-library": "^3.1.2",
     "method-override": "^3.0.0",
     "moment": "^2.29.1",

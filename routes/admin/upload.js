@@ -23,7 +23,7 @@ if (newProduct.isFiftyOff == true) {
 
     }
   },{new: true})
-
+z
  }
 
 req.flash("success_msg", `Successfully Added ${newProduct.name}`);

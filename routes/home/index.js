@@ -16,6 +16,7 @@ const Ad = require("../../models/post-ad");
 const Address = require("../../models/add-address");
 const Mail = require("../../models/mail-list");
 const { ensureAuthenticated, ensureGuest } = require("../../config/auth");
+const product = require("../../models/product");
 
 PUBLIC_KEY = process.env.PUBLIC_KEY;
 SECRET_KEY = process.env.SECRET_KEY;
@@ -1285,7 +1286,28 @@ router.get("/", ensureGuest, async (req, res) => {
     const products = await Product.find({ isFeatured: true }).sort({
       createdAt: -1,
     });
-    // .limit(5);
+   
+
+    // for (product of products){
+      products.forEach(async product=>{
+        let dateCreated=new Date(product.createdAt).getDate()
+        let week=7
+        let checkIsExpired=week-dateCreated
+        console.log("Neg "+checkIsExpired)
+        if(checkIsExpired<=0){
+         let oldProduct= await Product.findById(product._id)
+         oldProduct.isFeatured=false;
+         oldProduct=await oldProduct.save()
+         console.log(oldProduct)
+        }else{
+          console.log("Still fresh")
+        }
+        // dateCreated=dateCreated.parse
+
+      })
+     
+
+  
 
     res.render("home/home", {
       categories,

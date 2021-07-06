@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const methodOverride = require("method-override");
-const port = process.env.PORT ||5000;
+const port = process.env.PORT ||5050;
 const flash = require("connect-flash");
 const session = require("express-session");
 const ejs = require("ejs");
@@ -19,11 +19,13 @@ var MongoStore = require("connect-mongo");
 
 
 // app.set('trust proxy', true);
-const dbUrI=process.env.DB_URL
-// const dbUrI = "mongodb://localhost:27017/eshop-update";
+// const dbUrI=process.env.DB_URL
+const dbUrI = "mongodb://localhost:27017/eshop-update";
 app.enable('trust proxy'); // trust all
 
-app.use(morgan("tiny"));
+
+
+// app.use(morgan("tiny"));
 const passport=require('passport')
 require("./config/passport")(passport);
 
@@ -78,14 +80,14 @@ app.set(express.static(path.join(__dirname, "public")));
 
 
 //force http redirects to https(used only in production)
-// function requireHTTPS(req, res, next) {
-//   // The 'x-forwarded-proto' check is for Heroku
-//   if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
-//     return res.redirect('https://' + req.get('host') + req.url);
-//   }
-//   next();
-// }
-// app.use(requireHTTPS);
+function requireHTTPS(req, res, next) {
+  // The 'x-forwarded-proto' check is for Heroku
+  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
+    return res.redirect('https://' + req.get('host') + req.url);
+  }
+  next();
+}
+app.use(requireHTTPS);
 
 app.use(session({
   secret:  process.env.SESSION_SECRET,
