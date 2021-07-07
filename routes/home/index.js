@@ -37,8 +37,6 @@ router.get("/sitemap.xml", async (req, res) => {
   } catch (e) {}
 });
 
-
-
 router.get("/logout", (req, res) => {
   req.logOut();
   req.flash("success_msg", "You Have Successfully Logged Out");
@@ -96,7 +94,7 @@ router.post("/favourites/:id", ensureAuthenticated, async (req, res) => {
     userId = req.user._id;
   }
   //res.send("YOH")
-  product = await Product.findOne({ _id: req.params.id });
+  var product = await Product.findOne({ _id: req.params.id });
   let user = await User.findOne({ _id: userId });
   if (user.fav.includes(product._id)) {
     req.flash(
@@ -118,7 +116,7 @@ router.post("/remove-favourites/:id", ensureAuthenticated, async (req, res) => {
     userId = req.user._id;
   }
 
-  product = await Product.findOne({ _id: req.params.id });
+  let product = await Product.findOne({ _id: req.params.id });
   let user = await User.findOne({ _id: userId });
   let indexOfProduct = user.fav.indexOf(product._id);
   let userFavArray = user.fav;
@@ -638,7 +636,10 @@ router.get("/shop", async (req, res) => {
       msg.push("Search results for " + category);
 
       products = await Product.find({ category: catQuery._id })
-        .sort({ name: 1 })
+        // .sort({ name: 1 })(ascending-order)
+
+        //  (From new to old products)
+        .sort({ createdAt: -1 })
         .skip(itemPerPage * page - itemPerPage)
         .limit(itemPerPage);
     } else if (!catQuery) {
@@ -652,7 +653,10 @@ router.get("/shop", async (req, res) => {
   } else {
     products = await Product.find({})
 
-      .sort({ name: 1 })
+      // .sort({ name: 1 })(ascending-order)
+
+      //  (From new to old products)
+      .sort({ createdAt: -1 })
       .skip(itemPerPage * page - itemPerPage)
       .limit(itemPerPage);
   }
@@ -1286,28 +1290,23 @@ router.get("/", ensureGuest, async (req, res) => {
     const products = await Product.find({ isFeatured: true }).sort({
       createdAt: -1,
     });
-   
 
     // for (product of products){
-      products.forEach(async product=>{
-        let dateCreated=new Date(product.createdAt).getDate()
-        let week=7
-        let checkIsExpired=week-dateCreated
-        console.log("Neg "+checkIsExpired)
-        if(checkIsExpired<=0){
-         let oldProduct= await Product.findById(product._id)
-         oldProduct.isFeatured=false;
-         oldProduct=await oldProduct.save()
-         console.log(oldProduct)
-        }else{
-          console.log("Still fresh")
-        }
-        // dateCreated=dateCreated.parse
-
-      })
-     
-
-  
+    products.forEach(async (product) => {
+      let dateCreated = new Date(product.createdAt).getDate();
+      let week = 7;
+      let checkIsExpired = week - dateCreated;
+      console.log("Neg " + checkIsExpired);
+      if (checkIsExpired <= 0) {
+        let oldProduct = await Product.findById(product._id);
+        oldProduct.isFeatured = false;
+        oldProduct = await oldProduct.save();
+        console.log(oldProduct);
+      } else {
+        console.log("Still fresh");
+      }
+      // dateCreated=dateCreated.parse
+    });
 
     res.render("home/home", {
       categories,
@@ -1415,6 +1414,5 @@ router.post("/subscribe", async (req, res) => {
 
   res.redirect(req.headers.referer);
 });
-
 
 module.exports = router;

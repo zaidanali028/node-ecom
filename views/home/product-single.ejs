@@ -123,6 +123,7 @@
                   <button class="icon icon-heart-o fav fa-2X mr-5" type="submit"></button>
                 </form>
               <%}else{%>
+                
                                 <div class="margin-left:-10px;margin-top:15px">
 
                 <form action="/remove-favourites/<%=product._id%>" method="POST">
@@ -211,7 +212,8 @@
                   <form action="/add-to-cart/<%=product._id%>"  id="myForm" method="POST">
                    
                 </div>
-                <div class="mb-5">
+                <div class="" style="display:flex;flex-direction: column;">
+                <div class="m-2">
                   <div class="input-group mb-3" style="max-width: 120px;">
                   <div class="input-group-prepend">
                     <button class="btn btn-outline-primary js-btn-minus" type="button">−</button>
@@ -227,7 +229,10 @@
                 <p><%if(product.countInStock<=0){%>
                   <button type="submit" disabled class="buy-now btn btn-sm btn-primary">Currently Out Of Stock</button>
                   <%}else{%>
+                    <div class="">
                   <button type="submit"class="buy-now btn btn-sm btn-primary" id="disableMe"> Add To Cart</button>
+                  </div>
+                  </div>
                   <%}%>
 
                 </p>
