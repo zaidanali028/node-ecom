@@ -897,7 +897,7 @@ router.post("/upload", ensureAuthenticated, adminAuth, async (req, res) => {
       let ds = req.body.dsc;
       let disCount;
 
-      if (ds) {
+      if (ds === true) {
         disCount = 50;
       } else {
         disCount = 0;
@@ -930,7 +930,6 @@ router.post("/upload", ensureAuthenticated, adminAuth, async (req, res) => {
         oldPrice: req.body.price,
         keyFeatures: req.body.keyFeatures,
         image: urls,
-        // image: urls,
         discount: disCount,
         originalCountInStock: req.body.stockCount,
       });
