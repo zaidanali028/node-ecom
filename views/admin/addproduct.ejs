@@ -134,6 +134,31 @@
 
                     </select>
                   </div>
+                   <div class="form-group">
+                    <label for="inputProjectLeader"
+                      >Image Gallery(Specify if you will upload only one picture)</label
+                    >
+                    <div
+                      class="btn-group btn-group-toggle"
+                      data-toggle="buttons"
+                    >
+                      <label class="btn btn-outline-danger">
+                        <input
+                          type="radio"
+                          name="picGallery" value="true"
+                        />
+                        Only One Picture
+                      </label>
+                      <label class="btn btn-outline-danger">
+                        <input
+                          type="radio"
+                          name="picGallery"
+                          value="false"
+                        />
+                        More than one
+                      </label>
+                    </div>
+                  </div>
                   
                   <div class="form-group">
                     <label for="inputClientCompany">Product Price</label>
@@ -170,14 +195,14 @@
                       class="btn-group btn-group-toggle"
                       data-toggle="buttons"
                     >
-                      <label class="btn btn-secondary">
+                      <label class="btn btn-outline-secondary">
                         <input
                           type="radio"
                           name="feature" value="true"
                         />
                         Featured
                       </label>
-                      <label class="btn btn-secondary">
+                      <label class="btn btn-outline-secondary">
                         <input
                           type="radio"
                           name="feature"
@@ -195,7 +220,7 @@
                       class="btn-group btn-group-toggle"
                       data-toggle="buttons"
                     >
-                      <label class="btn btn-primary">
+                      <label class="btn btn-outline-primary">
                         <input
                           type="radio"
                           name="dsc"
@@ -207,7 +232,7 @@
                         />
                         50% Off
                       </label>
-                      <label class="btn btn-primary">
+                      <label class="btn btn-outline-primary">
                         <input
                           type="radio"
                           name="dsc"
@@ -227,7 +252,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <a href="/admin/" class="btn btn-secondary">Cancel</a>
+              <a href="/admin/" class="btn btn-outline-secondary">Cancel</a>
               <input
                 type="submit"
                 id="disableMe"

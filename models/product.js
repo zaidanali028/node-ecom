@@ -1,96 +1,98 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const slug = require("mongoose-slug-updater");
 
 mongoose.plugin(slug);
 
-const productSchema = mongoose.Schema({
-name: {
-    type:String,
-    required: true,
-    lowercase:true,
-    trim:true,
-},
-description: {
-    type:String,
-    required: true,
-    trim:true,
-},
-richDescription:{
-       type:String,
-        required: true,
-        default:"no rich description",
-        trim:true,
-},
-keyFeatures:{
-    type:String,
-     required: true,
-     default:"no key features",
-     trim:true,
-},
+const productSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      lowercase: true,
+      trim: true,
+    },
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    richDescription: {
+      type: String,
+      required: true,
+      default: "no rich description",
+      trim: true,
+    },
+    keyFeatures: {
+      type: String,
+      required: true,
+      default: "no key features",
+      trim: true,
+    },
 
-price:{
-   type:Number,
-   default:0, 
-   trim:true,
-},
-category:{
-    type:mongoose.Schema.Types.ObjectID,
-    ref:'Category',
-    required:true
-},
-countInStock: {
-    type: Number,
-    required: true,
-    min:0,
-    trim:true,
+    price: {
+      type: Number,
+      default: 0,
+      trim: true,
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectID,
+      ref: "Category",
+      required: true,
+    },
+    countInStock: {
+      type: Number,
+      required: true,
+      min: 0,
+      trim: true,
+    },
+    originalCountInStock: {
+      type: Number,
+      required: true,
+      min: 0,
+      trim: true,
+    },
+    oldPrice: {
+      type: Number,
+      default: 0,
+      trim: true,
+    },
+    discount: {
+      type: Number,
+      default: 0,
+    },
 
-},
-originalCountInStock: {
-    type: Number,
-    required: true,
-    min:0,
-    trim:true,
+    isFeatured: {
+      type: Boolean,
+      default: false,
+    },
+    picGallery: {
+      type: Boolean,
+      default: false,
+    },
+    isFiftyOff: {
+      type: Boolean,
+      default: false,
+    },
 
-},
-oldPrice: {
-    type:Number,
-    default:0,
-    trim:true,
-},
-discount:{
-    type:Number,
-    default:0
+    viewCount: {
+      type: Number,
+      default: 0,
+      immutable: false,
+    },
 
-},
-
-isFeatured:{
-    type:Boolean,
-    default:false,
-},
-isFiftyOff:{
-    type:Boolean,
-    default:false,
-},
-
-viewCount:{
-    type:Number,
-    default:0,
-    immutable:false
-},
-
-image: [{
-    type:String,
-    required: false ,
-}
-],
-slug: {
-    type: String,
-    unique: true,
-    slug: "name",
+    image: [
+      {
+        type: String,
+        required: false,
+      },
+    ],
+    slug: {
+      type: String,
+      unique: true,
+      slug: "name",
+    },
   },
+  { timestamps: true }
+);
 
-},
-{timestamps:true},
-)
-
-module.exports = mongoose.model('Product', productSchema);
+module.exports = mongoose.model("Product", productSchema);

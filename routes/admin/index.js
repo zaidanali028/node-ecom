@@ -834,6 +834,7 @@ router.post("/upload", ensureAuthenticated, adminAuth, async (req, res) => {
       price: req.body.price,
       countInStock: req.body.stockCount,
       keyFeatures: req.body.keyFeatures,
+      picGallery: req.body.picGallery,
     },
     {
       name: "string|required",
@@ -843,6 +844,7 @@ router.post("/upload", ensureAuthenticated, adminAuth, async (req, res) => {
       price: "numeric|required",
       countInStock: "numeric|required",
       keyFeatures: "required",
+      picGallery: "required",
     }
   );
   if (validation.fails()) {
@@ -851,6 +853,8 @@ router.post("/upload", ensureAuthenticated, adminAuth, async (req, res) => {
     const errR_Desc = validation.errors.get("rDesc");
     const errCat = validation.errors.get("category");
     const errPrc = validation.errors.get("price");
+    const errPicGallery = validation.errors.get("picGallery");
+
     const errCStock = validation.errors.get("countInStock");
     const errKeyFeatures = validation.errors.get("keyFeatures");
 
@@ -866,7 +870,8 @@ router.post("/upload", ensureAuthenticated, adminAuth, async (req, res) => {
       errCat,
       errPrc,
       errCStock,
-      errKeyFeatures
+      errKeyFeatures,
+      errPicGallery
     );
     let categories = await Category.find({}).sort({ name: 1 });
     res.render("admin/addproduct", {
@@ -906,51 +911,94 @@ router.post("/upload", ensureAuthenticated, adminAuth, async (req, res) => {
 
       const uploader = async (path) => await cloudinary.uploads(path, "Images");
 
-      let files = [req.files];
-      files = files[0].image;
-      // console.log(files);
-      for (const file of files) {
-        const tmp_file = file.tempFilePath;
-
-        const newPath = await uploader(tmp_file);
-        urls.push(newPath);
-        fs.unlinkSync(tmp_file);
-      }
-      let strName = req.body.name;
-      strName = strName.toLowerCase();
-      let newProduct = new Product({
-        name: strName,
-        description: req.body.desc,
-        richDescription: req.body.rdesc,
-        category: req.body.category,
-        price: req.body.price,
-        countInStock: req.body.stockCount,
-        isFeatured: req.body.feature,
-        isFiftyOff: req.body.dsc,
-        oldPrice: req.body.price,
-        keyFeatures: req.body.keyFeatures,
-        image: urls,
-        discount: disCount,
-        originalCountInStock: req.body.stockCount,
-      });
-
-      newProduct = await newProduct.save();
-
-      if (newProduct.isFiftyOff == true) {
-        let offCalc = newProduct.price - (50 / 100) * newProduct.price;
-        newProduct = await Product.findByIdAndUpdate(
-          { _id: newProduct._id },
-          {
-            $set: {
-              price: offCalc,
+      //more than one picture
+      const galleryOption = req.body.picGallery;
+      if (galleryOption == "false") {
+        let files = [req.files];
+        files = files[0].image;
+        console.log(files);
+        for (const file of files) {
+          let tmp_file = file.tempFilePath;
+          let newPath = await uploader(tmp_file);
+          urls.push(newPath);
+          fs.unlinkSync(tmp_file);
+        }
+        let strName = req.body.name;
+        strName = strName.toLowerCase();
+        let newProduct = new Product({
+          name: strName,
+          description: req.body.desc,
+          richDescription: req.body.rdesc,
+          category: req.body.category,
+          price: req.body.price,
+          countInStock: req.body.stockCount,
+          isFeatured: req.body.feature,
+          isFiftyOff: req.body.dsc,
+          oldPrice: req.body.price,
+          keyFeatures: req.body.keyFeatures,
+          image: urls,
+          discount: disCount,
+          originalCountInStock: req.body.stockCount,
+          picGallery: req.body.picGallery,
+        });
+        newProduct = await newProduct.save();
+        if (newProduct.isFiftyOff == true) {
+          let offCalc = newProduct.price - (50 / 100) * newProduct.price;
+          newProduct = await Product.findByIdAndUpdate(
+            { _id: newProduct._id },
+            {
+              $set: {
+                price: offCalc,
+              },
             },
-          },
-          { new: true }
-        );
-      }
+            { new: true }
+          );
+        }
+        req.flash("success_msg", `Successfully Added ${newProduct.name}`);
+        res.redirect("/admin/products/all");
+      } else if (galleryOption === "true") {
+        let tmp_file_ = req.files.image.tempFilePath;
+        let new_Path = await uploader(tmp_file_);
+        urls.push(new_Path);
+        // fs.unlinkSync(tmp_file_);
 
-      req.flash("success_msg", `Successfully Added ${newProduct.name}`);
-      res.redirect("/admin/products/all");
+        strName = req.body.name;
+        strName = strName.toLowerCase();
+        newProduct = new Product({
+          name: strName,
+          description: req.body.desc,
+          richDescription: req.body.rdesc,
+          category: req.body.category,
+          price: req.body.price,
+          countInStock: req.body.stockCount,
+          isFeatured: req.body.feature,
+          isFiftyOff: req.body.dsc,
+          oldPrice: req.body.price,
+          keyFeatures: req.body.keyFeatures,
+          image: urls,
+          discount: disCount,
+          originalCountInStock: req.body.stockCount,
+          picGallery: req.body.picGallery,
+        });
+
+        newProduct = await newProduct.save();
+
+        if (newProduct.isFiftyOff == true) {
+          let offCalc = newProduct.price - (50 / 100) * newProduct.price;
+          newProduct = await Product.findByIdAndUpdate(
+            { _id: newProduct._id },
+            {
+              $set: {
+                price: offCalc,
+              },
+            },
+            { new: true }
+          );
+        }
+
+        req.flash("success_msg", `Successfully Added ${newProduct.name}`);
+        res.redirect("/admin/products/all");
+      }
     });
   }
 });
@@ -1560,31 +1608,37 @@ router.post(
     } else {
       validation.passes(async () => {
         try {
-          let files = [req.files];
           // //an array of 4 items
-          let urls = new Array(4);
-
-          files = files[0].image;
+          let urls = [];
 
           // //an instance of the cloudingary module
           const uploader = async (path) =>
             await cloudinary.uploads(path, "Images");
           // //wil be expecting 4 fies from the user,so am doing a for loop fro 0-3
-          for (var i = 0; i < 4; i++) {
-            let currentFile =
-              typeof files[i] == undefined ? product.image[i] : files[i];
-            console.log(currentFile);
-            //   // if the user does not define an index for a  specific file,I use the old picture in the db for that index
-            if (typeof currentFile == "object") {
-              // if the current file is a file object and nota url,I upload and assign the new url to that specific index
-              let tmp_file = currentFile.tempFilePath;
-              // currentFile is either url or tempfile path
-              const newPath = await uploader(tmp_file);
-              urls[i] = newPath;
-              fs.unlinkSync(tmp_file);
-            } else {
-              urls[i] = currentFile;
+          if (req.body.picGallery == "false") {
+            let files = [req.files];
+            files = files[0].image;
+
+            for (var i = 0; i < 4; i++) {
+              let currentFile =
+                typeof files[i] == undefined ? product.image[i] : files[i];
+              console.log(currentFile);
+              //   // if the user does not define an index for a  specific file,I use the old picture in the db for that index
+              if (typeof currentFile == "object") {
+                // if the current file is a file object and nota url,I upload and assign the new url to that specific index
+                let tmp_file = currentFile.tempFilePath;
+                // currentFile is either url or tempfile path
+                let newPath = await uploader(tmp_file);
+                urls[i] = newPath;
+                fs.unlinkSync(tmp_file);
+              } else {
+                urls[i] = currentFile;
+              }
             }
+          } else {
+            let tmp_file = req.files.image.tempFilePath;
+            newPath = await uploader(tmp_file);
+            urls.push(newPath);
           }
           // //console.log(urls)
 
@@ -1601,6 +1655,8 @@ router.post(
             product.originalCountInStock = req.body.stockCount;
             product.isFiftyOff = req.body.dsc;
             product.image = urls;
+            product.picGallery = req.body.picGallery;
+
             product.keyFeatures = req.body.keyFeatures;
             await product.save();
             req.flash("success_msg", `Successfully Updated ${product.name}`);
@@ -1619,6 +1675,7 @@ router.post(
             product.isFiftyOff = req.body.dsc;
             product.image = urls;
             product.keyFeatures = req.body.keyFeatures;
+            product.picGallery = req.body.picGallery;
 
             await product.save();
             req.flash("success_msg", `Successfully Updated ${product.name}`);
