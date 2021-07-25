@@ -20,10 +20,6 @@ const product = require("../../models/product");
 PUBLIC_KEY = process.env.PUBLIC_KEY;
 SECRET_KEY = process.env.SECRET_KEY;
 
-router.get("/sitemap.xml", (req, res) => {
-  res.render("home/sitemap.ejs");
-});
-
 router.get("/logout", (req, res) => {
   req.logOut();
   req.flash("success_msg", "You Have Successfully Logged Out");
