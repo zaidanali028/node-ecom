@@ -493,7 +493,7 @@ router.get("/my-cart", async (req, res) => {
       totalCost: userCart.totalCost,
       product: [],
     };
-    for (product of userCart.items) {
+    for (let product of userCart.items) {
       const foundProduct = await Product.findById(product.productId);
       const productQty = product.qty;
       const productPrice = product.price;
