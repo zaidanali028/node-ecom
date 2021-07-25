@@ -16,6 +16,7 @@
     "express-fileupload": "^1.2.0",
     "express-session": "^1.17.1",
     "express-sitemap": "^1.8.0",
+    "express-sitemap-html": "^1.2.4",
     "flutterwave-node": "^1.2.2",
     "flutterwave-node-v3": "^1.0.6",
     "force-ssl-heroku": "^1.0.2",
@@ -37,7 +38,8 @@
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.5.0",
     "toastr": "^2.1.4",
-    "validatorjs": "^3.22.1"
+    "validatorjs": "^3.22.1",
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {},
   "scripts": {
