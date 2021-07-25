@@ -900,14 +900,7 @@ router.post("/upload", ensureAuthenticated, adminAuth, async (req, res) => {
     validation.passes(async () => {
       const urls = [];
       let ds = req.body.dsc;
-      let disCount;
-
-      if (ds === true) {
-        disCount = 50;
-      } else {
-        disCount = 0;
-      }
-      //if user gives 50% off discount,
+      let disCount = ds == "true" ? 50 : 0; //if user gives 50% off discount,
 
       const uploader = async (path) => await cloudinary.uploads(path, "Images");
 
