@@ -65,8 +65,8 @@ router.get("/", ensureAuthenticated, adminAuth, async (req, res) => {
     let Users = await User.find({});
 
     for (let User of Users) {
-      let currentM = new Date(user.createdAt).getMonth() + 1;
-      let currentY = new Date(user.createdAt).getFullYear();
+      let currentM = new Date(User.createdAt).getMonth() + 1;
+      let currentY = new Date(User.createdAt).getFullYear();
 
       if (currentM === currentMonth && currentY === currentYear) {
         monthlyUsers.push(User);
