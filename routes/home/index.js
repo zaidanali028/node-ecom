@@ -798,7 +798,7 @@ router.post("/checkout", async (req, res) => {
         totalCost: userCart.totalCost,
         product: [],
       };
-      for (product of userCart.items) {
+      for (let product of userCart.items) {
         const foundProduct = await Product.findById(product.productId);
         const productQty = product.qty;
         const productPrice = product.price;
@@ -896,7 +896,7 @@ router.post("/checkout", async (req, res) => {
 
         user = await user.save();
         let stockErr = [];
-        for (product of userCart.items) {
+        for (let product of userCart.items) {
           // console.log(product)
           let pr = await Product.findById(product.productId);
 
@@ -1013,7 +1013,7 @@ router.get("/my-cart/checkout", ensureAuthenticated, async (req, res) => {
       totalCost: userCart.totalCost,
       product: [],
     };
-    for (product of userCart.items) {
+    for (let product of userCart.items) {
       const foundProduct = await Product.findById(product.productId);
       const productQty = product.qty;
       const productPrice = product.price;
