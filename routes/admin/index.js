@@ -64,7 +64,7 @@ router.get("/", ensureAuthenticated, adminAuth, async (req, res) => {
     // get  new monthly users
     let Users = await User.find({});
 
-    for (const User of Users) {
+    for (let User of Users) {
       let currentM = new Date(user.createdAt).getMonth() + 1;
       let currentY = new Date(user.createdAt).getFullYear();
 
