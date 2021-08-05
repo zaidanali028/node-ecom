@@ -698,7 +698,7 @@ router.get("/coupon", ensureAuthenticated, adminAuth, async (req, res) => {
   const now = moment().format(fmt);
 
   const coupons = await Coupon.find({}).sort({ createdAt: -1 });
-  const genCoupon = couponGen();
+  const code = couponGen();
 
   coupons.forEach(async (coupon) => {
     let dbDate = moment(coupon.expireDate).format(fmt);
@@ -713,7 +713,7 @@ router.get("/coupon", ensureAuthenticated, adminAuth, async (req, res) => {
     orderCount,
     cartCount,
     pcount,
-    genCoupon,
+    code,
     coupons,
     cCount,
     fiftyOffProductsCount,
@@ -745,6 +745,8 @@ router.post("/coupon", ensureAuthenticated, adminAuth, async (req, res) => {
   const hero = await Hero.findOne({});
   let ad50 = await Ad.findOne({});
   const addresS = await Address.findOne({});
+  const subCount = await Mail.count({});
+
 
   let fiftyOffProductsCount = await Product.count({ isFiftyOff: true });
 
@@ -787,6 +789,7 @@ router.post("/coupon", ensureAuthenticated, adminAuth, async (req, res) => {
       addresS,
       siteLogo,
       user,
+      subCount
     });
   } else {
     validation.passes(async () => {

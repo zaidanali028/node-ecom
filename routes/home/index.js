@@ -820,7 +820,6 @@ router.post("/checkout", async (req, res) => {
         address: C_address,
         region: region,
         country: country,
-        orderNotes: orderNotes,
       },
       {
         name: "required",
@@ -829,7 +828,6 @@ router.post("/checkout", async (req, res) => {
         address: "required",
         region: "required",
         country: "required",
-        orderNotes: "required",
       }
     );
 
@@ -840,7 +838,6 @@ router.post("/checkout", async (req, res) => {
       const errAddress = validation.errors.get("address");
       const errRegion = validation.errors.get("region");
       const errCountry = validation.errors.get("country");
-      const errOrderNotes = validation.errors.get("orderNotes");
       errors.push(
         errName,
         errPhone,
@@ -848,7 +845,6 @@ router.post("/checkout", async (req, res) => {
         errAddress,
         errRegion,
         errCountry,
-        errOrderNotes
       );
       res.render("home/checkout", {
         address,
@@ -938,30 +934,31 @@ router.post("/checkout", async (req, res) => {
           } else {
             pr.countInStock = pr.countInStock - product.qty;
             pr = await pr.save();
+            let order = new Order({
+              user: userId,
+              cart: {
+                totalQty: userCart.totalQty,
+                totalCost: userCart.totalCost,
+                items: userCart.items,
+              },
+              appartment: user.appartment,
+              orderNotes,
+              name: user.name,
+              address: user.address,
+              country: user.country,
+              region: user.region,
+              email: user.email,
+              phone: user.phone,
+              //   // paymentRef: ref,
+            });
+            order = await order.save();
+    
+            await Cart.findByIdAndDelete(userCart._id);
+    
           }
         }
 
-        let order = new Order({
-          user: userId,
-          cart: {
-            totalQty: userCart.totalQty,
-            totalCost: userCart.totalCost,
-            items: userCart.items,
-          },
-          appartment: user.appartment,
-          orderNotes,
-          name: user.name,
-          address: user.address,
-          country: user.country,
-          region: user.region,
-          email: user.email,
-          phone: user.phone,
-          //   // paymentRef: ref,
-        });
-        order = await order.save();
-
-        await Cart.findByIdAndDelete(userCart._id);
-
+   
         req.flash(
           "success_msg",
           "Your order has been successfully made,we will remember your choices next time!"

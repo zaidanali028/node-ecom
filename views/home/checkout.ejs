@@ -723,7 +723,7 @@
                 <div class="col-md-12">
                   <h2 class="h3 mb-3 text-black">Coupon Code</h2>
                   <div class="p-3 p-lg-5 border">
-                    <%if(coupons>=1){%> 
+                    <%if(!Object.keys(allCoupons).length<=0){%> 
                       <%for(coupon of allCoupons){%>
 
                   <%    if( myCart.totalCost>coupon.worth&&coupon.isActive==true){%>
