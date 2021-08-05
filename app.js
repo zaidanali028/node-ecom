@@ -333,10 +333,7 @@ app.get("/sitemap.xml", function (req, res) {
 });
 // app.set('trust proxy', true);
 
-const dbUrI =
-  process.env.NODE_ENV === "production"
-    ? process.env.DB_URL
-    : "mongodb://localhost:27017/eshop-update";
+const dbUrI =process.env.NODE_ENV === "production"? process.env.DB_URL: "mongodb://localhost:27017/eshop-update";
 app.enable("trust proxy"); // trust all
 
 // app.use(morgan("tiny"));
@@ -398,7 +395,7 @@ function requireHTTPS(req, res, next) {
   }
   next();
 }
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "production") {
   app.use(requireHTTPS);
 }
 
