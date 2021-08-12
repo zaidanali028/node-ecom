@@ -346,7 +346,7 @@ router.post("/contact", async (req, res) => {
       const smtpTrans = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
-        secure: false,
+        secure: true,
         auth: {
           // company's email and password
           user: process.env.GMAIL_EMAIL,
