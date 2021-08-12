@@ -343,18 +343,28 @@ router.post("/contact", async (req, res) => {
     }
     validation.passes(() => {
       // instantiate the SMTP server
+      // const smtpTrans = nodemailer.createTransport({
+      //   host: "smtp.gmail.com",
+      //   port: 587,
+      //   secure: true,
+      //   auth: {
+      //     // company's email and password
+      //     user: process.env.GMAIL_EMAIL,
+      //     pass: process.env.GMAIL_PASSWORD,
+      //   },
+      //   tls: {
+      //     rejectUnauthorized: false,
+      //   },
+      // });
       const smtpTrans = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: true,
+        host: "smtp.mailtrap.io",
+        port: 2525,
         auth: {
-          // company's email and password
-          user: process.env.GMAIL_EMAIL,
-          pass: process.env.GMAIL_PASSWORD,
+          user: "9f60059e949515",
+    pass: "8efd4c5501809a"
         },
-        tls: {
-          rejectUnauthorized: false,
-        },
+        debug: true, // show debug output
+        logger: true // log information in console
       });
 
       // email options
