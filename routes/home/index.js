@@ -1282,21 +1282,20 @@ router.get("/", ensureGuest, async (req, res) => {
     });
 
     // for (product of products){
-    products.forEach(async (product) => {
-      let dateCreated = new Date(product.createdAt).getDate();
-      let week = 7;
-      let checkIsExpired = week - dateCreated;
-      console.log("Neg " + checkIsExpired);
-      if (checkIsExpired <= 0) {
-        let oldProduct = await Product.findById(product._id);
-        oldProduct.isFeatured = false;
-        oldProduct = await oldProduct.save();
-        console.log(oldProduct);
-      } else {
-        console.log("Still fresh");
-      }
-      // dateCreated=dateCreated.parse
-    });
+    // products.forEach(async (product) => {
+    //   let dateCreated = new Date(product.createdAt).getDate();
+    //   let week = 7;
+    //   let checkIsExpired = week - dateCreated;
+    //   console.log("Neg " + checkIsExpired);
+    //   if (checkIsExpired <= 0) {
+    //     let oldProduct = await Product.findById(product._id);
+    //     oldProduct.isFeatured = false;
+    //     oldProduct = await oldProduct.save();
+    //     console.log(oldProduct);
+    //   } else {
+    //     console.log("Still fresh");
+    //   }
+    // });
 
     res.render("home/home", {
       categories,
