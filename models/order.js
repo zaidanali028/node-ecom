@@ -2,10 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const orderSchema = Schema({
-  // paymentRef:{
-    // type:String,
-    // required:true,
-// },
+  paymentRef:{
+    type:String,
+},
  country:{
      type:String,
  },
@@ -73,6 +72,10 @@ user: {
 required:true
 
   },
+  payMentStatus:{
+    type: Boolean,
+    default: false
+ },
   
   Delivered: {
     type: Boolean,

@@ -17,6 +17,10 @@ const Address = require("../../models/add-address");
 const Mail = require("../../models/mail-list");
 const { ensureAuthenticated, ensureGuest } = require("../../config/auth");
 const product = require("../../models/product");
+const request=require('request');
+const {initializePayment, verifyPayment} = require('../../config/paystack')(request);
+
+
 PUBLIC_KEY = process.env.PUBLIC_KEY;
 SECRET_KEY = process.env.SECRET_KEY;
 
@@ -879,6 +883,7 @@ router.post("/checkout", async (req, res) => {
       });
     } else {
       validation.passes(async () => {
+
         let ghPhone = req.body.phone;
         ghPhone = "+233" + ghPhone.substring(1);
         let user = await User.findByIdAndUpdate(
@@ -942,6 +947,52 @@ router.post("/checkout", async (req, res) => {
               isAdmin,
             });
           } else {
+            if(req.body.pay=='true'){
+              let Customer=await User.findOne({ _id: userId})
+              let name=Customer.name
+              let email=req.body.email
+              let amount=userCart.totalCost
+              let form={name,email,amount}
+              form.amount*=100
+               initializePayment (form, async (error, body)=>{
+                if(error){
+                    //handle errors
+                    console.log(error);
+                    return;
+               }
+               
+               response = JSON.parse(body);
+               pr.countInStock = pr.countInStock - product.qty;
+            pr = await pr.save();
+            let order = new Order({
+              user: userId,
+              cart: {
+                totalQty: userCart.totalQty,
+                totalCost: userCart.totalCost,
+                items: userCart.items,
+              },
+              appartment: user.appartment,
+              orderNotes,
+              name: user.name,
+              address: user.address,
+              country: user.country,
+              region: user.region,
+              email: user.email,
+              phone: user.phone,
+              paymentRef: response.data.reference,
+            });
+            order = await order.save();
+            await Cart.findByIdAndDelete(userCart._id);
+
+              //  console.log(response)
+           
+               return res.redirect(response.data.authorization_url)
+               
+            });
+              // console.log("selected")
+          
+          
+              } else{
             pr.countInStock = pr.countInStock - product.qty;
             pr = await pr.save();
             let order = new Order({
@@ -964,22 +1015,47 @@ router.post("/checkout", async (req, res) => {
             order = await order.save();
     
             await Cart.findByIdAndDelete(userCart._id);
+          
+        req.flash("success_msg", "Your order has been successfully made!");
+
+         res.redirect("/success-checkout");
+            }
     
           }
         }
 
    
-        req.flash(
-          "success_msg",
-          "Your order has been successfully made,we will remember your choices next time!"
-        );
-        res.redirect("/success-checkout");
+       
       });
     }
   } catch (e) {
     console.log(e);
   }
 });
+router.get('/paystack/callback',(req,res)=>{
+  let {trxref}=req.query
+
+  verifyPayment(trxref, async  (error,body)=>{
+      if(error){
+          //handle errors appropriately
+          console.log(error)
+          //error during transaction action
+          return res.render('error');
+      }
+      let response = JSON.parse(body);
+      if(response.status===true && response.data.status==='success' && response.data.gateway_response==='Approved'){
+        let paidOrder=await Order.findOne({paymentRef:trxref})
+        paidOrder.payMentStatus=true
+        paidOrder=await paidOrder.save()
+         req.flash(
+          "success_msg",
+          "Your order has been successfully made,we will remember your choices next time!"
+        );
+        return res.redirect('/success-checkout')
+      }
+     
+})
+})
 
 //checkout
 router.get("/my-cart/checkout", ensureAuthenticated, async (req, res) => {

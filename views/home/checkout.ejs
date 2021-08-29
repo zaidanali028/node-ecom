@@ -29,6 +29,8 @@
     
   </head>
   <body>
+    <%-include('../layouts/home/telegram.ejs')%>
+
     <%-include('../layouts/home/preloader.ejs')%>
 
   
@@ -37,7 +39,7 @@
     <div class="bg-light py-3">
         <div class="container">
           <div class="row">
-            <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <a href="my-cart">Cart</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Checkout</strong></div>
+            <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <a href="/my-cart">Cart</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Checkout</strong></div>
           </div>
         </div>
       </div>
@@ -45,8 +47,25 @@
         <div class="container">
           <div class="row mb-5">
             <div class="col-md-12">
-              <div class="border p-4 rounded" role="alert">
-                Returning customer? <a href="#">Click here</a> to login
+              <div class="border p-3 rounded" role="alert">
+                <%if(coupons>=1){%> 
+
+                 
+                    <%for(coupon of allCoupons){%>
+                      <%if(coupon.isActive==true&& myCart.totalCost>coupon.worth&&coupon.isActive==true){%>
+                        <div class="alert alert-success alert-dismissible ">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                           <h5 class=""><i class=" fa fa-bullhorn  "></i>FREE COUPON IN CART!</h5>
+                      A GH₵<%=coupon.worth%> Free Cash Off When You Use <span class="p-1 bage badge-info"><%=coupon.code%></span> Coupon Code On Your Cart Items <br> <br>
+                  <%  }else{%>
+                  <p style="font-size:20px">    Buy More Than GH₵<%=myCart.totalCost%> And Get A <span class="p-1 bage badge-success"> GH₵<%=coupon.worth%>.00</span> Cash Off . <a href="/shop">Back To Shop</a></p>
+
+
+                  <%}%>
+                  <%  }%>
+                  </div>
+                  <%}%>
+                
               </div>
             </div>
           </div>
@@ -318,11 +337,7 @@
                   
                   </select>
                 </div>
-                
-               
-  
-              
-  
+
                 <div class="form-group row">
                   <div class="col-md-12">
                     <label for="c_address" class="text-black">Address <span class="text-danger">*</span></label>
@@ -366,16 +381,36 @@
                   <%= typeof orderNotes != 'undefined' ? orderNotes : user.orderNotes %>
                   </textarea>
                 </div>
-                <div class="border p-3 mb-3">
-                    <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank"> <span class="icon icon-handshake-o" aria-hidden=""></span>Direct Payment</a ></h3>
+               
 
-                    <div class="collapse" id="collapsebank">
-                      <div class="py-2">
-                          <p class="mb-0">Make your payment directly to us after you receive your goods.Fast delivery is assured!.We hope to make life simple for you soon by integrating an online payment solution which is expected to be rolled out soon.Until then,please bear with us</p>
-
-                      </div>
+                <!-- <div class="border p-3 mb-3">
+                  <div class="form-group">
+                    <label for="inputProjectLeader"
+                      >PAYMENT STATUS(Are you paying now?)</label
+                    >
+                    <div
+                      class="btn-group btn-group-toggle"
+                      data-toggle="buttons"
+                    >
+                      <label class="btn btn-outline-primary">
+                        <input
+                          type="radio"
+                          name="pay" value="true"
+                        />
+                        Yep.Thats Cool
+                      </label>
+                      <label class="btn btn-outline-primary">
+                        <input
+                          type="radio"
+                          pay="feature"
+                          value="false"
+                        />
+                        After delivery
+                      </label>
                     </div>
                   </div>
+                </div> -->
+
 
                   
 
@@ -718,29 +753,15 @@
              </div>
             </div>
             <div class="col-md-6">
-  
+
               <div class="row mb-5">
                 <div class="col-md-12">
                   <h2 class="h3 mb-3 text-black">Coupon Code</h2>
+
+      
                   <div class="p-3 p-lg-5 border">
-                    <%if(!Object.keys(allCoupons).length<=0){%> 
-                      <%for(coupon of allCoupons){%>
-
-                  <%    if( myCart.totalCost>coupon.worth&&coupon.isActive==true){%>
-                        <div class="alert alert-success alert-dismissible">
-                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                          <h5><i class="icon fas fa-bullhorn "></i> FREE COUPON IN CART!</h5>
-                          
-    
-    
-                            A GH₵<%=coupon.worth%> Free Cash Off When You Use <span class="p-1 bage badge-info"><%=coupon.code%></span> Coupon Code On Your Cart Items <br> <br>
-                           
-                        <%  }%>
-                        </div>
-                        <%}%>
-                        <%}%>
-
-                        <%if(myCart){%>
+                    
+                    <%if(myCart){%>
                       <% let userCartId=JSON.parse(JSON.stringify(myCart.id))%>
     
                         <form action="/apply-coupon/<%=userCartId%>"  id="myForm" method="POST">
@@ -793,12 +814,115 @@
                       </tbody>
                     </table>
   
-                    
+                    <div class="border p-3 mb-3">
+                      <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank"> <span class="icon icon-star m-1" aria-hidden=""></span>Advanced Payment</a ></h3>
+    
+                      <div class="collapse" id="collapsebank">
+                        <div class="py-2">
+                            <p class="mb-0">We just updated our payment system,You can soon pay directly on our site when making an order.That sounds fun right?Fast delivery is assured!</p>
+    
+                        </div>
+                      </div>
+                    </div>
+                    <div class="border p-3 mb-3">
+                      <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsebank"> <span class="icon icon-handshake-o m-1" aria-hidden=""></span>Advanced Payment</a ></h3>
+    
+                      <div class="collapse" id="collapsecheque">
+                        <div class="py-2">
+                          <p class="mb-0">Make your payment directly to us after you receive your goods.</p>
+    
+    
+                        </div>
+                      </div>
+                    </div>
   
                   </div>
                 </div>
               </div>
   
+            </div>
+            <!-- <div class="col-md-6">
+  
+              <div class="row mb-5">
+                <div class="col-md-12">
+                  <h2 class="h3 mb-3 text-black">Coupon Code</h2>
+                  <div class="p-3 p-lg-5 border">
+                    <%if(!Object.keys(allCoupons).length<=0){%> 
+                      <%for(coupon of allCoupons){%>
+
+                  <%    if( myCart.totalCost>coupon.worth&&coupon.isActive==true){%>
+                        <div class="alert alert-success alert-dismissible">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                          <h5><i class="icon fas fa-bullhorn "></i> FREE COUPON IN CART!</h5>
+                          
+    
+    
+                            A GH₵<%=coupon.worth%> Free Cash Off When You Use <span class="p-1 bage badge-info"><%=coupon.code%></span> Coupon Code On Your Cart Items <br> <br>
+                           
+                        <%  }%>
+                        </div>
+                        <%}%>
+                        <%}%>
+
+                        <%if(myCart){%>
+                      <% let userCartId=JSON.parse(JSON.stringify(myCart.id))%>
+    
+                        <form action="/apply-coupon/<%=userCartId%>"  id="myForm" method="POST">
+                      <%}%>
+    
+    
+                    
+                    <label for="c_code" class="text-black mb-3">Enter your coupon code if you have one</label>
+                    <div class="input-group w-75">
+                      <input type="text" class="form-control" name="coupon" id="c_code" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="button-addon2">
+                      <div class="input-group-append">
+                        <button type="submit" id="disableMe" class="btn btn-primary btn-sm" type="button" id="button-addon2">Apply</button>
+                        </form>
+                      </div>
+                    </div>
+  
+                  </div>
+                </div>
+              </div> -->
+              
+              <!-- <div class="row mb-5">
+                <div class="col-md-12">
+                  <h2 class="h3 mb-3 text-black">Your Order</h2>
+                  <div class="p-3 p-lg-5 border">
+                    <table class="table site-block-order-table mb-5">
+                      <thead>
+                        <tr><th>Product</th>
+                        <th>Total</th>
+                      </tr></thead>
+                      <tbody>
+                        <tr>
+                          
+                   <%myCart.product.forEach(prdct=>{%>
+                    <% let prdcName=JSON.parse(JSON.stringify(prdct.foundProduct.name))%>
+
+
+                          <td class="text-capitalize"><%=prdcName.toString()%><strong class="mx-2">x</strong> <%=prdct.productQty%></td>
+                          <td>₵<%=prdct.foundProduct.price%></td>
+                        </tr>
+                    <%})%>
+                       
+                        <tr>
+                          <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
+                          <td class="text-black">₵<%=myCart.totalCost%></td>
+                        </tr>
+                        <tr>
+                          <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                          <td class="text-black font-weight-bold"><strong>₵<%=myCart.totalCost%></strong></td>
+                        </tr>
+                      </tbody>
+                    </table>
+  
+                    
+  
+                  </div>
+                </div>
+              </div>
+   -->
             </div>
           </div>
           <!-- </form> -->
@@ -818,8 +942,8 @@
   <script src="/js/main.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.js" integrity="sha512-mgZL3SZ/vIooDg2mU2amX6NysMlthFl/jDbscSRgF/k3zmICLe6muAs7YbITZ+61FeUoo1plofYAocoR5Sa1rQ==" crossorigin="anonymous"></script>
   
-  <%-include('../layouts/home/preloaderJS.ejs')%>
   <%-include('../layouts/admin/scripts.ejs')%>
+  <%-include('../layouts/home/preloaderJS.ejs')%>
 
 
 

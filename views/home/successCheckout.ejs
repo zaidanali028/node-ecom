@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="/css/magnific-popup.css" />
     <link rel="stylesheet" href="/css/jquery-ui.css" />
     <link rel="stylesheet" href="/css/product.css" />
+  <link rel="stylesheet" href="/css/toastr.css">
+
     <link
       rel="shortcut icon"
       type="image/x-icon"
@@ -36,8 +38,12 @@
       integrity="sha512-NXUhxhkDgZYOMjaIgd89zF2w51Mub53Ru3zCNp5LTlEzMbNNAjTjDbpURYGS5Mop2cU4b7re1nOIucsVlrx9fA=="
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+
   </head>
   <body>
+    <%-include('../layouts/home/telegram.ejs')%>
+
     <%-include('../layouts/home/preloader.ejs')%>
 
     <div class="site-wrap">
@@ -54,7 +60,10 @@
       </div>
 
       <div class="site-section">
+
         <div class="container">
+
+
           <div class="row">
             <div class="col-md-12 text-center">
               <span class="icon-check_circle display-3 text-success"></span>
@@ -72,9 +81,11 @@
       </div>
 
       <%-include('../layouts/home/footer.ejs')%>
+
     </div>
 
     <script src="/js/jquery-3.3.1.min.js"></script>
+
     <script src="/js/jquery-ui.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -89,5 +100,7 @@
     ></script>
 
     <%-include('../layouts/home/preloaderJS.ejs')%>
+    <%-include('../layouts/admin/scripts.ejs')%>
+
   </body>
 </html>

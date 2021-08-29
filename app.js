@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const methodOverride = require("method-override");
-const port = process.env.PORT || 5050;
+const port = process.env.PORT || 3000;
 const flash = require("connect-flash");
 const session = require("express-session");
 const ejs = require("ejs");
@@ -333,7 +333,9 @@ app.get("/sitemap.xml", function (req, res) {
 });
 // app.set('trust proxy', true);
 
-const dbUrI =process.env.NODE_ENV === "production"? process.env.DB_URL: "mongodb://localhost:27017/eshop-update";
+// const dbUrI =process.env.NODE_ENV === "production"? "mongodb://localhost:27017/ehop-update": "mongodb+srv://zaid:zaid@cluster0.eee4x.mongodb.net/e-shop?retryWrites=true&w=majority";
+const dbUrI ="mongodb://localhost:27017/eshop-update"
+
 app.enable("trust proxy"); // trust all
 
 // app.use(morgan("tiny"));

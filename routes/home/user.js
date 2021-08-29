@@ -103,7 +103,6 @@ router.post("/register", async (req, res) => {
       if (existUser || existUser2) {
         req.flash("error_msg", "This account already exists!");
         res.redirect("/users/register");
-        //#
       } else {
         let newUser = new User({
           name: name,

@@ -17,6 +17,8 @@
 
     <link rel="stylesheet" href="/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+
 
 
     <link rel="stylesheet" href="/css/aos.css">
@@ -45,6 +47,8 @@ rel="stylesheet"
   <%}%>
   </head>
   <body>
+    <%-include('../layouts/home/telegram.ejs')%>
+
     <%-include('../layouts/home/preloader.ejs')%>
 
   
@@ -111,7 +115,7 @@ rel="stylesheet"
                                   </form>
                               <%}%>
                           </div>
-                          <input type="text" style="height: auto;" class="form-control text-center" value="<%=prdct.productQty%>" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                          <input type="text" style="height: auto;" disabled class="form-control text-center" value="<%=prdct.productQty%>" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
                           <div class="input-group-append">
                             <!-- <%=prdct.foundProduct._id%> -->
                             <form action="/plus-to-cart/<%=prdct.foundProduct._id%>" id="" method="POST">
