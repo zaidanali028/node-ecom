@@ -21,8 +21,7 @@ app.get("/sitemap.xml", function (req, res) {
 });
 // app.set('trust proxy', true);
 
-const dbUrI =process.env.NODE_ENV === "production"? "mongodb://localhost:27017/eshop-update": process.env.DB_URL;
-// const dbUrI ="mongodb://localhost:27017/eshop-update"
+const dbUrI =process.env.NODE_ENV === "production"? process.env.DB_URL:"mongodb://localhost:27017/ehop-update"
 
 app.enable("trust proxy"); // trust all
 
