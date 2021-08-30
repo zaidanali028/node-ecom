@@ -409,7 +409,7 @@ router.post(
       itemspchsD += `${n} <h6  style="font-family:verdana; color:#256AB4">Item's Name:</h6>   ${item.itemName}
     <h6 style="font-family:verdana; color:red">Quantity Bought:</h6> ${item.itemQty}
     ===${n}
-    <h6 style="font-family:verdana; color:red"> items total price: </h6>₵${item.itemPrice}`;
+    <h6 style="font-family:verdana; color:red"> item's total price: </h6>₵${item.itemPrice}`;
    
   }
     let orderDate = new Date(order.createdAt).toDateString();
