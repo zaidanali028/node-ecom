@@ -7,12 +7,16 @@
   
   $(window).on("scroll", function () {
  //if user scrolls down
-    if ($(this).scrollTop() > 200) {
+    if ($(this).scrollTop() > 600) {
     //   #code here
     $(".telegram").css("visibility", "visible");
+   $(".telegram").fadeIn(5000);
+
 
    } else if($(this).scrollTop() < 100){
-    document.querySelector(".telegram").style.visibility = "hidden";
+   //  document.querySelector(".telegram").style.visibility = "hidden";
+   $(".telegram").fadeOut(500);
+
 
     //   #code here
    }
