@@ -115,8 +115,17 @@ router.get("/", ensureAuthenticated, adminAuth, async (req, res) => {
 
     //recently added products
     let prdctNew = await Product.find({}).sort({ createdAt: -1 }).limit(10);
+    let apiKey=process.env.SMS_API_KEY;
+    let slotsLeft=''
+    let smsBalUrl=`https://sms.textcus.com/api/balance?apikey=${apiKey}`
+    let resp=await axios.get(smsBalUrl)
+       slotsLeft=resp.data['SMS balance']
+      
+   
+    console.log(slotsLeft)
 
     res.render("admin/index", {
+      slotsLeft,
       totalSales,
       orderCount,
       pcount,
