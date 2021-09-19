@@ -189,13 +189,24 @@ router.get("/login", async (req, res) => {
 });
 
 router.post("/login", async (req, res, next) => {
+  
+
   try {
+    let {email}=req.body
+  let user=await User.findOne({email})
+
+   if(user){
     passport.authenticate("local", {
-      successRedirect:req.session.currentUrl?req.session.currentUrl:"/shop",
+      successRedirect:user.isAdmin==true?"/admin":req.session.currentUrl?req.session.currentUrl:"/shop",
+
       successFlash: true,
       failureRedirect: "/users/login",
       failureFlash: true,
     })(req, res, next);
+   }else{
+     req.flash("error_msg","please register")
+     res.redirect('/users/register')
+   }
     
   } catch (e) {
     console.log(e);
