@@ -294,9 +294,9 @@
                       <% let diffInDays=Math.round(diffInTime / oneDay);%>
                         <div class="d-flex justify-content-between align-items-center">
                           <%if(diffInDays>=2){%>
-                            <div class="d-flex flex-row align-items-center time"> <i class="fa fa-clock-o"></i> <small class="ml-1">Posted <%=diffInDays %> days ago</small> </div> <img src="https://i.imgur.com/suuFVrQ.png" width="20">
+                            <div class="d-flex flex-row align-items-center time"> <i class="fa fa-clock-o"></i> <small class="ml-1">Posted Recently</small> </div> <img src="https://i.imgur.com/suuFVrQ.png" width="20">
                           <%}else if(diffInDays==1){%>
-                            <div class="d-flex flex-row align-items-center time"> <i class="fa fa-clock-o"></i> <small class="ml-1">Posted <%=diffInDays %> day ago</small> </div> <img src="https://i.imgur.com/suuFVrQ.png" width="20">
+                            <div class="d-flex flex-row align-items-center time"> <i class="fa fa-clock-o"></i> <small class="ml-1">Posted Yesterday</small> </div> <img src="https://i.imgur.com/suuFVrQ.png" width="20">
                             <%}else{%>
                             <div class="d-flex flex-row align-items-center time"> <i class="fa fa-clock-o"></i> <small class="ml-1">Posted Today</small> </div> <img src="https://i.imgur.com/suuFVrQ.png" width="20">
                               
