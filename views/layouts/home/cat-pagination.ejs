@@ -10,7 +10,7 @@
 
             <% } else { %>
             <li class="">
-              <a class="" href="/<%=slug%>?page=1">&lt;</a>
+              <a class="" href="/shop/<%=slug%>?page=1">&lt;</a>
             </li>
             <% } %> <% var i = (Number(currentPage) > 5 ? Number(currentPage) - 4 : 1) %> <% if (i
             !== 1) { %>
@@ -20,7 +20,7 @@
             <li class=" active"><a class=""><%= i %></a></li>
             <% } else { %>
             <li class="">
-              <a class="" href="/<%=slug%>?page=<%= i %>"><%= i %></a>
+              <a class="" href="/shop/<%=slug%>?page=<%= i %>"><%= i %></a>
             </li>
             <% } %> <% if (i == Number(currentPage) + 4 && i < pages) { %>
             <li class=" disabled"><a class="">...</a></li>
@@ -28,7 +28,7 @@
             <li class=" disabled"><a class="">&gt;</a></li>
             <% } else { %>
             <li class="">
-              <a class="" href="/<%=slug%>?page=<%= pages %>">&gt;</a>
+              <a class="" href="/shop/<%=slug%>?page=<%= pages %>">&gt;</a>
             </li>
             <% } %>
     </ul>
