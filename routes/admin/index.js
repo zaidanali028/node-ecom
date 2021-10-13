@@ -2359,9 +2359,8 @@ router.get("/orders", ensureAuthenticated, adminAuth, async (req, res) => {
   const fiftyOffProductsCount = await Product.count({
     isFiftyOff: true,
   });
-  let orderQueryRe;
+  let orderQueryRes;
   let orders = await Order.find({})
-
     .populate("user")
 
     .skip(itemPerPage * currentPage - itemPerPage)

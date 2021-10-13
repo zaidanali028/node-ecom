@@ -17,628 +17,877 @@ var MongoStore = require("connect-mongo");
 
 app.get("/sitemap.xml", function (req, res) {
   res.send(`<?xml version="1.0" encoding="UTF-8"?>
-  <urlset
-        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-              http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-  <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-  
-  
-  <url>
-    <loc>https://yuta-mart.com/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>1.00</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/users/register</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/favourites</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/my-cart</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shipping</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/contact</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/about</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/users/login</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/books/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/classy-watches/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/electronics/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/furniture/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/kids/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/men-s-jeans/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/phones/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/slippers/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/sneakers/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/t-shirts/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/women-corner/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/how-to-win-friends-and-influence-people/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/the-rules-of-wealth/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/eat-that-frog/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/the-millionaire-fastlane/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/think-and-grow-rich/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/leadership/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/the-millionaire-mind/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/the-rules-of-people/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/the-7-habits-of-highly-effective-people/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/9-things-successful-people-do-differently/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/the-rules-of-management/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/3-things-successful-people-do/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/dior-slim-fit-fashion-jeans/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/louise-vuitton-jeans-slim-fit-designer-men-s-jeans/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top-QptWwiy7b/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-lastic-louise-vuitton-shirt-highly-authentic-designer-top/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-lastic-bulbery-shirt-highly-authentic-designer-top/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/i-think-of-myself-quality-designer-men-s-fashion-jeans/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/gucci-men-s-casual-wear/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-lacoste-t-shirts/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/modern-fashion-designer-palm-angels-round-neck-shirt/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/casio-watch-wooden-designer-watch/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-louis-vuitton-fashion-jeans/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/fashion-branded-palm-angels-round-neck-shirt/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/men-s-fashion-casual-outfit-men-s-wear/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/quality-jeans-fit-for-men-casual-outfit-for-men/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-louis-vuitton-jeans/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-polo-t-shirt-ralph-lauren/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/lacoste-long-hand-top/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/offItems</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/books</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/classy-watches</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/electronics</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/furniture</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/kids</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/men-s-jeans</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/phones</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/slippers</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/sneakers</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/t-shirts</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop/women-corner</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/how-to-win-friends-and-influence-people</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/the-rules-of-wealth</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/eat-that-frog</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/the-millionaire-fastlane</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/think-and-grow-rich</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/leadership</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/the-millionaire-mind</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/the-rules-of-people</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/the-7-habits-of-highly-effective-people</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/9-things-successful-people-do-differently</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop?page=2</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop?page=3</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop?page=4</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop?page=5</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/users/forgot</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/fashion-summer-designer-men-s-jeans/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/fashion-quality-branded-channel-jeans/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/fashion-quality-slim-fit-men-s-jeans/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-gucci-slipper-s/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-gum-made-gucci-benga-slippers/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/high-quality-designer-air-force-sneaker/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/arsenal-fc-away-kit-21-22/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/paris-saint-german-home-kit-21-22-Dj1rpMX8x/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/paris-saint-german-away-kit-21-22/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/men-s-fashion-casual-outfit-Pq85QkOVG/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/chrome-quality-t-shirt/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.64</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/the-rules-of-management</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/3-things-successful-people-do</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/dior-slim-fit-fashion-jeans</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/louise-vuitton-jeans-slim-fit-designer-men-s-jeans</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top-QptWwiy7b</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-lastic-louise-vuitton-shirt-highly-authentic-designer-top</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-lastic-bulbery-shirt-highly-authentic-designer-top</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/i-think-of-myself-quality-designer-men-s-fashion-jeans</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-gucci-slipper-s</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop?page=1</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-gum-made-gucci-benga-slippers</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/fashion-summer-designer-men-s-jeans</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/high-quality-designer-air-force-sneaker</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/arsenal-fc-away-kit-21-22</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/paris-saint-german-home-kit-21-22-Dj1rpMX8x</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/paris-saint-german-away-kit-21-22</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/men-s-fashion-casual-outfit-Pq85QkOVG</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/gucci-men-s-casual-wear</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/chrome-quality-t-shirt</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/fashion-quality-branded-channel-jeans</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/fashion-quality-slim-fit-men-s-jeans</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-lacoste-t-shirts</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/modern-fashion-designer-palm-angels-round-neck-shirt</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/casio-watch-wooden-designer-watch</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-louis-vuitton-fashion-jeans</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/fashion-branded-palm-angels-round-neck-shirt</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/men-s-fashion-casual-outfit-men-s-wear</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/mba-lakers-quality-shirts/</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/mba-lakers-quality-shirts</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/quality-jeans-fit-for-men-casual-outfit-for-men</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-louis-vuitton-jeans</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/original-polo-t-shirt-ralph-lauren</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  <url>
-    <loc>https://yuta-mart.com/shop-product/lacoste-long-hand-top</loc>
-    <lastmod>2021-09-29T14:55:03+00:00</lastmod>
-    <priority>0.51</priority>
-  </url>
-  
-  
-  </urlset>
-  `);
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://yuta-mart.com/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/users/register</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/favourites</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/my-cart</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shipping</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/contact</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/about</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/users/login</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/books/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/classy-watches/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/electronics/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/furniture/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/kids/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/men-s-jeans/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/phones/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/slippers/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/sneakers/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/t-shirts/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/unisex/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/women-corner/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/berk-slippers-7kOwEoFRd/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/berk-slippers-v0W5OzpBj/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/air-jordan-4-sneaker/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/official-polo-long-and-short-sleeve-shirts/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/dior-shorts-fir-men-and-women-dJgKlRpF-/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/dior-shorts-fir-men-and-women/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/quality-designer-air-jordan-sneakers/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-nike-airforce-black/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/jeep-khaki-trousers/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/nixon-watch/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-lastic-nike-jacket-and-trouser-highly-authentic-designer-top-n-down/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-air-jordan-sneakers/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/quality-designer-jeans-shirt/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/slim-fit-designer-men-s-jeans/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/how-to-win-friends-and-influence-people/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/the-rules-of-wealth/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/eat-that-frog/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/the-millionaire-fastlane/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/think-and-grow-rich/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/leadership/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/the-millionaire-mind/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/the-rules-of-people/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/the-7-habits-of-highly-effective-people/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/9-things-successful-people-do-differently/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/the-rules-of-management/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/3-things-successful-people-do/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/dior-slim-fit-fashion-jeans/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/louise-vuitton-jeans-slim-fit-designer-men-s-jeans/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top-QptWwiy7b/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-lastic-louise-vuitton-shirt-highly-authentic-designer-top/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-lastic-bulbery-shirt-highly-authentic-designer-top/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/i-think-of-myself-quality-designer-men-s-fashion-jeans/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/gucci-men-s-casual-wear/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-lacoste-t-shirts/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/modern-fashion-designer-palm-angels-round-neck-shirt/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/casio-watch-wooden-designer-watch/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-louis-vuitton-fashion-jeans/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/fashion-branded-palm-angels-round-neck-shirt/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/men-s-fashion-casual-outfit-men-s-wear/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/quality-jeans-fit-for-men-casual-outfit-for-men/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-louis-vuitton-jeans/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-polo-t-shirt-ralph-lauren/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/lacoste-long-hand-top/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/offItems</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/books</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/classy-watches</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/electronics</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/furniture</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/kids</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/men-s-jeans</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/phones</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/slippers</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/sneakers</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/t-shirts</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/unisex</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/women-corner</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/berk-slippers-7kOwEoFRd</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/berk-slippers-v0W5OzpBj</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/berk-slippers/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/berk-slippers</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-air-jordan-13-sneakers-YRagz_FCh/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-air-jordan-13-sneakers-YRagz_FCh</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-air-jordan-13-sneakers/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-air-jordan-13-sneakers</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/air-jordan-4-sneaker</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/official-polo-long-and-short-sleeve-shirts</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/dior-shorts-fir-men-and-women-dJgKlRpF-</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/dior-shorts-fir-men-and-women</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/quality-designer-air-jordan-sneakers</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop?page=2</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop?page=3</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop?page=4</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop?page=5</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop?page=7</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/users/forgot</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/books?page=2</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/fashion-summer-designer-men-s-jeans/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/fashion-quality-branded-channel-jeans/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/fashion-quality-slim-fit-men-s-jeans/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/men-s-jeans?page=2</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-gucci-slipper-s/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-gum-made-gucci-benga-slippers/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-nike-airforce/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/high-quality-designer-air-force-sneaker/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/arsenal-fc-away-kit-21-22/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/paris-saint-german-home-kit-21-22-Dj1rpMX8x/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/paris-saint-german-away-kit-21-22/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/men-s-fashion-casual-outfit-Pq85QkOVG/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/t-shirts?page=2</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-usa-branded-2in1-jacket/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/chrome-quality-t-shirt/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/offItems?page=2</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-nike-airforce-black</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/jeep-khaki-trousers</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/nixon-watch</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-usa-branded-2in1-jacket</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-nike-airforce</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-lastic-nike-jacket-and-trouser-highly-authentic-designer-top-n-down</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-air-jordan-sneakers</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/quality-designer-jeans-shirt</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/slim-fit-designer-men-s-jeans</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/how-to-win-friends-and-influence-people</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop?page=1</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop?page=6</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/the-rules-of-wealth</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/eat-that-frog</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/the-millionaire-fastlane</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/think-and-grow-rich</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/leadership</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/the-millionaire-mind</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/the-rules-of-people</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/the-7-habits-of-highly-effective-people</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/9-things-successful-people-do-differently</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/the-rules-of-management</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/3-things-successful-people-do</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/dior-slim-fit-fashion-jeans</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/louise-vuitton-jeans-slim-fit-designer-men-s-jeans</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top-QptWwiy7b</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-lastic-louise-vuitton-shirt-highly-authentic-designer-top</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-lastic-bulbery-shirt-highly-authentic-designer-top</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/i-think-of-myself-quality-designer-men-s-fashion-jeans</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-gucci-slipper-s</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-gum-made-gucci-benga-slippers</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/fashion-summer-designer-men-s-jeans</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/high-quality-designer-air-force-sneaker</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/arsenal-fc-away-kit-21-22</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/paris-saint-german-home-kit-21-22-Dj1rpMX8x</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/paris-saint-german-away-kit-21-22</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/men-s-fashion-casual-outfit-Pq85QkOVG</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/gucci-men-s-casual-wear</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/chrome-quality-t-shirt</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/fashion-quality-branded-channel-jeans</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/fashion-quality-slim-fit-men-s-jeans</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/lacoste-long-hand-top</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/books?page=1</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/men-s-jeans?page=1</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/mba-lakers-quality-shirts/</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop/t-shirts?page=1</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/offItems?page=1</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-lacoste-t-shirts</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/modern-fashion-designer-palm-angels-round-neck-shirt</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/casio-watch-wooden-designer-watch</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-louis-vuitton-fashion-jeans</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/fashion-branded-palm-angels-round-neck-shirt</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/men-s-fashion-casual-outfit-men-s-wear</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/mba-lakers-quality-shirts</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/quality-jeans-fit-for-men-casual-outfit-for-men</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-louis-vuitton-jeans</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://yuta-mart.com/shop-product/original-polo-t-shirt-ralph-lauren</loc>
+  <lastmod>2021-10-13T16:14:49+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+
+
+</urlset>`);
 });
 // app.set('trust proxy', true);
 
