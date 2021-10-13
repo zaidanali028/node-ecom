@@ -152,6 +152,7 @@
                 <div class="table-responsive">
                   <table class="table m-0" id="tble">
                     <thead>
+                      <!-- <%=orderQueryRes%> -->
                       <tr>
                         <th>Order ID</th>
                         <th>User</th>
@@ -161,7 +162,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <%for(order of orders){%>
+                      <%orderQueryRes.forEach(order=>{%>
                       <tr>
                         <td>
                           <a href="/admin/order-info/<%=order._id%>"
@@ -192,11 +193,11 @@
                         <td>
                       
                           <form action="/admin/order/<%=order._id%>/delete?_method=DELETE"  id="myForm" method="POST">
-                    <div class="mx-3 mt-3 mb-2"><button type="submit"  id="disableMe" class="btn btn-outline-warning btn-block"  onclick="return confirm('Are You Sure You Want To Delete This PRODUCT?')"><small>DELETE PRODUCT</small></a></div> 
+                    <div class="mx-3 mt-3 mb-2"><button type="submit"  id="disableMe" class="btn btn-outline-danger "  onclick="return confirm('Are You Sure You Want To Delete This ORDER?')"><small>DELETE ORDER</small></a></div> 
                   </form>
                         </td>
                       </tr>
-                      <%}%>
+                      <%})%>
                     </tbody>
                   </table>
                 </div>

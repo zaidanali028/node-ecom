@@ -26,6 +26,7 @@ const sgMail = require("@sendgrid/mail");
 
 smsApiKey = process.env.SMS_API_KEY;
 sendGridApiKey = process.env.SENDGRID_API_KEY;
+
 const { ensureAuthenticated } = require("../../config/auth");
 const { adminAuth } = require("../../config/adminAuth");
 
@@ -106,8 +107,10 @@ router.get("/", ensureAuthenticated, adminAuth, async (req, res) => {
 
     //orders preview
     let orders = await Order.find({})
+      .sort({ createdAt: -1 })
+
       .populate("user")
-      .sort({ _id: -1 })
+
       .limit(7);
 
     let users = await User.find({}).populate("fav");
@@ -401,19 +404,21 @@ router.get("/product/:id", ensureAuthenticated, adminAuth, async (req, res) => {
     });
   } catch (e) {}
 });
-
+// SENDING_BLUE_API_KEY
 //changing orderstatus after delivery
 router.post(
   "/order-delivered/:id",
   ensureAuthenticated,
   adminAuth,
   async (req, res) => {
+    sgMail.setApiKey(sendGridApiKey);
     const order = await Order.findById(req.params.id).populate("user");
+    // console.log("mine " + order.user.email);
+    let userEmail = order.user.email;
     const hero = await Hero.findOne({});
     let protocol = process.env.NODE_ENV === "production" ? "https" : "http";
     let support_url = `${protocol}://${req.headers.host}/contact`;
 
-    // console.log(order)
     let itemsPurchased = [];
     for (item of order.cart.items) {
       itemsPurchased.push({
@@ -422,7 +427,7 @@ router.post(
         itemPrice: item.price,
       });
     }
-    // console.log(JSON.parse(JSON.stringify(itemsPurchased)))
+
     let itemspchsD = ``;
     n = "\n";
 
@@ -433,28 +438,24 @@ router.post(
     <h6 style="font-family:verdana; color:red"> item's total price: </h6>₵${item.itemPrice}`;
     }
     let orderDate = new Date(order.createdAt).toDateString();
+    let orderMsg = `
+     <h3 style="font-family:verdana; color:#007bff"> Hello ${order.user.name}  </h3>${n}
 
-    //     let orderMsg = `
-    //  <h3 style="font-family:verdana; color:#007bff"> Hello ${order.user.name}  </h3>${n}
+     <h4 style="font-family:verdana; color:#007bff"> Inventory Report From: </h4> "YUTA-MART"${n}.
+    <h4 style="font-family:verdana; color:#007bff"> Date You Made An Order: </h4> ${orderDate}${n}.
 
-    //  <h4 style="font-family:verdana; color:#007bff"> Inventory Report From: </h4> ${hero.name}${n}.
-    // <h4 style="font-family:verdana; color:#007bff"> Date You Made An Order: </h4> ${orderDate}${n}.
-
-    //  <h5 style="font-family:verdana; color:#007bff"> Items You Purchased: </h5>
-    //   ${itemspchsD}
-    //  <h6> TotalCost Of Your Order Was: ₵${order.cart.totalCost}</h6>
-    //  </h6> Thank You For Buying From Us,We hope To See You Again Soon. </h6>
-    //  </h6> Kindly Join Our NewsLetter For More Awesome And Crazy Deals </h6>
-    //   `;
-    // console.log(`${order.user.email} AND ${hero.name} AND  ${orderMsg}`)
-
-    sgMail.setApiKey(sendGridApiKey);
+     <h5 style="font-family:verdana; color:#007bff"> Items You Purchased: </h5>
+      ${itemspchsD}
+     <h6> TotalCost Of Your Order Was: ₵${order.cart.totalCost}</h6>
+     </h6> Thank You For Buying From Us,We hope To See You Again Soon. </h6>
+     </h6> Kindly Join Our NewsLetter For More Awesome And Crazy Deals </h6>
+      `;
 
     const msg = {
-      to: `${order.user.email}`,
-      from: `developersavenue@gmail.com`,
-      subject: `Mini Receipt [YUTA-MART]`,
-
+      from: "developersavenue@gmail.com", // Change to your recipient
+      to: userEmail, // Change to your verified sender
+      subject: "Mini Receipt [YUTA-MART]",
+      text: "and easy to do anywhere, even with Node.js",
       html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml">
         <head>
@@ -890,7 +891,6 @@ router.post(
         <![endif]-->
         </head>
         <body>
-          <!-- <span class="preheader">This is an invoice for your purchase on {{ purchase_date }}. Please submit payment by {{ due_date }}</span> -->
           <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
             <tr>
               <td align="center">
@@ -969,7 +969,7 @@ router.post(
                                       </tr>
                                       <!-- {{#each invoice_details}} -->
                                       <tr>
-                                        ${itemspchsD}
+                                         ${itemspchsD}
                                         
                                       </tr>
                                       <tr>
@@ -1020,29 +1020,33 @@ router.post(
         </body>
       </html>`,
     };
-    sgMail.send(msg).then(() => {
-      console.log("Mail sent........");
-    });
 
-    let sender = "YUTA";
+    sgMail
+      .send(msg)
+      .then(async () => {
+        let sender = "YUTA";
 
-    let sms =
-      "Hello,we just sent you the inventory report of your purchase through your email,thank you for buying from us";
-    let senderEncode = encodeURI(sms);
-    recipient = order.phone;
-    senderEncode = encodeURI(sender);
-    let messageEncode = encodeURI(sms);
+        let sms =
+          "Hello,we just sent you the inventory report of your purchase through your email,thank you for buying from us";
+        let senderEncode = encodeURI(sms);
+        recipient = order.phone;
+        senderEncode = encodeURI(sender);
+        let messageEncode = encodeURI(sms);
 
-    let url = `https://sms.textcus.com/api/send?apikey=${smsApiKey}&destination=${recipient}&source=${senderEncode}&dlr=0&type=0&message=${messageEncode}`;
-    // Using axios to send a get request
-    axios.get(url).then((resp) => {
-      console.log(resp);
-    });
+        let url = `https://sms.textcus.com/api/send?apikey=${smsApiKey}&destination=${recipient}&source=${senderEncode}&dlr=0&type=0&message=${messageEncode}`;
+        // Using axios to send a get request
+        axios.get(url).then((resp) => {
+          console.log(resp);
+        });
 
-    order.Delivered = true;
-    await order.save();
-    req.flash("success_msg", "Order Status Successfully Changed");
-    res.redirect("/admin/orders");
+        order.Delivered = true;
+        await order.save();
+        req.flash("success_msg", "Order Status Successfully Changed");
+        res.redirect("/admin/orders");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 );
 
@@ -2355,12 +2359,18 @@ router.get("/orders", ensureAuthenticated, adminAuth, async (req, res) => {
   const fiftyOffProductsCount = await Product.count({
     isFiftyOff: true,
   });
-  const orders = await Order.find({})
+  let orderQueryRe;
+  let orders = await Order.find({})
+
     .populate("user")
 
-    .sort({ _id: -1 })
     .skip(itemPerPage * currentPage - itemPerPage)
-    .limit(itemPerPage);
+    .limit(itemPerPage)
+    .sort({ updatedAt: -1 })
+    .exec(function (err, docs) {
+      orderQueryRes = docs;
+      // console.log(orderQueryRes);
+    });
 
   let DeliveredOrders = await Order.count({ Delivered: true });
   let DeliveredOrdersPct = (DeliveredOrders / orderCount) * 100;
@@ -2380,7 +2390,7 @@ router.get("/orders", ensureAuthenticated, adminAuth, async (req, res) => {
     DeliveredOrders,
     notDeliveredOrders,
     notDeliveredOrdersPct,
-    orders,
+    orderQueryRes,
     cCount,
     pcount,
     orderCount,
