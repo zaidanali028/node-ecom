@@ -29,6 +29,21 @@ sendGridApiKey = process.env.SENDGRID_API_KEY;
 const { ensureAuthenticated } = require("../../config/auth");
 const { adminAuth } = require("../../config/adminAuth");
 
+//deleting an order
+router.delete("/order/:id/delete", async (req, res) => {
+  try {
+    console.log("here!  ");
+    await Order.findByIdAndDelete(req.params.id);
+    req.flash(
+      "success_msg",
+      `order with id ${req.params.id} is deleted successfully`
+    );
+    res.redirect(req.headers.referer);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 router.get("/", ensureAuthenticated, adminAuth, async (req, res) => {
   try {
     req.session.currentUrl = req.originalUrl;
@@ -90,7 +105,7 @@ router.get("/", ensureAuthenticated, adminAuth, async (req, res) => {
     let fiftyOffProductsCount = await Product.count({ isFiftyOff: true });
 
     //orders preview
-    let orders = await Order.find({  })
+    let orders = await Order.find({})
       .populate("user")
       .sort({ _id: -1 })
       .limit(7);
@@ -115,14 +130,13 @@ router.get("/", ensureAuthenticated, adminAuth, async (req, res) => {
 
     //recently added products
     let prdctNew = await Product.find({}).sort({ createdAt: -1 }).limit(10);
-    let apiKey=process.env.SMS_API_KEY;
-    let slotsLeft=''
-    let smsBalUrl=`https://sms.textcus.com/api/balance?apikey=${apiKey}`
-    let resp=await axios.get(smsBalUrl)
-       slotsLeft=resp.data['SMS balance']
-      
-   
-    console.log(slotsLeft)
+    let apiKey = process.env.SMS_API_KEY;
+    let slotsLeft = "";
+    let smsBalUrl = `https://sms.textcus.com/api/balance?apikey=${apiKey}`;
+    let resp = await axios.get(smsBalUrl);
+    slotsLeft = resp.data["SMS balance"];
+
+    console.log(slotsLeft);
 
     res.render("admin/index", {
       slotsLeft,
@@ -396,10 +410,8 @@ router.post(
   async (req, res) => {
     const order = await Order.findById(req.params.id).populate("user");
     const hero = await Hero.findOne({});
-    let protocol=process.env.NODE_ENV === "production"?"https":"http"
-    let support_url=`${protocol}://${req.headers.host}/contact`
-
-
+    let protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+    let support_url = `${protocol}://${req.headers.host}/contact`;
 
     // console.log(order)
     let itemsPurchased = [];
@@ -413,28 +425,27 @@ router.post(
     // console.log(JSON.parse(JSON.stringify(itemsPurchased)))
     let itemspchsD = ``;
     n = "\n";
- 
+
     for (item of itemsPurchased) {
       itemspchsD += `${n} <h6  style="font-family:verdana; color:#256AB4">Item's Name:</h6>   ${item.itemName}
     <h6 style="font-family:verdana; color:red">Quantity Bought:</h6> ${item.itemQty}
     ===${n}
     <h6 style="font-family:verdana; color:red"> item's total price: </h6>₵${item.itemPrice}`;
-   
-  }
+    }
     let orderDate = new Date(order.createdAt).toDateString();
 
-//     let orderMsg = `
-//  <h3 style="font-family:verdana; color:#007bff"> Hello ${order.user.name}  </h3>${n}
+    //     let orderMsg = `
+    //  <h3 style="font-family:verdana; color:#007bff"> Hello ${order.user.name}  </h3>${n}
 
-//  <h4 style="font-family:verdana; color:#007bff"> Inventory Report From: </h4> ${hero.name}${n}.
-// <h4 style="font-family:verdana; color:#007bff"> Date You Made An Order: </h4> ${orderDate}${n}.
+    //  <h4 style="font-family:verdana; color:#007bff"> Inventory Report From: </h4> ${hero.name}${n}.
+    // <h4 style="font-family:verdana; color:#007bff"> Date You Made An Order: </h4> ${orderDate}${n}.
 
-//  <h5 style="font-family:verdana; color:#007bff"> Items You Purchased: </h5>
-//   ${itemspchsD} 
-//  <h6> TotalCost Of Your Order Was: ₵${order.cart.totalCost}</h6>
-//  </h6> Thank You For Buying From Us,We hope To See You Again Soon. </h6>
-//  </h6> Kindly Join Our NewsLetter For More Awesome And Crazy Deals </h6>
-//   `;
+    //  <h5 style="font-family:verdana; color:#007bff"> Items You Purchased: </h5>
+    //   ${itemspchsD}
+    //  <h6> TotalCost Of Your Order Was: ₵${order.cart.totalCost}</h6>
+    //  </h6> Thank You For Buying From Us,We hope To See You Again Soon. </h6>
+    //  </h6> Kindly Join Our NewsLetter For More Awesome And Crazy Deals </h6>
+    //   `;
     // console.log(`${order.user.email} AND ${hero.name} AND  ${orderMsg}`)
 
     sgMail.setApiKey(sendGridApiKey);
@@ -1316,7 +1327,6 @@ router.post("/coupon", ensureAuthenticated, adminAuth, async (req, res) => {
   const addresS = await Address.findOne({});
   const subCount = await Mail.count({});
 
-
   let fiftyOffProductsCount = await Product.count({ isFiftyOff: true });
 
   errors = [];
@@ -1358,7 +1368,7 @@ router.post("/coupon", ensureAuthenticated, adminAuth, async (req, res) => {
       addresS,
       siteLogo,
       user,
-      subCount
+      subCount,
     });
   } else {
     validation.passes(async () => {
@@ -2346,12 +2356,11 @@ router.get("/orders", ensureAuthenticated, adminAuth, async (req, res) => {
     isFiftyOff: true,
   });
   const orders = await Order.find({})
-  .populate("user")
+    .populate("user")
 
     .sort({ _id: -1 })
     .skip(itemPerPage * currentPage - itemPerPage)
-    .limit(itemPerPage)
-
+    .limit(itemPerPage);
 
   let DeliveredOrders = await Order.count({ Delivered: true });
   let DeliveredOrdersPct = (DeliveredOrders / orderCount) * 100;

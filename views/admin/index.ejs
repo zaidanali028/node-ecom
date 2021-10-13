@@ -177,6 +177,8 @@
                             <th>User</th>
                             <th>Status</th>
                             <th>Date</th>
+                        <th>DELETE ORDER</th>
+
                           </tr>
                         </thead>
                         <tbody>
@@ -207,6 +209,12 @@
                                 <%=new Date(order.createdAt).toDateString()%>
                               </div>
                             </td>
+                              <td>
+                      
+                          <form action="/admin/order/<%=order._id%>/delete?_method=DELETE"  id="myForm" method="POST">
+                    <div class="mx-3 mt-3 mb-2"><button type="submit"  id="disableMe" class="btn btn-outline-warning btn-block"  onclick="return confirm('Are You Sure You Want To Delete This PRODUCT?')"><small>DELETE PRODUCT</small></a></div> 
+                  </form>
+                        </td>
                           </tr>
                           <%}%>
                         </tbody>

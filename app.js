@@ -638,11 +638,14 @@ app.get("/sitemap.xml", function (req, res) {
   
   
   </urlset>
-  `)
+  `);
 });
 // app.set('trust proxy', true);
 
-const dbUrI =process.env.NODE_ENV === "production"? process.env.DB_URL:"mongodb://localhost:27017/eshop-update"
+const dbUrI =
+  process.env.NODE_ENV === "production"
+    ? process.env.DB_URL
+    : "mongodb://localhost:27017/eshop-update";
 
 app.enable("trust proxy"); // trust all
 
@@ -709,17 +712,26 @@ if (process.env.NODE_ENV === "production") {
   app.use(requireHTTPS);
 }
 
+// app.use(
+//   session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+
+//     //session expires after 3 hours
+//     cookie: { maxAge: 60 * 1000 * 60 * 3 },
+//     store: MongoStore.create({
+//       mongoUrl: dbUrI,
+//     }),
+//   })
+// );
+
+//Session
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: "keyboard cat",
     resave: false,
-    saveUninitialized: false,
-
-    //session expires after 3 hours
-    cookie: { maxAge: 60 * 1000 * 60 * 3 },
-    store: MongoStore.create({
-      mongoUrl: dbUrI,
-    }),
+    saveUninitialized: true,
   })
 );
 

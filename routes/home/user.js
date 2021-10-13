@@ -114,7 +114,7 @@ router.post("/register", async (req, res) => {
         //console.log(newUser);
 
         req.flash("success_msg", "Registration was successful!");
-        
+
         res.redirect("/users/login");
       }
     } catch (e) {
@@ -189,32 +189,33 @@ router.get("/login", async (req, res) => {
 });
 
 router.post("/login", async (req, res, next) => {
-  
-
   try {
-    let {email}=req.body
-  let user=await User.findOne({email})
+    let { email } = req.body;
+    let user = await User.findOne({ email: email });
 
-   if(user){
-    passport.authenticate("local", {
-      successRedirect:user.isAdmin==true?"/admin":req.session.currentUrl?req.session.currentUrl:"/shop",
+    if (user) {
+      passport.authenticate("local", {
+        successRedirect:
+          user.isAdmin == true
+            ? "/admin"
+            : req.session.currentUrl
+            ? req.session.currentUrl
+            : "/shop",
 
-      successFlash: true,
-      failureRedirect: "/users/login",
-      failureFlash: true,
-    })(req, res, next);
-   }else{
-     req.flash("error_msg","please register")
-     res.redirect('/users/register')
-   }
-    
+        successFlash: true,
+        failureRedirect: "/users/login",
+        failureFlash: true,
+      })(req, res, next);
+    } else {
+      req.flash("error_msg", "please register");
+      res.redirect("/users/register");
+    }
   } catch (e) {
     console.log(e);
   }
 });
 
 router.get("/forgot", async (req, res) => {
-  
   try {
     let isAdmin;
     if (req.isAuthenticated()) {
@@ -307,7 +308,7 @@ router.post("/forgot", async (req, res, next) => {
             done(err, token);
           });
         },
-      //yo
+        //yo
         function (token, done) {
           User.findOne({ email: req.body.email }, function (err, user) {
             if (!user) {
@@ -329,10 +330,10 @@ router.post("/forgot", async (req, res, next) => {
         async function (token, user, done) {
           let hero = await Hero.findOne({});
 
-      
-        let protocol=process.env.NODE_ENV === "production"?"https":"http"
-          const resetUrl=`${protocol}://${req.headers.host}/users/reset/${token}`
-          let support_url=`${protocol}://${req.headers.host}/contact`
+          let protocol =
+            process.env.NODE_ENV === "production" ? "https" : "http";
+          const resetUrl = `${protocol}://${req.headers.host}/users/reset/${token}`;
+          let support_url = `${protocol}://${req.headers.host}/contact`;
           // console.log(msg)
           const msg = {
             to: `${user.email}`,
@@ -922,7 +923,7 @@ router.get("/reset/:token", async function (req, res) {
           address,
           cartCount,
           isAdmin,
-          token:req.params.token
+          token: req.params.token,
         });
       }
     );
@@ -931,7 +932,7 @@ router.get("/reset/:token", async function (req, res) {
 
 router.post("/reset/:token", async function (req, res) {
   let isAdmin;
-  let token=req.params.token
+  let token = req.params.token;
   if (req.isAuthenticated()) {
     isAdmin = req.user.isAdmin;
   } else {
@@ -967,7 +968,7 @@ router.post("/reset/:token", async function (req, res) {
       address,
       cartCount,
       isAdmin,
-      token
+      token,
     });
   }
   async.waterfall(
@@ -990,7 +991,7 @@ router.post("/reset/:token", async function (req, res) {
             user.resetPasswordToken = undefined;
             user.resetPasswordExpires = undefined;
             await user.save();
-            req.flash("success_msg","Password successfully changed!")
+            req.flash("success_msg", "Password successfully changed!");
             res.redirect("/users/login");
           }
         );
