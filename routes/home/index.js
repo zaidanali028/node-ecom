@@ -147,8 +147,15 @@ router.get("/favourites", async (req, res) => {
 
   products = await User.findOne({ _id: userId }).populate({
     path: "fav",
-    options: { sort: { createdAt: -1 }, skip: skip, limit: itemPerPage },
+    // options: { sort: { createdAt: -1 }, skip: skip, limit: itemPerPage },
   });
+  let totalOfFavList = [];
+  console.log(products);
+  for (let product of products.fav) {
+    totalOfFavList.push(product.price);
+  }
+  totalOfFav = totalOfFavList.reduce((initial, next) => initial + next);
+  // console.log(`totalOfFavList ${totalOfFavList} totalOfFav ${totalOfFav} `);
 
   let ad = await Ad.findOne({}).populate("user");
   let hero = await Hero.findOne({});
@@ -191,6 +198,7 @@ router.get("/favourites", async (req, res) => {
     userFav,
     LoggedIn: req.isAuthenticated(),
     isAdmin,
+    totalOfFav,
   });
 });
 
@@ -2507,6 +2515,7 @@ router.post("/add-to-cart/:id", ensureAuthenticated, async (req, res) => {
     let user_cart;
     let cart;
     //user_cart = await Cart.findOne({ user: req.user._id });
+
     user_cart = await Cart.findOne({ user: userId });
     if (!user_cart) {
       cart = new Cart({});
@@ -2730,5 +2739,111 @@ router.post("/subscribe", async (req, res) => {
 
   res.redirect(req.headers.referer);
 });
+
+//remove a product from a user's favourites
+router.delete(
+  "/remove-wishlist-product/:id",
+  ensureAuthenticated,
+  async (req, res) => {
+    let userFav = await req.user.fav;
+    let idToRemove = req.params.id;
+    let productToRemoveName = await Product.findById(idToRemove);
+    productToRemoveName = productToRemoveName.name;
+    // userFav.filter(removeUnwanted);
+    let newFavList = userFav.filter((item) => item != idToRemove);
+
+    // updating user's favourites
+    let user = await User.findById(req.user.id);
+    user.fav = newFavList;
+    user = await user.save();
+    // console.log(`Before ${userFav} After ${newFavList} and user ${user.fav}`);
+    req.flash(
+      "success_msg",
+      `Successfully removed ${productToRemoveName} from your favourites list`
+    );
+    res.redirect(req.headers.referer);
+  }
+);
+
+router.post(
+  "/fav-to-cart",
+  ensureAuthenticated,
+
+  async (req, res) => {
+    let cart;
+    let userFav = req.user.fav;
+    user_cart = await Cart.findOne({ user: req.user._id });
+
+    if (!user_cart) {
+      cart = new Cart({});
+      //if user has no cart in db
+    } else {
+      cart = user_cart;
+      // if user has a cart,I wil dynamically access the cart and manipulate it
+    }
+
+    for (favProduct of userFav) {
+      // console.log("yh" + favProduct);
+
+      const product = await Product.findById(favProduct);
+      let stockLeft = product.countInStock;
+      let productId = product._id;
+      const itemIndex = cart.items.findIndex(
+        (p) => p.productId.toString() == productId.toString()
+      );
+
+      if (itemIndex > -1) {
+        // console.log("yh" + favProduct);
+        //   //update
+        if (stockLeft < 1) {
+          req.flash(
+            "error_msg",
+            `Sorry,please remove ${product.name} from your favourites,we are out of stock `
+          );
+          return res.redirect(req.headers.referer);
+        } else {
+          //     // if product exists in the cart, update the quantity
+          cart.items[itemIndex].qty += 1;
+          //     //remove old price of this item from total cost
+          cart.totalCost -= cart.items[itemIndex].price;
+          cart.items[itemIndex].price =
+            cart.items[itemIndex].qty * product.price;
+          cart.totalQty += 1;
+          cart.totalCost += cart.items[itemIndex].price;
+        }
+      } else {
+        //   // if product does not exists in cart, find it in the db to retrieve its price and add new item
+        //   //update
+        if (stockLeft < 1) {
+          req.flash(
+            "error_msg",
+            `Sorry,please remove ${product.name} from your favourites,we are out of stock `
+          );
+          return res.redirect(req.headers.referer);
+        } else {
+          const singlePrice = 1 * product.price;
+          //     // console.log(singlePrice)
+          cart.items.push({
+            productId: favProduct,
+            qty: 1,
+            price: singlePrice,
+            title: product.name,
+          });
+          cart.totalQty += 1;
+          cart.totalCost += singlePrice;
+        }
+      }
+      //   cart.user = req.user._id;
+      cart.user = req.user._id;
+      await cart.save();
+    }
+    let user = await User.findById(req.user._id);
+    user.fav = [];
+    user = await user.save();
+
+    req.flash("success_msg", `All your favourites are in your cart now`);
+    return res.redirect("/my-cart");
+  }
+);
 
 module.exports = router;

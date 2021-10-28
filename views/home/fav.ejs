@@ -23,7 +23,6 @@
 
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" integrity="sha512-NXUhxhkDgZYOMjaIgd89zF2w51Mub53Ru3zCNp5LTlEzMbNNAjTjDbpURYGS5Mop2cU4b7re1nOIucsVlrx9fA==" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.css" >
 <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
  
 </head>
@@ -38,7 +37,7 @@
     <div class="bg-light py-3">
         <div class="container">
           <div class="row">
-            <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Shop</strong></div>
+            <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Favourite</strong></div>
           </div>
         </div>
       </div>
@@ -59,24 +58,104 @@
              
             
               <div class="row mb-5">
-                  <%products.fav.forEach(product=>{%>
-                <div class="col-sm-6 col-lg-4 mb-4 aos-init aos-animate" data-aos="fade-up">
-                    <div class="block-4 text-center border">
-                      <figure class="block-4-image">
-                        <a href="/shop-product/<%=product.slug%>/"><img width="479" height="349" src="<%=product.image[0]%>"  style="background-position: center; background-size:cover" alt="<%=product.name%>" class="img-fluid"></a>
-                      </figure>
-                      <div class="block-4-text p-4">
-                        <h3 class="text-capitalize"><a href="/shop-product/<%=product.slug%>/"><%=product.name%></a></h3>
-                        <p class="mb-0"><%=product.description.substring(0,50)%>....</p>
-                        <p class="text-primary font-weight-bold"><%=product.price%></p>
-                      </div>
+                  
+                  <div class="site-blocks-table">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th class="product-thumbnail">Image</th>
+                    <th class="product-name ">Product</th>
+                    <th class="product-price">Price</th>
+            
+                 
+                    <th class="product-remove">Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 <%products.fav.slice().reverse().forEach(product=>{%>
+                   
+              
+                
+                  <tr>
+                    <td class="product-thumbnail">
+                      <img src="<%=product.image[0]%>" alt="Image" class="img-fluid">
+                    </td>
+                    <td class="product-name">
+                      <h2 class="h5 text-black text-capitalize"><%=product.name%></h2>
+                    </td>
+                    <td> GH₵ <%=product.price%></td>
+                    
+                 
+                <td>                      <form action="/remove-wishlist-product/<%=product._id%>?_method=DELETE"  id="myForm" method="POST">
+                    <div class="mx-3 mt-3 mb-2"><button type="submit"  id="disableMe" class="btn btn-primary btn-sm"  onclick="return confirm('Are You Sure You Want To Remove This From Your Favourites?')">X</a></div> 
+                  </form>
+                  </td>
+
+                  </tr>
+  <%})%>
+                  
+                </tbody>
+              </table>
+              <div class="  d-sm-block">
+                         <form action="/fav-to-cart"  id="myForm" method="POST">
+
+                 
+              <button class="btn  btn-primary" type="submit">Add All To Cart</button>
+
+                    
+                  </form>
+             
+
+              </div>
+            </div>
+            
+
+              </div>
+                   <div class="col-md- pl-3">
+              <div class="row justify-content-end">
+                <div class="col-md-7">
+                  <div class="row">
+                    <div class="col-md-12 text-right border-bottom mb-5">
+                      <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
                     </div>
                   </div>
-                  <%})%>
-    
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <span class="text-black">Subtotal</span>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <strong class="text-black">GH₵ <%=totalOfFav%> </strong>
+                    </div>
+                  </div>
+                  <div class="row mb-5">
+                    <div class="col-md-6">
+                      <span class="text-black">Total</span>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <strong class="text-black">GH₵ <%=totalOfFav%> </strong>
+                    </div>
+                  </div>
+  
+                  <div class="row">
+                    <div class="col-md-12">
+                         <div class="  d-sm-block">
+                         <form action="/fav-to-cart"  id="myForm" method="POST">
+
+                 
+              <button class="btn  btn-primary" type="submit">Move All To Cart</button>
+
+                    
+                  </form>
+             
+
               </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
               <div class="row aos-init aos-animate" data-aos="fade-up">
-                <%-include('../layouts/home/paginate-fav')%>
+                <!-- <%-include('../layouts/home/paginate-fav')%> -->
               </div>
             </div>
           <%}else{%>
@@ -225,6 +304,44 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.js" integrity="sha512-mgZL3SZ/vIooDg2mU2amX6NysMlthFl/jDbscSRgF/k3zmICLe6muAs7YbITZ+61FeUoo1plofYAocoR5Sa1rQ==" crossorigin="anonymous"></script>
    
   <%-include('../layouts/home/preloaderJS.ejs')%>
+<!-- <%-include('../layouts/admin/scripts.ejs')%> -->
+<script src="/js/toastr.js"></script>
+<script>
+    window.onload=function(){
+      toastr.options = {
+  "closeButton": true,
+  "newestOnTop": false,
+  "progressBar": true,
+  // "positionClass": "toast-bottom-center",
+  // "preventDuplicates": false,
+  // "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+
+           <% 
+             if (success_msg != ""){ %>
+
+toastr.success('<%= success_msg %>'); 
+
+
+           <% } %>
+           
+           <% 
+             if (error_msg != ""){ %>
+               toastr.error('<%= error_msg %>'); 
+           <% } %>
+
+        
+    }
+</script>
+
 
   </body>
 </html>

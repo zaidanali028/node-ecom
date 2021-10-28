@@ -36,20 +36,30 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/dist/js/pages/dashboard2.js"></script>
 
-<script src="/js/toastr.js"></script>
 <script src="/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="/js/toastr.js"></script>
 <script>
     window.onload=function(){
+      toastr.options = {
+  "closeButton": true,
+  "newestOnTop": false,
+  "progressBar": true,
+  // "positionClass": "toast-bottom-center",
+  // "preventDuplicates": false,
+  // "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
 
            <% 
              if (success_msg != ""){ %>
-//                toastr.success('<%= success_msg %>'); //Success messages
-//                Swal.fire({
-//   icon: 'success',
-//   title: 'Success...',
-//   text: '<%= success_msg %>',
-//   footer: 'status:success'
-// })
+
 toastr.success('<%= success_msg %>'); 
 
 

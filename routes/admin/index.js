@@ -404,7 +404,7 @@ router.get("/product/:id", ensureAuthenticated, adminAuth, async (req, res) => {
     });
   } catch (e) {}
 });
-// SENDING_BLUE_API_KEY
+
 //changing orderstatus after delivery
 router.post(
   "/order-delivered/:id",
@@ -1705,7 +1705,7 @@ router.get(
 
     Category.find({ _id: id }).then(async (CAtegory) => {
       Category.find({})
-        .sort({ name: 1 })
+        .sort({ createdAt: -1 })
         .then(async (categories) => {
           const pcount = await Product.countDocuments();
           const cartCount = await Cart.countDocuments();
@@ -2080,6 +2080,58 @@ router.get(
   }
 );
 
+//updating a single product with no pictures
+router.get(
+  "/product-lte/:id/edit",
+  ensureAuthenticated,
+  adminAuth,
+  async (req, res) => {
+    let lOgo = await Logo.findOne({});
+    let siteLogo = lOgo ? lOgo.url : " ";
+    req.session.currentUrl = req.originalUrl;
+
+    let user = req.user;
+    if (!user) {
+      req.flash("error_msg", "please re-login");
+      res.redirect("/users/login");
+    }
+    const pcount = await Product.countDocuments();
+    const cCount = await Coupon.countDocuments();
+    const products = await Product.find({});
+    const orderCount = await Order.countDocuments();
+    const hero = await Hero.findOne({});
+    let ad50 = await Ad.findOne({});
+    const addresS = await Address.findOne({});
+    const subCount = await Mail.count({});
+
+    let fiftyOffProductsCount = await Product.count({ isFiftyOff: true });
+
+    Category.find({})
+      .sort({ createdAt: -1 })
+      .then((categories) => {
+        Product.findById(req.params.id).then((product) => {
+          Category.findById(product.category).then((chosenCategory) => {
+            res.render("admin/editProductLte", {
+              categories,
+              product,
+              chosenCategory,
+              pcount,
+              cCount,
+              fiftyOffProductsCount,
+              orderCount,
+              hero,
+              ad50,
+              addresS,
+              subCount,
+              siteLogo,
+              user,
+            });
+          });
+        });
+      });
+  }
+);
+
 //posting update of product
 router.post(
   "/product/:id/edit/",
@@ -2253,6 +2305,162 @@ router.post(
             product.originalCountInStock = req.body.stockCount;
             product.isFiftyOff = req.body.dsc;
             product.image = urls;
+            product.keyFeatures = req.body.keyFeatures;
+            product.picGallery = req.body.picGallery;
+
+            await product.save();
+            req.flash("success_msg", `Successfully Updated ${product.name}`);
+            res.redirect("/admin/");
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      });
+    }
+  }
+);
+
+//posting update of product(NO IMAGE UPLOAD)
+router.post(
+  "/product/:id/edit-lte/",
+  ensureAuthenticated,
+  adminAuth,
+  async (req, res) => {
+    let lOgo = await Logo.findOne({});
+    let siteLogo = lOgo ? lOgo.url : " ";
+    let product = await Product.findById(req.params.id);
+
+    let user = req.user;
+    if (!user) {
+      req.flash("error_msg", "please re-login");
+      res.redirect("/users/login");
+    }
+    errors = [];
+    const { desc, name, rdesc, category, price, stockCount, keyFeatures } =
+      req.body;
+
+    //console.log(desc);
+    const validation = new Validator(
+      {
+        name: req.body.name,
+        description: req.body.desc,
+        rDesc: req.body.rdesc,
+        category: req.body.category,
+        price: req.body.price,
+        countInStock: req.body.stockCount,
+        featured: req.body.feature,
+        keyFeatures: req.body.keyFeatures,
+      },
+      {
+        name: "string|required",
+        description: "required|string",
+        rDesc: "required",
+        category: "required",
+        price: "numeric|required",
+        countInStock: "numeric|required",
+        featured: "required",
+        keyFeatures: "required",
+      }
+    );
+    if (validation.fails()) {
+      const hero = await Hero.findOne({});
+      let ad50 = await Ad.findOne({});
+      const addresS = await Address.findOne({});
+      const subCount = await Mail.count({});
+      const pcount = await Product.countDocuments();
+      const cCount = await Coupon.countDocuments();
+      let fiftyOffProductsCount = await Product.count({ isFiftyOff: true });
+      const orderCount = await Order.countDocuments();
+
+      const errName = validation.errors.get("name");
+      const errDesc = validation.errors.get("description");
+      const errR_Desc = validation.errors.get("rDesc");
+      const errCat = validation.errors.get("category");
+      const errPrc = validation.errors.get("price");
+      const errCStock = validation.errors.get("countInStock");
+      const errFeatured = validation.errors.get("featured");
+      const errWorth = validation.errors.get("worth");
+      const errKeyFeatures = validation.errors.get("keyFeatures");
+
+      errors.push(
+        errName,
+        errDesc,
+        errR_Desc,
+        errCat,
+        errPrc,
+        errCStock,
+        errFeatured,
+        errWorth,
+        errKeyFeatures
+      );
+      Category.find({})
+        .sort({ name: 1 })
+        .then((categories) => {
+          Product.findById(req.params.id).then((product) => {
+            Category.findById(product.category).then((chosenCategory) => {
+              res.render("admin/editProductLte", {
+                errors,
+                categories,
+                product,
+                chosenCategory,
+                desc,
+                name,
+                rdesc,
+                category,
+                price,
+                stockCount,
+                ad50,
+                hero,
+                addresS,
+                subCount,
+                cCount,
+                pcount,
+                fiftyOffProductsCount,
+                orderCount,
+                siteLogo,
+                user,
+                keyFeatures,
+              });
+            });
+          });
+        });
+    } else {
+      validation.passes(async () => {
+        try {
+          // //console.log(urls)
+
+          if (req.body.dsc == "true") {
+            product.name = req.body.name;
+            product.description = req.body.desc;
+            product.richDescription = req.body.rdesc;
+            product.discount = 50;
+            product.oldPrice = req.body.price;
+            product.price = req.body.price - (50 / 100) * req.body.price;
+            product.category = req.body.category;
+            product.isFeatured = req.body.feature;
+            product.countInStock = req.body.stockCount;
+            product.originalCountInStock = req.body.stockCount;
+            product.isFiftyOff = req.body.dsc;
+
+            product.picGallery = req.body.picGallery;
+
+            product.keyFeatures = req.body.keyFeatures;
+            await product.save();
+            req.flash("success_msg", `Successfully Updated ${product.name}`);
+            res.redirect("/admin/");
+          } else {
+            product.name = req.body.name;
+            product.description = req.body.desc;
+            product.richDescription = req.body.rdesc;
+            product.discount = 0;
+            product.oldPrice = req.body.price;
+            product.price = req.body.price;
+            product.category = req.body.category;
+            product.isFeatured = req.body.feature;
+            product.countInStock = req.body.stockCount;
+            product.originalCountInStock = req.body.stockCount;
+            product.isFiftyOff = req.body.dsc;
+
             product.keyFeatures = req.body.keyFeatures;
             product.picGallery = req.body.picGallery;
 

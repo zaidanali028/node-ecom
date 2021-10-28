@@ -101,7 +101,7 @@ router.post("/register", async (req, res) => {
       let existUser = await User.findOne({ name });
       let existUser2 = await User.findOne({ email });
       if (existUser || existUser2) {
-        req.flash("error_msg", "This account already exists!");
+        req.flash("error_msg", "This username/email already exists!");
         res.redirect("/users/register");
       } else {
         let newUser = new User({

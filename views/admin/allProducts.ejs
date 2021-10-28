@@ -69,6 +69,17 @@
                     
                     
                     <div class="mx-3 mt-3 mb-2"><a type="button"  href="/admin/product/<%=product._id%>/edit"class="btn btn-outline-info btn-block"><small>EDIT PRODUCT</small></a></div> 
+                     <div class="mx-3 mt-3 mb-2"><a type="button"  href="/admin/product-lte/<%=product._id%>/edit"class="btn btn-outline-secondary btn-block"><small>EDIT PRODUCT(WITH NO Picture)</small></a></div> 
+
+                    
+
+
+                    
+
+
+
+
+
                       
                       <form action="/admin/product/<%=product._id%>/edit?_method=DELETE"  id="myForm" method="POST">
                     <div class="mx-3 mt-3 mb-2"><button type="submit"  id="disableMe" class="btn btn-outline-warning btn-block"  onclick="return confirm('Are You Sure You Want To Delete This PRODUCT?')"><small>DELETE PRODUCT</small></a></div> 
