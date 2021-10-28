@@ -2789,60 +2789,63 @@ router.post(
       // console.log("yh" + favProduct);
 
       // const product = await Product.findById(favProduct.toString());
-      const product = await Product.findOne({ _id: favProduct.toString() });
+      Product.findOne({ _id: favProduct.toString() }).then(async (product) => {
+        console.log(`THIS OO THIS  ${product}`);
+        // let stockLeft = product.countInStock;
 
-      console.log(`THIS OO THIS  ${product}`);
-      // let stockLeft = product.countInStock;
+        // console.log(`stockLeft ${stockLeft}`);
+        let productId = product._id;
+        const itemIndex = cart.items.findIndex(
+          (p) => p.productId.toString() == productId.toString()
+        );
 
-      // console.log(`stockLeft ${stockLeft}`);
-      let productId = product._id;
-      const itemIndex = cart.items.findIndex(
-        (p) => p.productId.toString() == productId.toString()
-      );
+        if (itemIndex > -1) {
+          // console.log("yh" + favProduct);
+          //   //update
+          // if (stockLeft < 1) {
+          //   req.flash(
+          //     "error_msg",
+          //     `Sorry,please remove ${product.name} from your favourites,we are out of stock `
+          //   );
+          //   return res.redirect(req.headers.referer);
+          // } else {
+          //     // if product exists in the cart, update the quantity
+          cart.items[itemIndex].qty += 1;
+          //     //remove old price of this item from total cost
+          cart.totalCost -= cart.items[itemIndex].price;
+          cart.items[itemIndex].price =
+            cart.items[itemIndex].qty * product.price;
+          cart.totalQty += 1;
+          cart.totalCost += cart.items[itemIndex].price;
+          // }
+        } else {
+          //   // if product does not exists in cart, find it in the db to retrieve its price and add new item
+          //   //update
+          // if (stockLeft < 1) {
+          //   req.flash(
+          //     "error_msg",
+          //     `Sorry,please remove ${product.name} from your favourites,we are out of stock `
+          //   );
+          //   return res.redirect(req.headers.referer);
+          // } else {
+          const singlePrice = 1 * product.price;
+          //     // console.log(singlePrice)
+          cart.items.push({
+            productId: favProduct,
+            qty: 1,
+            price: singlePrice,
+            title: product.name,
+          });
+          cart.totalQty += 1;
+          cart.totalCost += singlePrice;
+          // }
+        }
+        //   cart.user = req.user._id;
+        cart.user = req.user._id;
+        await cart.save();
+      });
 
-      if (itemIndex > -1) {
-        // console.log("yh" + favProduct);
-        //   //update
-        // if (stockLeft < 1) {
-        //   req.flash(
-        //     "error_msg",
-        //     `Sorry,please remove ${product.name} from your favourites,we are out of stock `
-        //   );
-        //   return res.redirect(req.headers.referer);
-        // } else {
-        //     // if product exists in the cart, update the quantity
-        cart.items[itemIndex].qty += 1;
-        //     //remove old price of this item from total cost
-        cart.totalCost -= cart.items[itemIndex].price;
-        cart.items[itemIndex].price = cart.items[itemIndex].qty * product.price;
-        cart.totalQty += 1;
-        cart.totalCost += cart.items[itemIndex].price;
-        // }
-      } else {
-        //   // if product does not exists in cart, find it in the db to retrieve its price and add new item
-        //   //update
-        // if (stockLeft < 1) {
-        //   req.flash(
-        //     "error_msg",
-        //     `Sorry,please remove ${product.name} from your favourites,we are out of stock `
-        //   );
-        //   return res.redirect(req.headers.referer);
-        // } else {
-        const singlePrice = 1 * product.price;
-        //     // console.log(singlePrice)
-        cart.items.push({
-          productId: favProduct,
-          qty: 1,
-          price: singlePrice,
-          title: product.name,
-        });
-        cart.totalQty += 1;
-        cart.totalCost += singlePrice;
-        // }
-      }
-      //   cart.user = req.user._id;
-      cart.user = req.user._id;
-      await cart.save();
+      //  HERE
     }
     let user = await User.findById(req.user._id);
     user.fav = [];
