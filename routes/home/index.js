@@ -119,7 +119,7 @@ router.post("/remove-favourites/:id", ensureAuthenticated, async (req, res) => {
   res.redirect(req.headers.referer);
 });
 
-router.get("/favourites", async (req, res) => {
+router.get("/favourites", ensureAuthenticated, async (req, res) => {
   req.session.currentUrl = req.originalUrl;
 
   let userId;
@@ -150,11 +150,14 @@ router.get("/favourites", async (req, res) => {
     // options: { sort: { createdAt: -1 }, skip: skip, limit: itemPerPage },
   });
   let totalOfFavList = [];
+  let totalOfFav;
   console.log(products);
   for (let product of products.fav) {
     totalOfFavList.push(product.price);
   }
-  totalOfFav = totalOfFavList.reduce((initial, next) => initial + next);
+  if (userFav > 0) {
+    totalOfFav = totalOfFavList.reduce((initial, next) => initial + next);
+  }
   // console.log(`totalOfFavList ${totalOfFavList} totalOfFav ${totalOfFav} `);
 
   let ad = await Ad.findOne({}).populate("user");
@@ -176,7 +179,7 @@ router.get("/favourites", async (req, res) => {
   var catCountArr = [];
   var proudctForCategoryCount;
 
-  for (category of categories) {
+  for (let category of categories) {
     proudctForCategoryCount = await Product.countDocuments({
       category: category._id,
     });
@@ -570,7 +573,7 @@ router.get("/offItems", async (req, res) => {
   var catCountArr = [];
   var proudctForCategoryCount;
 
-  for (category of categories) {
+  for (let category of categories) {
     proudctForCategoryCount = await Product.countDocuments({
       category: category._id,
     });
@@ -676,7 +679,7 @@ router.get("/shop", async (req, res) => {
   var catCountArr = [];
   var proudctForCategoryCount;
 
-  for (category of categories) {
+  for (let category of categories) {
     proudctForCategoryCount = await Product.countDocuments({
       category: category._id,
     });
@@ -1007,7 +1010,7 @@ router.post("/checkout", async (req, res) => {
                 let hrefUrl = `https://wa.me/23354381698?text=${wsMsg}`;
                 sgMail.setApiKey(sendGridApiKey);
 
-                for (item of order.cart.items) {
+                for (let item of order.cart.items) {
                   itemsPurchased.push(`${item.title}(${item.qty})`);
                 }
                 let allItems = itemsPurchased.slice(
@@ -1664,7 +1667,7 @@ router.post("/checkout", async (req, res) => {
               let hrefUrl = `https://wa.me/23354381698?text=${wsMsg}`;
               sgMail.setApiKey(sendGridApiKey);
 
-              for (item of order.cart.items) {
+              for (let item of order.cart.items) {
                 itemsPurchased.push(`${item.title}(${item.qty})`);
               }
               let allItems = itemsPurchased.slice(0, itemsPurchased.length - 1); //get all user items without last one
@@ -2782,11 +2785,12 @@ router.post(
       // if user has a cart,I wil dynamically access the cart and manipulate it
     }
 
-    for (favProduct of userFav) {
+    for (let favProduct of userFav) {
       // console.log("yh" + favProduct);
 
-      const product = await Product.findById(favProduct);
+      const product = await Product.findById(favProduct.toString());
       let stockLeft = product.countInStock;
+      console.log(`stockLeft ${stockLeft}`);
       let productId = product._id;
       const itemIndex = cart.items.findIndex(
         (p) => p.productId.toString() == productId.toString()

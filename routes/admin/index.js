@@ -116,7 +116,7 @@ router.get("/", ensureAuthenticated, adminAuth, async (req, res) => {
     let users = await User.find({}).populate("fav");
     let userFavArr = [];
 
-    for (u of users) {
+    for (let u of users) {
       userFavArr.push(u.fav.length);
     }
     let allFavs = 0;
@@ -420,7 +420,7 @@ router.post(
     let support_url = `${protocol}://${req.headers.host}/contact`;
 
     let itemsPurchased = [];
-    for (item of order.cart.items) {
+    for (let item of order.cart.items) {
       itemsPurchased.push({
         itemName: item.title,
         itemQty: item.qty,
@@ -1496,7 +1496,7 @@ router.post("/upload", ensureAuthenticated, adminAuth, async (req, res) => {
         let files = [req.files];
         files = files[0].image;
         console.log(files);
-        for (const file of files) {
+        for (let file of files) {
           let tmp_file = file.tempFilePath;
           let newPath = await uploader(tmp_file);
           urls.push(newPath);
