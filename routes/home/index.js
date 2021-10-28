@@ -2788,8 +2788,10 @@ router.post(
     for (let favProduct of userFav) {
       // console.log("yh" + favProduct);
 
-      const product = await Product.findById(favProduct.toString());
-      console.log(product);
+      // const product = await Product.findById(favProduct.toString());
+      const product = await Product.findOne({ _id: favProduct.toString() });
+
+      console.log(`THIS OO THIS  ${product}`);
       // let stockLeft = product.countInStock;
 
       // console.log(`stockLeft ${stockLeft}`);
