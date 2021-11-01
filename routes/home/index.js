@@ -1653,6 +1653,10 @@ router.post("/checkout", async (req, res) => {
               });
               order = await order.save();
               let userEmail = order.email;
+              let orderedUser = await Order.findById(order._id).populate(
+                "user"
+              );
+              orderedUser = orderedUser.user.name;
 
               await Cart.findByIdAndDelete(userCart._id);
               let protocol =
@@ -1660,10 +1664,9 @@ router.post("/checkout", async (req, res) => {
 
               let itemsPurchased = [];
               let support_url = `${protocol}://${req.headers.host}/contact`;
-              let wsMsg = encodeURI(`Hello @admin,I recently
-                                made an order with an id ${order._id},Kindly
-                                attend to it and do the needful,thanks by the
-                                way `);
+              let wsMsg = encodeURI(
+                `Hello @admin,my name is ${orderedUser}. I recently made an order with an id ${order._id},Kindly attend to it and do the needful,thanks by the way `
+              );
               let hrefUrl = `https://wa.me/233554381698?text=${wsMsg}`;
               sgMail.setApiKey(sendGridApiKey);
 

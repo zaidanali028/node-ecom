@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="/css/magnific-popup.css" />
     <link rel="stylesheet" href="/css/jquery-ui.css" />
     <link rel="stylesheet" href="/css/product.css" />
-  <link rel="stylesheet" href="/css/toastr.css">
+    <link rel="stylesheet" href="/css/toastr.css" />
 
     <link
       rel="shortcut icon"
@@ -38,12 +38,10 @@
       integrity="sha512-NXUhxhkDgZYOMjaIgd89zF2w51Mub53Ru3zCNp5LTlEzMbNNAjTjDbpURYGS5Mop2cU4b7re1nOIucsVlrx9fA=="
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
-
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css" />
   </head>
   <body>
     <%-include('../layouts/home/telegram.ejs')%>
-
     <%-include('../layouts/home/preloader.ejs')%>
 
     <div class="site-wrap">
@@ -60,10 +58,7 @@
       </div>
 
       <div class="site-section">
-
         <div class="container">
-
-
           <div class="row">
             <div class="col-md-12 text-center">
               <span class="icon-check_circle display-3 text-success"></span>
@@ -71,7 +66,10 @@
               <p class="lead mb-5">
                 You order was successfuly completed.We will contact you with
                 your items based on the info you gave us on the checkout page.
+                Please go straight to your email from here,so that you can
+                conveniently track your order order.
               </p>
+
               <p>
                 <a href="/shop" class="btn btn-sm btn-primary">Back to shop</a>
               </p>
@@ -81,7 +79,6 @@
       </div>
 
       <%-include('../layouts/home/footer.ejs')%>
-
     </div>
 
     <script src="/js/jquery-3.3.1.min.js"></script>
@@ -101,6 +98,5 @@
 
     <%-include('../layouts/home/preloaderJS.ejs')%>
     <%-include('../layouts/admin/scripts.ejs')%>
-
   </body>
 </html>
