@@ -1664,7 +1664,7 @@ router.post("/checkout", async (req, res) => {
                                 made an order with an id ${order._id},Kindly
                                 attend to it and do the needful,thanks by the
                                 way `);
-              let hrefUrl = `https://wa.me/23354381698?text=${wsMsg}`;
+              let hrefUrl = `https://wa.me/233554381698?text=${wsMsg}`;
               sgMail.setApiKey(sendGridApiKey);
 
               for (let item of order.cart.items) {
