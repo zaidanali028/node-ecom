@@ -1041,8 +1041,12 @@ router.post(
 
         order.Delivered = true;
         await order.save();
-        req.flash("success_msg", "Order Status Successfully Changed");
-        res.redirect("/admin/orders");
+        req.flash(
+          "success_msg",
+          "Order Status Successfully Changed To[ DELIVERED STATE]"
+        );
+        // res.redirect("/admin/orders");
+        res.redirect(req.headers.referer);
       })
       .catch((error) => {
         console.error(error);
@@ -1059,8 +1063,52 @@ router.post(
     const order = await Order.findById(req.params.id);
     order.Delivered = false;
     await order.save();
-    req.flash("success_msg", "Order Status Successfully Changed");
-    res.redirect("/admin/orders");
+    req.flash(
+      "success_msg",
+      "Order Status Successfully Changed To[NOT DELIVERED STATE]"
+    );
+    // res.redirect("/admin/orders");
+    res.redirect(req.headers.referer);
+  }
+);
+
+//changing orderstatus to  paid
+router.post(
+  "/order-not-paid/:id",
+  ensureAuthenticated,
+  adminAuth,
+  async (req, res) => {
+    const order = await Order.findById(req.params.id);
+
+    order.payMentStatus = false;
+
+    await order.save();
+    req.flash(
+      "success_msg",
+      "Payment Status Successfully Changed  To[A NOT PAID STATE]"
+    );
+    // res.redirect("/admin/orders");
+    res.redirect(req.headers.referer);
+  }
+);
+
+//changing orderstatus to not paid
+router.post(
+  "/order-paid/:id",
+  ensureAuthenticated,
+  adminAuth,
+  async (req, res) => {
+    const order = await Order.findById(req.params.id);
+
+    order.payMentStatus = true;
+
+    await order.save();
+    req.flash(
+      "success_msg",
+      "Payment Status Successfully Changed To[A PAID STATE]"
+    );
+    // res.redirect("/admin/orders");
+    res.redirect(req.headers.referer);
   }
 );
 //Adding a product to 50% off

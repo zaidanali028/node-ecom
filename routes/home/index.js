@@ -1033,7 +1033,7 @@ router.post("/checkout", async (req, res) => {
                 const msg = {
                   to: userEmail,
                   from: `developersavenue@gmail.com`,
-                  subject: `Yuta-mart order info `,
+                  subject: `Yuta-mart Paid order info `,
 
                   html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -1627,6 +1627,7 @@ router.post("/checkout", async (req, res) => {
                   "Your order has been successfully made!"
                 );
                 await Cart.findByIdAndDelete(userCart._id);
+                console.log("Auth url " + response.data.authorization_url);
 
                 return res.redirect(response.data.authorization_url);
               });
@@ -2313,6 +2314,7 @@ router.get("/paystack/callback", (req, res) => {
       let paidOrder = await Order.findOne({ paymentRef: trxref });
       paidOrder.payMentStatus = true;
       paidOrder = await paidOrder.save();
+
       req.flash(
         "success_msg",
         "Your order has been successfully made,we will remember your choices next time!"
@@ -2683,11 +2685,14 @@ router.get("/shop-product/:slug/", async (req, res) => {
     }
     const product = await Product.findOne({ slug: req.params.slug });
 
-    let productCounter = await Product.findByIdAndUpdate(
-      product._id,
-      { $inc: { viewCount: 1 } },
-      { new: true }
-    );
+    let productCounter = 0;
+    if (process.env.NODE_ENV === "production") {
+      productCounter = await Product.findByIdAndUpdate(
+        product._id,
+        { $inc: { viewCount: 1 } },
+        { new: true }
+      );
+    }
 
     // console.log(productCounter.viewCount)
     let ad = await Ad.findOne({}).populate("user");
@@ -2712,6 +2717,7 @@ router.get("/shop-product/:slug/", async (req, res) => {
     }
 
     // console.log(LoggedIn)
+    // console.log("Price " + product);
     res.render("home/product-single", {
       products,
       product,

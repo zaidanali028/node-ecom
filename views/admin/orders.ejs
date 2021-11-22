@@ -150,56 +150,109 @@
               <!-- /.card-header -->
               <div class="card-body p-0">
                 <div class="table-responsive">
-                  <table class="table m-0" id="tble">
-                    <thead>
-                      <!-- <%=orderQueryRes%> -->
-                      <tr>
-                        <th>Order ID</th>
-                        <th>User</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th>DELETE ORDER</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <%orderQueryRes.forEach(order=>{%>
-                      <tr>
-                        <td>
-                          <a href="/admin/order-info/<%=order._id%>"
-                            ><%=order._id%></a
-                          >
-                        </td>
-                        <td class="text-capitalize"><%=order.user.name%></td>
-                        <td>
-                          <%if(order.Delivered==true){%>
-                          <span class="badge badge-success">Delivered</span>
-                          <%}else{%>
-                          <span class="badge badge-warning"
-                            >Yet To Get Delivered</span
-                          >
+                 <table class="table m-0" id="tble">
+                        <thead>
+                          <tr>
+                            <!-- <th>Order ID</th> -->
+                            <th>User</th>
+                            <th>Delivery Status</th>
+                        <th>Change Delivery Status</th>
 
-                          <%}%>
-                        </td>
+                            <th>Payment Status</th>
 
-                        <td>
-                          <div
-                            class="sparkbar"
-                            data-color="#00a65a"
-                            data-height="20"
-                          >
-                            <%=new Date(order.createdAt).toDateString()%>
-                          </div>
+
+                            <th>Date</th>
+                        <th>Change Payment Status</th>
+                        <th>Delete Order</th>
+
+
+
+
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <%for(order of orderQueryRes){%>
+                          <tr>
+                            <!-- <td>
+                              <a href="/admin/order-info/<%=order._id%>"
+                                ><%=order._id%></a
+                              >
+                            </td> -->
+                            <td class="text-capitalize">
+                              <a href="/admin/order-info/<%=order._id%>">
+                              <%=order.user.name%>
+                              
+                              </a></td>
+                            
+                            <!-- <td><%=order.payMentStatus%></td> -->
+                            <td>
+                              <% if(order.Delivered==true){%>
+                              <span class="badge badge-success">Delivered</span>
+                              <% }else{%>
+                              <span class="badge badge-warning"
+                                >Yet To Get Delivered</span
+                              >
+
+                              <%}%>
+                            </td>
+                            
+                              <td>
+                          <%if(!order.Delivered==true){%>
+                    <form action="/admin/order-delivered/<%=order._id%>" method="POST" id="myForm">
+                    <button type="submit" id="disableMe" class="btn btn-outline-success float-right w-auto"><i class="fas fa-shipping-fast"></i> Change Delivery Status To Delivered To Delivered
+                    </button>
+                  </form>
+                <%}else{%>
+                  <form action="/admin/order-not-delivered/<%=order._id%>" method="POST" id="myForm">
+                    <button id="disableMe" type="submit"  onclick="return confirm(' Are you sure you want to make this change? ')" class="btn btn-outline-danger float-right w-auto"><i class="fas fa-shipping-fast"></i> Change Delivery Status To Not Delivered
+                    </button>
+                  </form>
+                <%}%>
                         </td>
-                        <td>
+                         <td>
+                              <% if(order.payMentStatus==true){%>
+                              <span class="badge badge-success">Paid</span>
+                              <% }else{%>
+                              <span class="badge badge-danger"
+                                >Not Paid</span
+                              >
+
+                              <%}%>
+                            </td>
+                            <td>
+                              <div
+                                class="sparkbar"
+                                data-color="#00a65a"
+                                data-height="20"
+                              >
+                                <%=new Date(order.createdAt).toDateString()%>
+                              </div>
+                            </td>
+                              <td>   <%if(!order.payMentStatus==true){%>
+                    <form action="/admin/order-paid/<%=order._id%>" method="POST" id="myForm">
+                    <button type="submit" id="disableMe" class="btn btn-outline-success float-right w-auto"><i class="fas fa-money-check-alt"></i> Change Payment Status To Paid
+                    </button>
+                  </form>
+                <%}else{%>
+                  <form action="/admin/order-not-paid/<%=order._id%>" method="POST" id="myForm">
+                    <button id="disableMe" type="submit"  onclick="return confirm(' Are you sure you want to make this change? ')" class="btn btn-outline-danger float-right w-auto"><i class="fab fa-gg-circle"></i> Change Payment Status To Not Paid
+                    </button>
+                  </form>
+                <%}%></td>
+                              <td>
                       
                           <form action="/admin/order/<%=order._id%>/delete?_method=DELETE"  id="myForm" method="POST">
-                    <div class="mx-3 mt-3 mb-2"><button type="submit"  id="disableMe" class="btn btn-outline-danger "  onclick="return confirm('Are You Sure You Want To Delete This ORDER?')"><small>DELETE ORDER</small></a></div> 
+                    <div class="mx-3 mt-3 mb-2"><button type="submit"  id="disableMe" class="btn btn-outline-warning "  onclick="return confirm('Are You Sure You Want To Delete This ORDER?')"><small>DELETE ORDER</small></a></div> 
                   </form>
                         </td>
-                      </tr>
-                      <%})%>
-                    </tbody>
-                  </table>
+                        
+                      
+                     
+                          </tr>
+                          <%}%>
+                        </tbody>
+                      </table>
                 </div>
                 <%-include("../layouts/admin/paginate-orders")%>
 
