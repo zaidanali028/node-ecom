@@ -181,9 +181,11 @@
                             <th>Payment Status</th>
 
 
-                            <th>Date</th>
                         <th>Change Payment Status</th>
+
                         <th>Delete Order</th>
+                            <th>Date</th>
+
 
 
 
@@ -220,7 +222,7 @@
                               <td>
                           <%if(!order.Delivered==true){%>
                     <form action="/admin/order-delivered/<%=order._id%>" method="POST" id="myForm">
-                    <button type="submit" id="disableMe" class="btn btn-outline-success float-right w-auto"><i class="fas fa-shipping-fast"></i> Change Delivery Status To Delivered To Delivered
+                    <button type="submit" id="disableMe" class="btn btn-outline-success float-right w-auto"><i class="fas fa-shipping-fast"></i> Change Delivery Status To Delivered
                     </button>
                   </form>
                 <%}else{%>
@@ -240,15 +242,7 @@
 
                               <%}%>
                             </td>
-                            <td>
-                              <div
-                                class="sparkbar"
-                                data-color="#00a65a"
-                                data-height="20"
-                              >
-                                <%=new Date(order.createdAt).toDateString()%>
-                              </div>
-                            </td>
+                          
                               <td>   <%if(!order.payMentStatus==true){%>
                     <form action="/admin/order-paid/<%=order._id%>" method="POST" id="myForm">
                     <button type="submit" id="disableMe" class="btn btn-outline-success float-right w-auto"><i class="fas fa-money-check-alt"></i> Change Payment Status To Paid
@@ -260,12 +254,24 @@
                     </button>
                   </form>
                 <%}%></td>
-                              <td>
+                 <td>
                       
                           <form action="/admin/order/<%=order._id%>/delete?_method=DELETE"  id="myForm" method="POST">
                     <div class="mx-3 mt-3 mb-2"><button type="submit"  id="disableMe" class="btn btn-outline-warning "  onclick="return confirm('Are You Sure You Want To Delete This ORDER?')"><small>DELETE ORDER</small></a></div> 
                   </form>
+                  
                         </td>
+                  <td>
+                              
+                             
+                        <div
+                                class="sparkbar"
+                                data-color="#00a65a"
+                                data-height="20"
+                              >
+                                <%=new Date(order.createdAt).toDateString()%>
+                              </div>
+                            </td>
                         
                       
                      
