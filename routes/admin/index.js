@@ -363,7 +363,7 @@ router.get(
 );
 
 //getting a single product
-router.get("/product/:id", ensureAuthenticated, adminAuth, async (req, res) => {
+router.get("/product/:slug", ensureAuthenticated, adminAuth, async (req, res) => {
   req.session.currentUrl = req.originalUrl;
 
   try {
@@ -376,7 +376,7 @@ router.get("/product/:id", ensureAuthenticated, adminAuth, async (req, res) => {
       req.flash("error_msg", "please re-login");
       res.redirect("/users/login");
     }
-    const product = await Product.findOne({ _id: req.params.id });
+    const product = await Product.findOne({ slug: req.params.slug });
     const cCount = await coupon.countDocuments();
     const pcount = await Product.countDocuments();
     const orderCount = await Order.countDocuments();
