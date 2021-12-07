@@ -2686,13 +2686,13 @@ router.get("/shop-product/:slug/", async (req, res) => {
     const product = await Product.findOne({ slug: req.params.slug });
 
     let productCounter = 0;
-    if (process.env.NODE_ENV === "production" && req.user.isAdmin==false) {
+    // if (process.env.NODE_ENV === "production") {
       productCounter = await Product.findByIdAndUpdate(
         product._id,
         { $inc: { viewCount: 1 } },
         { new: true }
       );
-    }
+    // }
 
     // console.log(productCounter.viewCount)
     let ad = await Ad.findOne({}).populate("user");
