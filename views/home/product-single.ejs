@@ -1,5 +1,13 @@
 <html lang="en"><head>
-    <title><%=hero?hero.title:"" %>-<%=product.name%></title>
+  
+ <% function capitalizeTheFirstLetterOfEachWord(words) {%>
+  <%  var separateWord = words.toLowerCase().split(' ');%>
+  <%  for (var i = 0; i < separateWord.length; i++) {%>
+    <%    separateWord[i] = separateWord[i].charAt(0).toUpperCase() +separateWord[i].substring(1);%>
+    <%   }%>
+    <%  return separateWord.join(' ');%>
+    <%}%>
+    <title><%=hero?hero.title:"" %>-<%=capitalizeTheFirstLetterOfEachWord(product.name)%></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <%-include('../layouts/admin/head.ejs')%>
