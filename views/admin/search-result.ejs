@@ -79,7 +79,7 @@
                             <div class="mx-3 mt-3 mb-2"><button  id="disableMe" type="submit" class="btn btn-outline-danger btn-block"><small>REMOVE 50% OFF DISCOUNT</small></a></div> 
                           </form>
                           <%}%>
-                          <form action="/shop-product/<%=product.name%>" id="myForm"  method="GET">
+                          <form action="/shop-product/<%=product.slug%>" id="myForm"  method="GET">
                             <div class="mx-3 mt-3 mb-2"><button  id="disableMe" type="submit" class="btn btn-success btn-block"><small>LIVE PREVIEW OF [<%=product.name.charAt(0).toUpperCase()+product.name.slice(1)%>]</small></a></div> 
                             </form>
                       
