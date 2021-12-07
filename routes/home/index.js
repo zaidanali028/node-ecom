@@ -2686,7 +2686,7 @@ router.get("/shop-product/:slug/", async (req, res) => {
     const product = await Product.findOne({ slug: req.params.slug });
 
     let productCounter = 0;
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NODE_ENV === "production" && req.user.isAdmin==false) {
       productCounter = await Product.findByIdAndUpdate(
         product._id,
         { $inc: { viewCount: 1 } },
