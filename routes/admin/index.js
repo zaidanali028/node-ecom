@@ -135,11 +135,19 @@ router.get("/", ensureAuthenticated, adminAuth, async (req, res) => {
     let prdctNew = await Product.find({}).sort({ createdAt: -1 }).limit(10);
     let apiKey = process.env.SMS_API_KEY;
     let slotsLeft = "";
+    
     let smsBalUrl = `https://sms.textcus.com/api/balance?apikey=${apiKey}`;
-    let resp = await axios.get(smsBalUrl);
-    slotsLeft = resp.data["SMS balance"];
+    try{
+      let resp = await axios.get(smsBalUrl);
+      slotsLeft = resp.data["SMS balance"];
+    }
+    catch(e){
+      slotsLeft="Too Many Request,Please Try Again Later"
+    }
+   
+    
 
-    console.log(slotsLeft);
+    
 
     res.render("admin/index", {
       slotsLeft,
