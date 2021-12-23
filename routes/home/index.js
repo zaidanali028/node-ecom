@@ -22,7 +22,9 @@ const { initializePayment, verifyPayment } = require("../../config/paystack")(
   request
 );
 const sgMail = require("@sendgrid/mail");
-sendGridApiKey = process.env.SENDGRID_API_KEY;
+const sendGridApiKey = process.env.SENDGRID_API_KEY;
+constsmsApiKey = process.env.SMS_API_KEY;
+const axios=require('axios')
 
 PUBLIC_KEY = process.env.PUBLIC_KEY;
 SECRET_KEY = process.env.SECRET_KEY;
@@ -1029,6 +1031,26 @@ router.post("/checkout", async (req, res) => {
                     : `${firstItem}`;
 
                 console.log(`${firstItem} and ${lastItem}`);
+                let sender = "YUTA";
+
+                    let sms =
+                      `An Order With has been placed by ${order.name} with the Id [${order._id}],Kindly Hop Onto The Admin Portal And Do The Needful`;
+                    let senderEncode = encodeURI(sms);
+
+                    recipient = '+23354381698';
+                    senderEncode = encodeURI(sender);
+                    let messageEncode = encodeURI(sms);
+
+                    let url = `https://sms.textcus.com/api/send?apikey=${smsApiKey}&destination=${recipient}&source=${senderEncode}&dlr=0&type=0&message=${messageEncode}`;
+                    axios.get(url).then((resp) => {
+                      console.log(resp);
+                    });
+
+
+
+
+      // Using axios to send a get request
+
 
                 const msg = {
                   to: userEmail,
@@ -1556,7 +1578,7 @@ router.post("/checkout", async (req, res) => {
                                 cellpadding="0"
                                 role="presentation"
                               >
-                               
+
                                 <tr>
                                   <td align="center">
                                     <a
@@ -1686,7 +1708,24 @@ router.post("/checkout", async (req, res) => {
                   ? `${firstItem} and ${lastItem}`
                   : `${firstItem}`;
 
-              console.log(`${firstItem} and ${lastItem}`);
+                  let sender = "YUTA";
+                  let admins=await User.find({isAdmin:true});
+
+                      let sms =
+                        `An Order With has been placed by ${order.name} with the Id [${order._id}],Kindly Hop Onto The Admin Portal And Do The Needful`;
+                      let senderEncode = encodeURI(sms);
+
+                      recipient = '+23354381698';
+
+                      senderEncode = encodeURI(sender);
+                      let messageEncode = encodeURI(sms);
+
+                      let url = `https://sms.textcus.com/api/send?apikey=${smsApiKey}&destination=${recipient}&source=${senderEncode}&dlr=0&type=0&message=${messageEncode}`;
+                      axios.get(url).then((resp) => {
+                        console.log(resp);
+                      });
+
+
 
               const msg = {
                 to: userEmail,
@@ -2214,7 +2253,7 @@ router.post("/checkout", async (req, res) => {
                                 cellpadding="0"
                                 role="presentation"
                               >
-                               
+
                                 <tr>
                                   <td align="center">
                                     <a

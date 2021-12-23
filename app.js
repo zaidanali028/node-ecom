@@ -1563,12 +1563,14 @@ app.use((req, res, next) => {
 
 //routes
 const homeRoutes = require("./routes/home/index");
+const userRoutes2 = require("./routes/user/index");
 const adminRoutes = require("./routes/admin/index");
 const userRoutes = require("./routes/home/user");
 const googleFbAuthRoute = require("./routes/auth");
 
 //route usages
 app.use("/auth", googleFbAuthRoute);
+// app.use("/user", userRoutes2);
 
 app.use("/admin", adminRoutes);
 app.use("/users", userRoutes);
@@ -1578,6 +1580,10 @@ app.use("/", homeRoutes);
 //   // res.render('admin/page404')
 //   console.log("yoh")
 // })
+
+app.get('*', function(req, res){
+  res.render('admin/page404');
+});
 app.listen(port, () => {
   console.log(`server running on port ${port}`);
 });
