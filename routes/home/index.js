@@ -1028,7 +1028,7 @@ router.post("/checkout", async (req, res) => {
                     ? `${allItems} and ${lastItem}`
                     : itemsPurchased.length == 2
                     ? `${firstItem} and ${lastItem}`
-                    : `${firstItem}`;
+                    : `${firstItem}`; 
 
                 console.log(`${firstItem} and ${lastItem}`);
                 let sender = "YUTA";
@@ -1037,7 +1037,7 @@ router.post("/checkout", async (req, res) => {
                       `An Order With has been placed by ${order.name} with the Id [${order._id}],Kindly Hop Onto The Admin Portal And Do The Needful`;
                     let senderEncode = encodeURI(sms);
 
-                    recipient = '+23354381698';
+                    recipient = '+233554381698';
                     senderEncode = encodeURI(sender);
                     let messageEncode = encodeURI(sms);
 
@@ -1715,7 +1715,7 @@ router.post("/checkout", async (req, res) => {
                         `An Order With has been placed by ${order.name} with the Id [${order._id}],Kindly Hop Onto The Admin Portal And Do The Needful`;
                       let senderEncode = encodeURI(sms);
 
-                      recipient = '+23354381698';
+                      recipient = '+233554381698';
 
                       senderEncode = encodeURI(sender);
                       let messageEncode = encodeURI(sms);
