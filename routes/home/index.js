@@ -1034,7 +1034,7 @@ router.post("/checkout", async (req, res) => {
                 let sender = "YUTA";
 
                     let sms =
-                      `An Order With has been placed by ${order.name} with the Id [${order._id}],Kindly Hop Onto The Admin Portal And Do The Needful`;
+                      `An Order  has been placed by ${order.name} with the Id [${order._id}],Kindly Hop Onto The Admin Portal And Do The Needful`;
                     let senderEncode = encodeURI(sms);
 
                     recipient = '+233554381698';
@@ -1712,7 +1712,7 @@ router.post("/checkout", async (req, res) => {
                   let admins=await User.find({isAdmin:true});
 
                       let sms =
-                        `An Order With has been placed by ${order.name} with the Id [${order._id}],Kindly Hop Onto The Admin Portal And Do The Needful`;
+                        `An Order With  been placed by ${order.name} with the Id [${order._id}],Kindly Hop Onto The Admin Portal And Do The Needful`;
                       let senderEncode = encodeURI(sms);
 
                       recipient = '+233554381698';
