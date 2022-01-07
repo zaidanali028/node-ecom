@@ -167,6 +167,28 @@
                         <div class="text-center">
                             <h5 class="text-capitalize"><%=featuredProduct.name%></h5> <span class="text-success">₵<%=featuredProduct.price%> value</span>
                         </div>
+                        <%if(featuredProduct.discount>0){%>
+                          <div class="row mt-1" style="display:flex;align-items:center;justify-content:center">
+
+                            <%  if(featuredProduct.discount==50){%>
+                               <div class="card" style="color:white;background:black;">  
+                                 <div class=""><%=featuredProduct.discount%>%Off</div>
+                               </div>
+                              <%}else{%>
+                               <div class="card" style="color:white;background:#7971ea;">  
+                                 <div class=""><%=featuredProduct.discount%>%Off</div>
+                               </div>
+                              <%}%>
+                             <div class="card" style="color:black;background:white;">  
+                               <div class=""><del>₵<%=featuredProduct.oldPrice%></del></div>
+                             </div>
+                          
+                           </div>
+                          <%}%>
+
+
+                        
+
                     </div>
               </a>
                 

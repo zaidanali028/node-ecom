@@ -79,6 +79,27 @@
                         <h3><a href="/shop-product/<%=product.slug%>/"><%=product.name%></a></h3>
                         <p class="mb-0"><%=product.description.substring(0,50)%>....</p>
                         <p class="text-primary font-weight-bold">₵<%=product.price%></p>
+
+                        <%if(product.discount>0){%>
+               
+                        
+                          <div class="">
+    
+                         <%  if(product.discount==50){%>
+                            <div class="card" style="color:white;background:black;">  
+                              <div class=""><%=product.discount%>%Off</div>
+                            </div>
+                           <%}else{%>
+                            <div class="card" style="color:white;background:#7971ea;">  
+                              <div class=""><%=product.discount%>%Off</div>
+                            </div>
+                           <%}%>
+                          <div class="card" style="color:black;background:white;">  
+                            <div class=""><del>₵<%=product.oldPrice%></del></div>
+                          </div>
+                       
+                        </div>
+                          <%}%>
                       </div>
                     </div>
                   </div>
