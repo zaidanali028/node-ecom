@@ -62,14 +62,20 @@ router.get("/", ensureAuthenticated, adminAuth, async (req, res) => {
     let totalSales = await Order.aggregate([
       { $group: { _id: null, totalsale: { $sum: "$cart.totalCost" } } },
     ]);
-    // console.log(totalSales)
-    if (!totalSales || totalSales.length <= 0) {
-      totalSales = 0;
-      // res.send({ msg: "no sales" });
-    } else {
-      totalSales = totalSales[0].totalsale;
-    }
-
+    // getting total product's views
+    let totalProductViews = await Product.aggregate([
+      { $group: { _id: null, totalproductviews: { $sum: "$viewCount" } } },
+    ]);
+   
+  
+    // if (!totalSales || totalSales.length <= 0) {
+    //   totalSales = 0;
+    // } else {
+    //   totalSales = totalSales[0].totalsale;
+    // }
+    !totalSales || totalSales.length <= 0? totalSales = 0: totalSales = totalSales[0].totalsale;
+    !totalProductViews || totalProductViews.length <= 0?totalProductViews=0:totalProductViews=totalProductViews[0].totalproductviews
+    // console.log('totalProductViews '+totalProductViews)
     let monthlyUsers = [];
     //new members
     const currentMonth = new Date().getMonth() + 1; // Get current month
@@ -151,6 +157,7 @@ router.get("/", ensureAuthenticated, adminAuth, async (req, res) => {
     res.render("admin/index", {
       slotsLeft,
       totalSales,
+      totalProductViews,
       orderCount,
       pcount,
       cartCount,
