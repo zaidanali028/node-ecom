@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <%-include('../layouts/admin/head')%>
+  <%function numFormatter(num) {%>
+    <%if(num > 999 && num < 1000000){%></1000000>
+      <%return (num/1000).toFixed(0) + 'K';%> // convert to K for number from > 1000 < 1 million 
+        <%}else if(num > 1000000){%>
+      <% return (num/1000000).toFixed(0) + 'M';%> // convert to M for number from > 1 million 
+        <%}else if(num < 900){%>
+      <%return num;%> // if value < 1000, nothing to do
+        <%  }%>
+  <%}%>
+  
   <body
     class="
       hold-transition
@@ -61,7 +71,7 @@
 
                   <div class="info-box-content">
                     <span class="info-box-text">All Time Product Views</span>
-                    <span class="info-box-number"><%=totalProductViews%> View(s)</span>
+                    <span class="info-box-number"><%=numFormatter(totalProductViews)%> View(s)</span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -76,7 +86,7 @@
                   <div class="info-box-content">
                     <span class="info-box-text">All Users</span>
                     <span class="info-box-number">
-                      <%=allUsers%>
+                      <%=numFormatter(allUsers)%>
                       <small></small>
                     </span>
                   </div>
@@ -93,7 +103,7 @@
 
                   <div class="info-box-content">
                     <span class="info-box-text">Favourites</span>
-                    <span class="info-box-number"><%=allFavs%></span>
+                    <span class="info-box-number"><%=numFormatter(allFavs)%></span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -114,7 +124,7 @@
 
                   <div class="info-box-content">
                     <span class="info-box-text">Sales</span>
-                    <span class="info-box-number">GH₵ <%=totalSales%></span>
+                    <span class="info-box-number">GH₵ <%=numFormatter(totalSales)%></span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -129,7 +139,7 @@
 
                   <div class="info-box-content">
                     <span class="info-box-text">Monthly Members</span>
-                    <span class="info-box-number"><%=monthlyUsers%></span>
+                    <span class="info-box-number"><%=numFormatter(monthlyUsers)%></span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -145,7 +155,7 @@
 
                   <div class="info-box-content">
                     <span class="info-box-text">SMS LEFT</span>
-                    <span class="info-box-number"><%=slotsLeft%></span>
+                    <span class="info-box-number"><%=numFormatter(slotsLeft)%></span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -424,7 +434,7 @@ style="width: <%=pctLeft%>%"
 
                   <div class="info-box-content">
                     <span class="info-box-text">Inventory</span>
-                    <span class="info-box-number"><%=orderCount%></span>
+                    <span class="info-box-number"><%=numFormatter(orderCount)%></span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -436,7 +446,7 @@ style="width: <%=pctLeft%>%"
 
                   <div class="info-box-content">
                     <span class="info-box-text">Products</span>
-                    <span class="info-box-number"><%=pcount%></span>
+                    <span class="info-box-number"><%=numFormatter(pcount)%></span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -448,7 +458,7 @@ style="width: <%=pctLeft%>%"
 
                   <div class="info-box-content">
                     <span class="info-box-text">Coupons</span>
-                    <span class="info-box-number"><%=cCount%></span>
+                    <span class="info-box-number"><%=numFormatter(cCount)%></span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
