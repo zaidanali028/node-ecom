@@ -18,15 +18,16 @@
     "express-session": "^1.17.1",
     "express-sitemap": "^1.8.0",
     "express-sitemap-html": "^1.2.4",
+    "express-visitor-counter": "^1.4.0",
     "flutterwave-node": "^1.2.2",
     "flutterwave-node-v3": "^1.0.6",
     "force-ssl-heroku": "^1.0.2",
     "googleapis": "^76.0.0",
     "jimp": "^0.16.1",
     "local-storage": "^2.0.0",
-    "localStorage": "^1.0.4",
     "localforage": "^1.10.0",
     "localforage-driver-memory": "^1.0.5",
+    "localStorage": "^1.0.4",
     "mazzuma-node-library": "^3.1.2",
     "method-override": "^3.0.0",
     "moment": "^2.29.1",
@@ -47,7 +48,6 @@
     "validatorjs": "^3.22.1",
     "xml-js": "^1.6.11"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
