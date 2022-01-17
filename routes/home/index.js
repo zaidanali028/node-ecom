@@ -31,7 +31,7 @@ SECRET_KEY = process.env.SECRET_KEY;
 
 router.get("/logout", (req, res) => {
   req.logOut();
-  req.flash("success_msg", "You Have Successfully Logged Out");
+  req.flash("success_msg", "We hope to see you soon :)");
   res.redirect("/users/login");
 });
 
@@ -602,6 +602,7 @@ router.get("/offItems", async (req, res) => {
 
 router.get("/shop", async (req, res) => {
   req.session.currentUrl = req.originalUrl;
+  isSingleProduct=false
 
   let userId, userFav, isAdmin;
   if (req.isAuthenticated()) {
@@ -637,16 +638,20 @@ router.get("/shop", async (req, res) => {
   let page = parseInt(req.query.page) || 1;
   let itemPerPage = 10;
 
-  let category = req.query.category;
+  let {search} = req.query;
   const count = await Product.count();
-  if (category) {
-    category = category.toLowerCase();
+  if (search) {
+    thingToSearch = search.toLowerCase();
 
-    catQuery = await Category.findOne({ name: category });
+    // category is just some
+    catQuery = await Category.findOne({ name: thingToSearch });
+    productQuery = await Product.findOne({ name: thingToSearch });
+
     // console.log(catQuery._id)
 
     if (catQuery) {
-      msg.push("Search results for " + category);
+      isSingleProduct=false
+      msg.push("Search results for " + search);
 
       products = await Product.find({ category: catQuery._id })
         // .sort({ name: 1 })(ascending-order)
@@ -655,8 +660,18 @@ router.get("/shop", async (req, res) => {
         .sort({ createdAt: -1 })
         .skip(itemPerPage * page - itemPerPage)
         .limit(itemPerPage);
-    } else if (!catQuery) {
-      msg.push("The category " + category + " is not available");
+    }
+    else if(productQuery){
+      msg.push("Search results for " + search);
+
+      isSingleProduct=true
+      products=productQuery
+ }
+
+    
+    else if (!catQuery) {
+      isSingleProduct=false
+      msg.push("This resource  is not available");
       products = await Product.find({ createdAt: -1 })
 
         .sort({ name: 1 })
@@ -664,6 +679,7 @@ router.get("/shop", async (req, res) => {
         .limit(itemPerPage);
     }
   } else {
+    isSingleProduct=false
     products = await Product.find({})
 
       // .sort({ name: 1 })(ascending-order)
@@ -688,10 +704,13 @@ router.get("/shop", async (req, res) => {
     categoryName = category.name;
     catCountArr.push(proudctForCategoryCount);
   }
+ 
+
 
   res.render("home/shop", {
     pages: Math.ceil(count / itemPerPage),
     address,
+    isSingleProduct,
     hero,
     ad,
     msg,
@@ -2649,7 +2668,7 @@ router.get("/", ensureGuest, async (req, res) => {
     }
     // console.log("HERE "+user+userId)
 
-    const categories = await Category.find({}).sort({ name: 1 });
+  
     const coupons = await Coupons.countDocuments();
     let cartCount;
     const userItemCart = await Cart.find({ user: userId });
@@ -2660,29 +2679,17 @@ router.get("/", ensureGuest, async (req, res) => {
     }
 
     //gettin featured products(latest to last)
-    const products = await Product.find({ isFeatured: true }).sort({
+    const productsFeatured = await Product.find({ isFeatured: true }).sort({
       createdAt: -1,
     });
 
-    // for (product of products){
-    // products.forEach(async (product) => {
-    //   let dateCreated = new Date(product.createdAt).getDate();
-    //   let week = 7;
-    //   let checkIsExpired = week - dateCreated;
-    //   console.log("Neg " + checkIsExpired);
-    //   if (checkIsExpired <= 0) {
-    //     let oldProduct = await Product.findById(product._id);
-    //     oldProduct.isFeatured = false;
-    //     oldProduct = await oldProduct.save();
-    //     console.log(oldProduct);
-    //   } else {
-    //     console.log("Still fresh");
-    //   }
-    // });
+    const categories = await Category.find({}).sort({ name: 1 });
 
+
+   
     res.render("home/home", {
       categories,
-      products,
+      productsFeatured,
       coupons,
       allCoupons,
       cartCount,
@@ -2692,11 +2699,33 @@ router.get("/", ensureGuest, async (req, res) => {
       address,
       userFav,
       isAdmin,
+      
     });
+   
   } catch (e) {
     console.log(e);
   }
 });
+
+router.get('/suggest',async(req,res)=>{
+  try{
+    searchList=[]
+    const categories = await Category.find({}).sort({ name: 1 });
+    categories.forEach(category=>searchList.push(category.name))
+    const products = await Product.find({}).sort({ name: 1 });
+    products.forEach(product=>searchList.push(product.name))
+
+    console.log(req.query)
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(searchList.filter(value => value.includes(req.query.q))));
+
+
+  }
+  catch(e){
+    console.log(e)
+  }
+
+})
 
 //getting a product
 router.get("/shop-product/:slug/", async (req, res) => {

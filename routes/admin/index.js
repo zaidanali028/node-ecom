@@ -31,6 +31,8 @@ sendGridApiKey = process.env.SENDGRID_API_KEY;
 const { ensureAuthenticated } = require("../../config/auth");
 const { adminAuth } = require("../../config/adminAuth");
 
+
+
 //deleting an order
 router.delete("/order/:id/delete", async (req, res) => {
   try {
@@ -324,6 +326,15 @@ router.get(
   adminAuth,
   async (req, res) => {
     try {
+      let currentPage = parseInt(req.query.page) || 1;
+    let itemPerPage = 40;
+    const pcount = await Product.countDocuments();
+
+    let pages = Math.ceil(pcount / itemPerPage);
+
+   
+
+      let isSingleProduct=false
       req.session.currentUrl = req.originalUrl;
 
       let lOgo = await Logo.findOne({});
@@ -336,7 +347,6 @@ router.get(
         res.redirect("/users/login");
       }
       const cCount = await coupon.countDocuments();
-      const pcount = await Product.countDocuments();
       const orderCount = await Order.countDocuments();
       const addresS = await Address.findOne({});
       let fiftyOffProductsCount = await Product.count({ isFiftyOff: true });
@@ -349,13 +359,31 @@ router.get(
 
       let msg = [];
       const { search } = req.query;
-      const product = await Product.findOne({ name: search });
+      let product = await Product.findOne({ name: search });
+      const category = await Category.findOne({ name: search });
+
       if (product) {
+        isSingleProduct=true
         msg.push("Search results for " + search);
-      } else {
-        msg.push("No product named  " + search + " mind  creating  it? ");
+      } 
+      else if(category){
+        isSingleProduct=false
+        
+        msg.push("Search results for " + search);
+        product=category
+         product = await Product.find({category:category._id})
+        .sort({ createdAt: -1 })
+        .skip(itemPerPage * currentPage - itemPerPage)
+        .limit(itemPerPage);
+
+      }
+      else {
+        msg.push("No resource named  " + search + " mind  creating  it? ");
       }
       res.render("admin/search-result", {
+        currentPage,
+        pages,
+        isSingleProduct,
         msg,
         product,
         ad50,
@@ -372,7 +400,7 @@ router.get(
         fiftyOffProductsCount,
       });
     } catch (e) {
-      console.log(e.message);
+      console.log(e);
     }
   }
 );

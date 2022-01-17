@@ -77,6 +77,7 @@
              
               
               <div class="row mb-5">
+                <%if(!isSingleProduct==true){%>
                   <%products.forEach(product=>{%>
                 <div class="col-sm-6 col-lg-4 mb-4 aos-init aos-animate" data-aos="fade-up">
                     <div class="block-4 text-center border">
@@ -113,6 +114,43 @@
                     </div>
                   </div>
                   <%})%>
+                <%}else{%>
+                  <div class="col-sm-6 col-lg-4 mb-4 aos-init aos-animate" data-aos="fade-up">
+                    <div class="block-4 text-center border">
+                      <figure class="block-4-image">
+                        <a href="/shop-product/<%=products.slug%>/"><img  src="<%=products.image[0]%>"  style="background-position: center; background-size:cover" alt="<%=products.name%>" class="img-fluid"></a>
+                      </figure>
+                      <div class="block-4-text p-4">
+                        <h3 class="text-capitalize"><a href="/shop-product/<%=products.slug%>"><%=products.name%></a></h3>
+                        <p class="mb-0"><%=products.description.substring(0,50)%>....</p>
+                        <p class="text-primary font-weight-bold">₵<%=products.price%></p>
+
+                        <%if(products.discount>0){%>
+               
+                        
+                      <div class="">
+
+                     <%  if(products.discount==50){%>
+                        <div class="card" style="color:white;background:black;">  
+                          <div class=""><%=products.discount%>%Off</div>
+                        </div>
+                       <%}else{%>
+                        <div class="card" style="color:white;background:#7971ea;">  
+                          <div class=""><%=products.discount%>%Off</div>
+                        </div>
+                       <%}%>
+                      <div class="card" style="color:black;background:white;">  
+                        <div class=""><del>₵<%=products.oldPrice%></del></div>
+                      </div>
+                   
+                    </div>
+                      <%}%>
+                      
+                      </div>
+                    </div>
+                  </div>
+                <%}%>
+
     
               </div>
               <div class="row aos-init aos-animate" data-aos="fade-up">

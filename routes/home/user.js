@@ -115,9 +115,23 @@ router.post("/register", async (req, res) => {
         newUser = await newUser.save();
         //console.log(newUser);
 
-        req.flash("success_msg", "Registration was successful!");
+        req.flash("success_msg", "Registration was successful! (You are automatially logged in)");
+        req.logIn(newUser,function(err){
+          if(err){
+            console.log(err)
+        return res.redirect("/users/login");
 
-        res.redirect("/users/login");
+          }else{
+            if(!req.session.currentUrl) 
+            {
+              return res.redirect('/shop')
+            }else{
+               return res.redirect(req.session.currentUrl)
+            }
+          }
+
+        })
+
       }
     } catch (e) {
       console.log(e);

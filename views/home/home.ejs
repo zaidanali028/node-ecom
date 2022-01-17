@@ -50,12 +50,17 @@
    
 
 
+    <!-- <form autocomplete="off"><input type="text" name="q" id="q" style="font-weight: 400;" onKeyUp="showResults(this.value)" />
+      <div id="result"></div>
+      </form> -->
+    
 
 
   <div class="site-wrap">
     <%-include('../layouts/home/header.ejs')%>
      
       
+    <p style="display: none" id="searchList" >this</p>
    
 
       
@@ -142,7 +147,7 @@
           <div class="site-section container mt-5">
             <div class="d-flex justify-content-between align-items-center mb-3"> <span>Hottest Giveaways</span>  <a href="/shop"><span class="custom-badge text-uppercase">See More</span></a> </div>
             <div class="row">
-              <%for(featuredProduct of products){%>  
+              <%for(featuredProduct of productsFeatured){%>  
                 <div class="col-md-4 mt-4">
               <a href="/shop-product/<%=featuredProduct.slug%>/">
 
@@ -233,10 +238,50 @@
   <script src="js/aos.js"></script>
 
   <script src="js/main.js"></script>
+  <script>
+
+  </script>
 <%-include('../layouts/home/preloaderJS.ejs')%>
 <%-include('../layouts/admin/scripts.ejs')%>
 
+<!-- <script>
+function showResults(val) {
+  $("#result").css("display","block")
 
+  res = document.getElementById("result");
+  res.innerHTML = '';
+  if (val == '') {
+    return;
+  }
+  let list = '';
+  fetch('/suggest?q=' + val).then(
+   function (response) {
+     return response.json();
+   }).then(function (data) {
+     for (i=0; i<data.length; i++) {
+       list += '<li class="try">' + data[i] + '</li>';
+     }
+     res.innerHTML = '<ul>' + list + '</ul>';
+    const trY=document.querySelectorAll(".try")
+   const input=document.querySelector('#q')
+
+   trY.forEach(res=>{
+    res.addEventListener('click',function(){
+    input.value=res.innerHTML
+    list=''
+    // document.getElementById("result").
+    $("#result").css("display","none")
+   })
+   })
+     return true;
+   }).catch(function (err) {
+     console.warn('Something went wrong.', err);
+     return false;
+   });
+
+   
+}
+</script> -->
 
     
   </body>

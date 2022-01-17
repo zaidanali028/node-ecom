@@ -1,3 +1,95 @@
+<style>
+        
+  #result {
+    border: 1px dotted #ccc;
+    padding: 3px;
+  }
+  #result ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  #result ul li {
+    padding: 5px 0;
+  }
+  #result ul li:hover {
+    background: #eee;
+  }
+        </style>
+
+<script>
+  function showResults(val) {
+    if (val==""){
+      $("#result").css("display","none")
+
+}else{
+    $("#result").css("display","block")
+  
+    res = document.getElementById("result");
+    res.innerHTML = '';
+    if (val == '') {
+      return;
+    }
+    let list = '';
+    fetch('/suggest?q=' + val.toLowerCase()).then(
+     function (response) {
+       return response.json();
+     }).then(function (data) {
+    if(data==""){
+      // $("#result").css("display","none")
+      // list = '<li id="nothin">' + 'NO DATA TO SHOW'+ '<i class="icon icon-close"></i></li>';
+      list = '<li class="try">' + 'NO DATA TO SHOW'+ '</li>';
+
+      res.innerHTML = '<ul  id="new">' + list + '</ul>';
+     
+
+
+    //   R.addEventListener('click',function(){
+    //     alert('hmm')
+    //   // input.value=""
+    // // $("#nothin").hide()
+
+
+
+
+    // })
+  }
+      else{
+         for (i=0; i<data.length; i++) {
+         list += '<li class="try">' + data[i] + '</li>';
+       }}
+       res.innerHTML = '<ul>' + list + '</ul>';
+      const trY=document.querySelectorAll(".try")
+     const input=document.querySelector('#q')
+  
+     trY.forEach(res=>{
+      res.addEventListener('click',function(){
+        if(res.innerHTML=="NO DATA TO SHOW"){
+          res.remove()
+      $("#result").css("display","none")
+      // input.value=""
+
+
+          
+          // alert("this")
+        }
+     else{ 
+       input.value=res.innerHTML
+      list=''
+     
+      $("#result").css("display","none")}
+     })
+     })
+       return true;
+     }).catch(function (err) {
+       console.warn('Something went wrong.', err);
+       return false;
+     });
+    }
+     
+  }
+  </script>
+
 <header class="site-navbar" role="banner">
     <div class="site-navbar-top">
       <div class="container">
@@ -5,15 +97,16 @@
 
           <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
             <form action="/shop" class="site-block-top-search" method="GET">
-              
               <div class="row">
                 <div class="col-sm-6">
-                    <button type="submit" style="background-color: white;border:none;" class="icon icon-search2"></button>
-              <input type="text" name="category" class="form-control border-0" placeholder="Search category...">
-
+                  <button type="submit" style="background-color: white; border: none" class="icon icon-search2"></button>
+                  <input autocomplete="off" type="text" name="search" class="form-control border-0" placeholder="Search anything..." id="q" onkeyup="showResults(this.value)">
+                  
                 </div>
-                
               </div>
+              <div id="result" style="display: none;"><ul><li class="try"></li></ul></div>
+              
+  
             </form>
           </div>
 
