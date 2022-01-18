@@ -141,7 +141,7 @@ router.get("/favourites", ensureAuthenticated, async (req, res) => {
   //console.log(userFav)
   let cartCount;
   let page = parseInt(req.query.page) || 1;
-  let itemPerPage = 20;
+  let itemPerPage = 15;
   let skip = itemPerPage * page - itemPerPage;
 
   //I need the length of the whole favorites before applying filters(for pagination)
@@ -549,7 +549,7 @@ router.get("/offItems", async (req, res) => {
 
   let cartCount;
   let page = parseInt(req.query.page) || 1;
-  let itemPerPage = 20;
+  let itemPerPage = 15;
 
   let ad = await Ad.findOne({}).populate("user");
   let hero = await Hero.findOne({});
@@ -637,7 +637,7 @@ let isSingleProduct=false;
 
   //handling pagination
   let page = parseInt(req.query.page) || 1;
-  let itemPerPage = 20;
+  let itemPerPage = 15;
 
 
   let {search} = req.query;
@@ -770,7 +770,7 @@ router.get("/shop/:slug", async (req, res) => {
     }
     //handling pagination
     let page = parseInt(req.query.page) || 1;
-    let itemPerPage = 20;
+    let itemPerPage = 15;
 
 
     const productFromCategory = await Product.find({
