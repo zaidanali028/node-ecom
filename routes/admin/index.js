@@ -32,9 +32,70 @@ const { ensureAuthenticated } = require("../../config/auth");
 const { adminAuth } = require("../../config/adminAuth");
 
 
+// /find category of products
+router.get('/shop/:slug',ensureAuthenticated, adminAuth,async(req,res)=>{
+  try{
+
+    let lOgo = await Logo.findOne({});
+  let siteLogo = lOgo ? lOgo.url : " ";
+  req.session.currentUrl = req.originalUrl;
+
+  let user = req.user;
+  if (!user) {
+    req.flash("error_msg", "please re-login");
+    res.redirect("/users/login");
+  }
+  const subCount = await Mail.count({});
+  const cCount = await coupon.countDocuments();
+  const pcount = await Product.countDocuments();
+  const orderCount = await Order.countDocuments();
+  const addresS = await Address.findOne({});
+  let fiftyOffProductsCount = await Product.count({ isFiftyOff: true });
+
+  let ad = await Address.findOne({});
+  let hero = await Hero.findOne({});
+  let ad50 = await Ad.findOne({});
+
+    let page = parseInt(req.query.page) || 1;
+    let itemPerPage = 35;
+    const foundCategory = await Category.findOne({ slug: req.params.slug });
+    const count = await Product.count({ category: foundCategory._id });
+
+    const productFromCategory = await Product.find({
+      category: foundCategory._id,
+    }) .sort({ createdAt: -1 })
+    .skip(itemPerPage * page - itemPerPage)
+    .limit(itemPerPage);
+    res.render('admin/catShop',{
+      pages: Math.ceil(count / itemPerPage),
+      currentPage: page,
+      pages: Math.ceil(count / itemPerPage),
+      // product,
+      ad50,
+      hero,
+      cCount,
+      pcount,
+      orderCount,
+      subCount,
+      siteLogo,
+      user,
+      ad,
+      addresS,
+    fiftyOffProductsCount,
+    productFromCategory,
+    foundCategoryName:foundCategory.name
+   
+    })
+    // res.send({productFromCategory})
+
+
+  }catch(e){
+    console.log(e.message)
+  }
+})
 
 //deleting an order
-router.delete("/order/:id/delete", async (req, res) => {
+router.delete("/order/:id/delete", ensureAuthenticated, adminAuth, async (req, res) => {
   try {
     console.log("here!  ");
     await Order.findByIdAndDelete(req.params.id);
@@ -326,8 +387,9 @@ router.get(
   adminAuth,
   async (req, res) => {
     try {
+      let currentUrl=req.originalUrl
       let currentPage = parseInt(req.query.page) || 1;
-    let itemPerPage = 40;
+    let itemPerPage = 35;
     const pcount = await Product.countDocuments();
 
     let pages = Math.ceil(pcount / itemPerPage);
@@ -370,11 +432,8 @@ router.get(
         isSingleProduct=false
         
         msg.push("Search results for " + search);
-        product=category
-         product = await Product.find({category:category._id})
-        .sort({ createdAt: -1 })
-        .skip(itemPerPage * currentPage - itemPerPage)
-        .limit(itemPerPage);
+        return res.redirect('/admin/shop/'+category.slug)
+      
 
       }
       else {
@@ -397,7 +456,10 @@ router.get(
         ad,
         addresS,
         product,
+        category,
         fiftyOffProductsCount,
+        currentUrl,
+        search
       });
     } catch (e) {
       console.log(e);
@@ -1628,6 +1690,7 @@ router.post("/upload", ensureAuthenticated, adminAuth, async (req, res) => {
         res.redirect("/admin/products/all");
       } else if (galleryOption === "true") {
         let tmp_file_ = req.files.image.tempFilePath;
+
         let new_Path = await uploader(tmp_file_);
         urls.push(new_Path);
         // fs.unlinkSync(tmp_file_);
@@ -2065,6 +2128,7 @@ router.get(
   adminAuth,
   async (req, res) => {
     req.session.currentUrl = req.originalUrl;
+    let {currentUrl}=req.session
 
     let lOgo = await Logo.findOne({});
     let siteLogo = lOgo ? lOgo.url : " ";
@@ -2079,7 +2143,7 @@ router.get(
 
     //implementing pagination
     let currentPage = parseInt(req.query.page) || 1;
-    let itemPerPage = 6;
+    let itemPerPage = 35;
     const pcount = await Product.countDocuments();
 
     let pages = Math.ceil(pcount / itemPerPage);
@@ -2101,6 +2165,7 @@ router.get(
     const cCount = await Coupon.countDocuments();
 
     res.render("admin/allProducts", {
+      currentUrl,
       hero,
       orderCount,
       products,
@@ -2605,7 +2670,7 @@ router.get(
 
     //implementing pagination
     let currentPage = parseInt(req.query.page) || 1;
-    let itemPerPage = 6;
+    let itemPerPage = 35;
 
     let pages = Math.ceil(pcount / itemPerPage);
 
@@ -2645,7 +2710,7 @@ router.get("/orders", ensureAuthenticated, adminAuth, async (req, res) => {
     res.redirect("/users/login");
   }
   let currentPage = parseInt(req.query.page) || 1;
-  let itemPerPage = 10;
+  let itemPerPage = 35;
   const orderCount = await Order.countDocuments();
   let pages = Math.ceil(orderCount / itemPerPage);
   const hero = await Hero.findOne({});
@@ -3617,7 +3682,7 @@ router.get("/stocks", ensureAuthenticated, adminAuth, async (req, res) => {
   const addresS = await Address.findOne({});
 
   let currentPage = parseInt(req.query.page) || 1;
-  let itemPerPage = 15;
+  let itemPerPage = 35;
   const pcount = await Product.countDocuments();
 
   let pages = Math.ceil(pcount / itemPerPage);
@@ -3667,7 +3732,7 @@ router.get("/subscribers", ensureAuthenticated, adminAuth, async (req, res) => {
 
   //implementing pagination
   let currentPage = parseInt(req.query.page) || 1;
-  let itemPerPage = 6;
+  let itemPerPage = 35;
 
   let pages = Math.ceil(subCount / itemPerPage);
 

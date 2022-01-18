@@ -141,7 +141,7 @@ router.get("/favourites", ensureAuthenticated, async (req, res) => {
   //console.log(userFav)
   let cartCount;
   let page = parseInt(req.query.page) || 1;
-  let itemPerPage = 3;
+  let itemPerPage = 25;
   let skip = itemPerPage * page - itemPerPage;
 
   //I need the length of the whole favorites before applying filters(for pagination)
@@ -549,7 +549,7 @@ router.get("/offItems", async (req, res) => {
 
   let cartCount;
   let page = parseInt(req.query.page) || 1;
-  let itemPerPage = 10;
+  let itemPerPage = 25;
 
   let ad = await Ad.findOne({}).populate("user");
   let hero = await Hero.findOne({});
@@ -601,10 +601,10 @@ router.get("/offItems", async (req, res) => {
 });
 
 router.get("/shop", async (req, res) => {
-  req.session.currentUrl = req.originalUrl;
-  isSingleProduct=false
+   req.session.currentUrl = req.originalUrl;
+let userId, userFav, isAdmin;
 
-  let userId, userFav, isAdmin;
+let isSingleProduct=false;
   if (req.isAuthenticated()) {
     userId = req.user._id;
     userFav = await User.findOne({ _id: userId });
@@ -618,6 +618,7 @@ router.get("/shop", async (req, res) => {
   let products;
   let msg = [];
   let catQuery;
+  let count;
   let ad = await Ad.findOne({}).populate("user");
   let hero = await Hero.findOne({});
   let address = await Address.findOne({});
@@ -636,10 +637,10 @@ router.get("/shop", async (req, res) => {
 
   //handling pagination
   let page = parseInt(req.query.page) || 1;
-  let itemPerPage = 10;
+  let itemPerPage = 25;
+
 
   let {search} = req.query;
-  const count = await Product.count();
   if (search) {
     thingToSearch = search.toLowerCase();
 
@@ -651,26 +652,20 @@ router.get("/shop", async (req, res) => {
 
     if (catQuery) {
       isSingleProduct=false
-      msg.push("Search results for " + search);
-
-      products = await Product.find({ category: catQuery._id })
-        // .sort({ name: 1 })(ascending-order)
-
-        //  (From new to old products)
-        .sort({ createdAt: -1 })
-        .skip(itemPerPage * page - itemPerPage)
-        .limit(itemPerPage);
-    }
+      return res.redirect('/shop/'+catQuery.name)
+     
+ }
     else if(productQuery){
       msg.push("Search results for " + search);
-
       isSingleProduct=true
       products=productQuery
  }
 
     
-    else if (!catQuery) {
+     if (!productQuery) {
       isSingleProduct=false
+      count = await Product.count();
+
       msg.push("This resource  is not available");
       products = await Product.find({ createdAt: -1 })
 
@@ -682,6 +677,7 @@ router.get("/shop", async (req, res) => {
     isSingleProduct=false
     products = await Product.find({})
 
+
       // .sort({ name: 1 })(ascending-order)
 
       //  (From new to old products)
@@ -689,6 +685,8 @@ router.get("/shop", async (req, res) => {
 
       .skip(itemPerPage * page - itemPerPage)
       .limit(itemPerPage);
+    count = await Product.count();
+
   }
 
   //querying categories in ascending order
@@ -706,7 +704,6 @@ router.get("/shop", async (req, res) => {
   }
  
 
-
   res.render("home/shop", {
     pages: Math.ceil(count / itemPerPage),
     address,
@@ -720,6 +717,10 @@ router.get("/shop", async (req, res) => {
     categories,
     catCountArr,
     category: typeof category !== "undefined" ? category : "",
+    
+   
+    search,
+    isSingleProduct,
 
     catQuery,
     userFav,
@@ -768,7 +769,8 @@ router.get("/shop/:slug", async (req, res) => {
     }
     //handling pagination
     let page = parseInt(req.query.page) || 1;
-    let itemPerPage = 10;
+    let itemPerPage = 25;
+
 
     const productFromCategory = await Product.find({
       category: foundCategory._id,

@@ -1,7 +1,10 @@
 <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <%let  home="/admin/products/all?"%>
+        <%let name=foundCategoryName%>
+        <%let and="?"%>
+
+        <%let  home="/admin/shop/"+name+and%>
   <% if (pages > 0) { %>
       <ul class="pagination text-center">
         <% if (currentPage == 1) { %>
