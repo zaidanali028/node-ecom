@@ -745,7 +745,8 @@ router.get("/shop/:slug", async (req, res) => {
       isAdmin = false;
     }
     let slug = req.params.slug;
-    const foundCategory = await Category.findOne({ slug: req.params.slug });
+    let foundCategory = await Category.findOne({ name: req.params.slug});
+    // foundCategory=foundCategory.name
     let ad = await Ad.findOne({}).populate("user");
     let hero = await Hero.findOne({});
     let address = await Address.findOne({});
