@@ -29,6 +29,41 @@ const axios=require('axios')
 PUBLIC_KEY = process.env.PUBLIC_KEY;
 SECRET_KEY = process.env.SECRET_KEY;
 
+function phoneNumFormatter(num) {
+  var isGhNum = num[0] == "0"
+  var missenFirstDigit=num.length==9
+  if(missenFirstDigit){
+      num='+233'+num
+  }
+  if (isGhNum) {
+      num = `+233${num.substring(1)}`
+
+  } else {
+      // if number does not begin with zero(0)
+      let isInternational = num.includes("+233") || num.includes("233")
+      if (isInternational) {
+
+          let hasPlus = num.substring(0, 4) == "+233"
+          let notHasPlus = num.substring(0, 3) == "233"
+          if (notHasPlus) {
+              num = `+${num}`
+
+          } else if (hasPlus) {
+              num = num
+          }
+          else {
+              console.log('failed')
+
+          }
+
+      }
+
+
+  }
+  return num;
+
+}
+
 router.get("/logout", (req, res) => {
   req.logOut();
   req.flash("success_msg", "We hope to see you soon :)");
@@ -923,7 +958,7 @@ router.post("/checkout", async (req, res) => {
     } else {
       validation.passes(async () => {
         let ghPhone = req.body.phone;
-        ghPhone = "+233" + ghPhone.substring(1);
+        ghPhone = phoneNumFormatter(ghPhone)
         let user = await User.findByIdAndUpdate(
           { _id: userId },
           {
@@ -1055,7 +1090,8 @@ router.post("/checkout", async (req, res) => {
                 console.log(`${firstItem} and ${lastItem}`);
                 let sender = "YUTA";
 
-                    let sms =
+              //  for  admin
+                let sms =
                       `An Order  has been placed by ${order.name} with the Id [${order._id}],Kindly Hop Onto The Admin Portal And Do The Needful`;
                     let senderEncode = encodeURI(sms);
 
@@ -1067,6 +1103,21 @@ router.post("/checkout", async (req, res) => {
                     axios.get(url).then((resp) => {
                       console.log(resp);
                     });
+
+                    // for user(customer)
+        
+                let sms2 =
+                `We Thank You ${order.name} For Placing an order on Yuta-mart. Get Yourself Some Accolade,Your Order Is Being Processed At The Moment : ) `;
+              let senderEncode2 = encodeURI(sms2);
+
+              recipient = ghPhone;
+              senderEncode2 = encodeURI(sender);
+              let messageEncode2 = encodeURI(sms2);
+
+              let url2 = `https://sms.textcus.com/api/send?apikey=${smsApiKey}&destination=${recipient}&source=${senderEncode2}&dlr=0&type=0&message=${messageEncode2}`;
+              axios.get(url).then((resp) => {
+                console.log(resp);
+              });
 
 
 
@@ -1746,6 +1797,20 @@ router.post("/checkout", async (req, res) => {
                       axios.get(url).then((resp) => {
                         console.log(resp);
                       });
+                    // for user(customer)
+        
+                let sms2 =
+                `We Thank You ${order.name} For Placing an order on Yuta-mart. Get Yourself Some Accolade,Your Order Is Being Processed At The Moment : ) `;
+              let senderEncode2 = encodeURI(sms2);
+
+              recipient = ghPhone;
+              senderEncode2 = encodeURI(sender);
+              let messageEncode2 = encodeURI(sms2);
+
+              let url2 = `https://sms.textcus.com/api/send?apikey=${smsApiKey}&destination=${recipient}&source=${senderEncode2}&dlr=0&type=0&message=${messageEncode2}`;
+              axios.get(url).then((resp) => {
+                console.log(resp);
+              });
 
 
 
