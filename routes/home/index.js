@@ -2758,7 +2758,7 @@ let ftp=[]
     const products=await Product.find({}).populate('category')
     for (let category of FeaturedCategories){
       let featuredCategoryName=category.name
-      let featuredCategorySlug=category.slug
+      
 
       let featuredProducts =await Product.find({
         category: category._id,
@@ -2767,7 +2767,7 @@ let ftp=[]
 
 let featuredCategoryPoducts={
   featuredCategoryName,
-  featuredCategorySlug,
+
 
   featuredProducts:featuredProducts.reverse()
 
