@@ -160,8 +160,8 @@
             </div>
   
             <div class="col-md-3 order-1 mb-5 mb-md-0">
-              <div class="border p-4 rounded mb-4">
-                <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
+              <div class="border p-4 rounded mb-4 card bg-primary">
+                <h3 class="mb-3 h6 text-uppercase text-black d-block " style="color:white">Categories</h3>
                 <ul class="list-unstyled mb-0">
                     
                     <%let index=-1%>
@@ -170,7 +170,7 @@
                         <%index+=1%>
                         
                         
-                        <li class="mb-1"><a href="/shop/<%=category.name%>" class="d-flex"><span class="text-uppercase"><%=category.name%></span> <span class="text-black ml-auto"><%=catCountArr[index]%></span></a></li>
+                        <li class="mb-1" ><a href="/shop/<%=category.name%>" class="d-flex"><span class="text-uppercase" style="color:white"><%=category.name%></span> <span class="text-black ml-auto" style="color:white"><%=catCountArr[index]%></span></a></li>
                         <%})%>
 
 
