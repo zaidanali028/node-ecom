@@ -1,3 +1,5 @@
+// background: #7971ea; }
+// 34272d7
 require("dotenv").config();
 const express = require("express");
 const app = express();
@@ -1624,6 +1626,8 @@ const dbUrI =
   process.env.NODE_ENV === "production"
     ? process.env.DB_URL
     : "mongodb://localhost:27017/eshop-update";
+    // : process.env.DB_URL
+    
 
 app.enable("trust proxy"); // trust all
 

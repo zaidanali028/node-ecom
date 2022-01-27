@@ -2750,12 +2750,39 @@ router.get("/", ensureGuest, async (req, res) => {
     const productsFeatured = await Product.find({ isFeatured: true }).sort({
       createdAt: -1,
     });
+let ftp=[]
+
 
     const categories = await Category.find({}).sort({ name: 1 });
+    const FeaturedCategories=await Category.find({}).sort({name: -1 })
+    const products=await Product.find({}).populate('category')
+    for (let category of FeaturedCategories){
+      let featuredCategoryName=category.name
+      let featuredCategorySlug=category.slug
+
+      let featuredProducts =await Product.find({
+        category: category._id,
+        isFeatured:true,
+})
+
+let featuredCategoryPoducts={
+  featuredCategoryName,
+  featuredCategorySlug,
+
+  featuredProducts:featuredProducts.reverse()
+
+}
+const pass = null;
+featuredCategoryPoducts.featuredProducts.length==0?pass :ftp.push(featuredCategoryPoducts)
+    }
+   
+    // console.log(ftp[0].featuredProducts)
+
 
 
    
     res.render("home/home", {
+      ftp,
       categories,
       productsFeatured,
       coupons,
@@ -2993,5 +3020,8 @@ router.post(
     return res.redirect("/my-cart");
   }
 );
+
+
+
 
 module.exports = router;

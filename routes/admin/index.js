@@ -59,6 +59,7 @@ router.get('/shop/:slug',ensureAuthenticated, adminAuth,async(req,res)=>{
     let page = parseInt(req.query.page) || 1;
     let itemPerPage = 35;
     const foundCategory = await Category.findOne({ slug: req.params.slug });
+   
     const count = await Product.count({ category: foundCategory._id });
 
     const productFromCategory = await Product.find({
@@ -90,7 +91,7 @@ router.get('/shop/:slug',ensureAuthenticated, adminAuth,async(req,res)=>{
 
 
   }catch(e){
-    console.log(e.message)
+    console.log(e)
   }
 })
 
@@ -2138,6 +2139,7 @@ router.get(
       req.flash("error_msg", "please re-login");
       res.redirect("/users/login");
     }
+    
     let fiftyOffProductsCount = await Product.count({ isFiftyOff: true });
     const subCount = await Mail.count({});
 
