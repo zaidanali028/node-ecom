@@ -164,7 +164,7 @@ router.delete("/order/:id/delete", ensureAuthenticated, adminAuth, supaAdminAuth
 router.get("/get-users", ensureAuthenticated, adminAuth, supaAdminAuth,async (req, res) => {
   try {
     let currentPage = parseInt(req.query.page) || 1;
-    let itemPerPage = 2;
+    let itemPerPage = 35;
     let userQueryRes;
     await User.find({}).skip(itemPerPage * currentPage - itemPerPage)
       .limit(itemPerPage)
