@@ -55,10 +55,16 @@ const userSchema = new mongoose.Schema({
     
     isAdmin:{
         type:Boolean,
-        
-    default:false
-
-    },
+        default:false
+     },
+     isSemiAdmin:{
+        type:Boolean,
+        default:false
+     },
+     isSupaAdmin:{
+        type:Boolean,
+        default:false
+     },
     dp:{
         type:String,
         default:""

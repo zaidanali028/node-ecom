@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include('../layouts/admin/head')%>
+  <body
+    class="
+      hold-transition
+      sidebar-mini
+      layout-fixed layout-navbar-fixed layout-footer-fixed
+    "
+  >
+    <style>
+      table {
+        display: block !important;
+        overflow-x: auto !important;
+        width: 100% !important;
+      }
+    </style>
+    <div class="wrapper">
+      <!-- Navbar -->
+      <%-include('../layouts/admin/main-nav.ejs')%>
+      <!-- /.navbar -->
+
+      <!-- Main Sidebar Container -->
+      <%-include('../layouts/admin/sidenav')%>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 class="m-0">Suppa</h1>
+                <%-include("../layouts/flashes.ejs")%>
+              </div>
+              <!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                  <li class="breadcrumb-item active">get-users</li>
+                </ol>
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="info-box bg-warning">
+                  <span class="info-box-icon"
+                    ><i class="fas fa-user-shield"></i
+                  ></span>
+
+                  <div class="info-box-content">
+                    <span class="info-box-text">Super Admins</span>
+                    <span class="info-box-number"><%=supaAdminCount%></span>
+<%=semiAdminCountPct%>
+                    <div class="progress">
+                      <div
+                        class="progress-bar"
+                        style="width: <%=supaAdminCountPct%>%"
+                      ></div>
+                    </div>
+                    <span class="progress-description">
+                      <%=supaAdminCountPct%>% Out of Total Users
+                    </span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+              <!-- /.col -->
+              <div class="col-md-6">
+                <div class="info-box bg-success">
+                  <span class="info-box-icon"
+                    ><i class="fas fa-user-cog"></i
+                  ></span>
+
+                  <div class="info-box-content">
+                    <span class="info-box-text">Semi-Admins</span>
+                    <span class="info-box-number"> <%=semiAdminCount%></span>
+
+                    <div class="progress">
+                      <div
+                        class="progress-bar"
+                        style="width: <%=semiAdminCountPct%>%"
+                      ></div>
+                    </div>
+                    <span class="progress-description">
+                      <%=semiAdminCountPct%>% Out of Total Users
+                    </span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+              <!-- /.col -->
+              <div class="col-md-6">
+                <div class="info-box bg-primary">
+                  <span class="info-box-icon"
+                    ><i class="fas fa-users-cog"></i
+                  ></span>
+
+                  <div class="info-box-content">
+                    <span class="info-box-text">All Users</span>
+                    <span class="info-box-number"><%=userCount%></span>
+
+                    <span class="progress-description">
+                      All Users From The E-shop
+                    </span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+              <div class="col-md-6">
+                <div class="info-box bg-secondary">
+                  <span class="info-box-icon"><i class="fas fa-user-lock"></i></span>
+
+                  <div class="info-box-content">
+                    <span class="info-box-text">All Admins</span>
+                    <span class="info-box-number"><%=adminCount%></span>
+
+                    <span class="progress-description">
+                      All Users From The E-shop
+                    </span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+              <!-- /.col -->
+
+              <!-- /.col -->
+            </div>
+          </div>
+          <div class="container-fluid">
+            <div class="card">
+              <div class="card-header border-transparent">
+                <h3 class="card-title">All Users</h3>
+
+                <div class="card-tools">
+                  <button
+                    type="button"
+                    class="btn btn-tool"
+                    data-card-widget="collapse"
+                  >
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-tool"
+                    data-card-widget="remove"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                 <table class="table m-0" id="tble">
+                        <thead>
+                          <tr>
+                            <!-- <th>Order ID</th> -->
+                            <th>User</th>
+                            <th>Admin Status</th>
+                        <th>Change Admin Status</th>
+
+                            <th>Super-Admin Status</th>
+
+
+                        <th>Change Super-Admin  Status</th>
+                        <th>Semi-Admin Status</th>
+
+
+                        <th>Change Semi-Admin  Status</th> 
+                        <th>Date Joined</th>
+                        <th>Delete User</th>
+                           
+
+
+
+
+
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <%for(user of userQueryRes){%>
+                          <tr>
+                            <!-- <td>
+                        
+                                ><%=order._id%></a
+                              >
+                            </td> -->
+                            <td class="text-capitalize">
+                              <!-- <a href="/admin/user-info/<%=user._id%>"> -->
+                              <%=user.name%>
+                              
+                              <!-- </a> -->
+                            </td>
+                            
+            
+                             <td>
+                              <% if(user.isAdmin==true){%>
+                              <span class="badge badge-success">Admin</span>
+                              <% }else{%>
+                              <span class="badge badge-warning"
+                                >Not Admin</span
+                              >
+
+                              <%}%>
+                            </td>
+                              <td>
+                          <%if(!user.isAdmin==true){%>
+                    <form action="/admin/user-role-admin/<%=user._id%>" method="POST" id="myForm">
+                    <button type="submit" id="disableMe" class="btn btn-outline-success float-right w-auto"><i class="fas fa-shipping-fast"></i> Become Admin
+                    </button>
+                  </form>
+                <%}else{%>
+                  <form action="/admin/user-role-admin-false/<%=user._id%>" method="POST" id="myForm">
+                    <button id="disableMe" type="submit"  onclick="return confirm(' Are you sure you want to make this change? ')" class="btn btn-outline-danger float-right w-auto"><i class="fas fa-shipping-fast"></i> Revoke Admin Capability
+                    </button>
+                  </form>
+                <%}%>
+                        </td>
+                        <td>
+                          <% if(user.isSupaAdmin==true ){%>
+                          <span class="badge badge-success">Super Admin</span>
+                          <% }else if(!user.isSupaAdmin==true ){%>
+                          <span class="badge badge-warning "
+                            >Not Super Admin</span
+                          >
+
+                          <%}%>
+                        </td>
+                    
+                          <td>
+                            <%if(!user.isSupaAdmin==true ){%>
+                      <form action="/admin/user-role-supa-admin/<%=user._id%>" method="POST" id="myForm" >
+                   <%   if(!user.isAdmin){%>
+                      <button  disabled="disabled" type="submit" id="disableMe" class="btn btn-outline-success float-right w-auto  disabled"><i class="fas fa-shipping-fast"></i> Become Super Admin
+
+                      <%}else{%>
+                      <button   type="submit" id="disableMe" class="btn btn-outline-success float-right w-auto "><i class="fas fa-shipping-fast"></i> Become Super Admin
+                      </button>
+                      <%}%>
+                    </form>
+                  <%}else{%>
+                    <form action="/admin/user-role-supa-admin-false/<%=user._id%>" method="POST" id="myForm">
+                      <button id="disableMe" type="submit"  onclick="return confirm(' Are you sure you want to make this change? ')" class="btn btn-outline-danger float-right w-auto"><i class="fas fa-shipping-fast"></i> Revoke Super Admin Capability
+                      </button>
+                    </form>
+                  <%}%>
+                          </td>
+                          <td>
+                            <% if(user.isSemiAdmin==true){%>
+                            <span class="badge badge-success">Semi Admin</span>
+                            <% }else{%>
+                            <span class="badge badge-warning"
+                              >Not Semi Admin</span
+                            >
+  
+                            <%}%>
+                          </td>
+                          <td>
+                            <%if(!user.isSemiAdmin==true){%>
+                      <form action="/admin/user-role-semi-admin/<%=user._id%>" method="POST" id="myForm">
+                        <%if(!user.isAdmin){%>
+                      <button disabled type="submit" id="disableMe" class="btn btn-outline-success float-right w-auto"><i class="fas fa-shipping-fast"></i> Become Semi Admin
+                      <%}else{%>
+                      <button type="submit" id="disableMe" class="btn btn-outline-success float-right w-auto"><i class="fas fa-shipping-fast"></i> Become Semi Admin
+
+                      <%}%>
+
+                      </button>
+                    </form>
+                  <%}else{%>
+                    <form action="/admin/user-role-semi-admin-false/<%=user._id%>" method="POST" id="myForm">
+                      <button id="disableMe" type="submit"  onclick="return confirm(' Are you sure you want to make this change? ')" class="btn btn-outline-danger float-right w-auto"><i class="fas fa-shipping-fast"></i> Revoke Semi Admin Capability
+                      </button>
+                    </form>
+                  <%}%>
+                          </td>
+                          <td>    
+                            <div
+                                    class="sparkbar"
+                                    data-color="#00a65a"
+                                    data-height="20"
+                                  >
+                                    <%=new Date(user.createdAt).toDateString()%>
+                                  </div>
+                                </td>
+                          <td>
+                      
+                            <form action="/admin/delete-user/<%=user._id%>/delete?_method=DELETE"  id="myForm" method="POST">
+                      <div class="mx-3 mt-3 mb-2"><button type="submit"  id="disableMe" class="btn btn-outline-warning "  onclick="return confirm('Are You Sure You Want To Delete This USER?')"><small>DELETE USER</small></a></div> 
+                    </form>
+                    
+                          </td>
+                    
+                              
+                     
+                        
+                      
+                     
+                          </tr>
+                          <%}%>
+                        </tbody>
+                      </table>
+                      </table>
+                </div>
+                <%-include("../layouts/admin/paginate-users")%>
+
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.card-body -->
+
+              <!-- /.card-footer -->
+            </div>
+          </div>
+        </section>
+
+        <!-- /.content -->
+      </div>
+
+      <!-- /.content-wrapper -->
+
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+      </aside>
+      <!-- /.control-sidebar -->
+
+      <!-- Main Footer -->
+      <%-include('../layouts/admin/main-footer')%>
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED SCRIPTS -->
+    <%-include('../layouts/admin/scripts')%>
+  </body>
+</html>

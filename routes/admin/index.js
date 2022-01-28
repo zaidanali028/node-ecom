@@ -25,49 +25,100 @@ const Logo = require("../../models/logo");
 const axios = require("axios");
 const sgMail = require("@sendgrid/mail");
 
-smsApiKey = process.env.SMS_API_KEY;
-sendGridApiKey = process.env.SENDGRID_API_KEY;
+const smsApiKey = process.env.SMS_API_KEY;
+const sendGridApiKey = process.env.SENDGRID_API_KEY;
 
 const { ensureAuthenticated } = require("../../config/auth");
-const { adminAuth } = require("../../config/adminAuth");
+const { semiAdminAuth} = require("../../config/semiAdminAuth");
+const { supaAdminAuth} = require("../../config/supaAdminAuth");
+const { adminAuth,} = require("../../config/adminAuth");
 
+function phoneNumFormatter(num) {
+  var isGhNum = num[0] == "0"
+  var missenFirstDigit = num.length == 9
+  if (missenFirstDigit) {
+      num = '+233' + num
+  }
+  if (isGhNum) {
+      num = `+233${num.substring(1)}`
+  } else {
+      // if number does not begin with zero(0)
+      let isInternational = num.includes("+233") || num.includes("233")
+      if (isInternational) {
+
+          let hasPlus = num.substring(0, 4) == "+233"
+          let notHasPlus = num.substring(0, 3) == "233"
+          if (notHasPlus) {
+              num = `+${num}`
+
+          } else if (hasPlus) {
+              num = num
+          }
+          else {
+              console.log('failed')
+
+          }
+
+      }
+
+
+  }
+  return num;
+
+}
+
+function smsSender(smsMsg,recepientPhoneNumber,){
+  let sender = "YUTA";
+let senderEncode = encodeURI(smsMsg);
+recipient =phoneNumFormatter(recepientPhoneNumber);
+senderEncode = encodeURI(sender);
+let messageEncode = encodeURI(smsMsg);
+messageEncode=messageEncode.replace("%0A","")
+
+let url = `https://sms.textcus.com/api/send?apikey=${smsApiKey}&destination=${recipient}&source=${senderEncode}&dlr=0&type=0&message=${messageEncode}`;
+// Using axios to send a get request
+axios.get(url).then((resp) => {
+  
+  return resp
+});
+}
 
 // /find category of products
-router.get('/shop/:slug',ensureAuthenticated, adminAuth,async(req,res)=>{
-  try{
+router.get('/shop/:slug', ensureAuthenticated, adminAuth,semiAdminAuth,supaAdminAuth, async (req, res) => {
+  try {
 
     let lOgo = await Logo.findOne({});
-  let siteLogo = lOgo ? lOgo.url : " ";
-  req.session.currentUrl = req.originalUrl;
+    let siteLogo = lOgo ? lOgo.url : " ";
+    req.session.currentUrl = req.originalUrl;
 
-  let user = req.user;
-  if (!user) {
-    req.flash("error_msg", "please re-login");
-    res.redirect("/users/login");
-  }
-  const subCount = await Mail.count({});
-  const cCount = await coupon.countDocuments();
-  const pcount = await Product.countDocuments();
-  const orderCount = await Order.countDocuments();
-  const addresS = await Address.findOne({});
-  let fiftyOffProductsCount = await Product.count({ isFiftyOff: true });
+    let user = req.user;
+    if (!user) {
+      req.flash("error_msg", "please re-login");
+      res.redirect("/users/login");
+    }
+    const subCount = await Mail.count({});
+    const cCount = await coupon.countDocuments();
+    const pcount = await Product.countDocuments();
+    const orderCount = await Order.countDocuments();
+    const addresS = await Address.findOne({});
+    let fiftyOffProductsCount = await Product.count({ isFiftyOff: true });
 
-  let ad = await Address.findOne({});
-  let hero = await Hero.findOne({});
-  let ad50 = await Ad.findOne({});
+    let ad = await Address.findOne({});
+    let hero = await Hero.findOne({});
+    let ad50 = await Ad.findOne({});
 
     let page = parseInt(req.query.page) || 1;
     let itemPerPage = 35;
     const foundCategory = await Category.findOne({ slug: req.params.slug });
-   
+
     const count = await Product.count({ category: foundCategory._id });
 
     const productFromCategory = await Product.find({
       category: foundCategory._id,
-    }) .sort({ createdAt: -1 })
-    .skip(itemPerPage * page - itemPerPage)
-    .limit(itemPerPage);
-    res.render('admin/catShop',{
+    }).sort({ createdAt: -1 })
+      .skip(itemPerPage * page - itemPerPage)
+      .limit(itemPerPage);
+    res.render('admin/catShop', {
       pages: Math.ceil(count / itemPerPage),
       currentPage: page,
       pages: Math.ceil(count / itemPerPage),
@@ -82,23 +133,23 @@ router.get('/shop/:slug',ensureAuthenticated, adminAuth,async(req,res)=>{
       user,
       ad,
       addresS,
-    fiftyOffProductsCount,
-    productFromCategory,
-    foundCategoryName:foundCategory.name
-   
+      fiftyOffProductsCount,
+      productFromCategory,
+      foundCategoryName: foundCategory.name
+
     })
     // res.send({productFromCategory})
 
 
-  }catch(e){
+  } catch (e) {
     console.log(e)
   }
 })
 
 //deleting an order
-router.delete("/order/:id/delete", ensureAuthenticated, adminAuth, async (req, res) => {
+router.delete("/order/:id/delete", ensureAuthenticated, adminAuth, supaAdminAuth,async (req, res) => {
   try {
-    console.log("here!  ");
+
     await Order.findByIdAndDelete(req.params.id);
     req.flash(
       "success_msg",
@@ -110,7 +161,280 @@ router.delete("/order/:id/delete", ensureAuthenticated, adminAuth, async (req, r
   }
 });
 
-router.get("/", ensureAuthenticated, adminAuth, async (req, res) => {
+router.get("/get-users", ensureAuthenticated, adminAuth, supaAdminAuth,async (req, res) => {
+  try {
+    let currentPage = parseInt(req.query.page) || 1;
+    let itemPerPage = 2;
+    let userQueryRes;
+    await User.find({}).skip(itemPerPage * currentPage - itemPerPage)
+      .limit(itemPerPage)
+      .sort({ updatedAt: -1 })
+      .exec(function (err, docs) {
+        userQueryRes = docs;
+
+      });
+
+
+
+
+
+    let lOgo = await Logo.findOne({});
+    let siteLogo = lOgo ? lOgo.url : " ";
+    req.session.currentUrl = req.originalUrl;
+
+    let user = req.user;
+    if (!user) {
+      req.flash("error_msg", "please re-login");
+      res.redirect("/users/login");
+    }
+    // main-logic(start)
+    let userCount = await User.countDocuments()
+
+
+    let semiAdminCount = await User.countDocuments({ isSemiAdmin: true })
+    let supaAdminCount = await User.countDocuments({ isSupaAdmin: true })
+    let adminCount=await User.countDocuments({isAdmin:true})
+    let semiAdminCountPct = (semiAdminCount / userCount) * 100;
+    semiAdminCountPct = semiAdminCountPct.toFixed(2);
+    let supaAdminCountPct = (supaAdminCount / userCount) * 100;
+    supaAdminCountPct = supaAdminCountPct.toFixed(2);
+
+
+
+
+
+    orderCount = await Order.count()
+    let pages = Math.ceil(userCount / itemPerPage);
+    const hero = await Hero.findOne({});
+    let ad50 = await Ad.findOne({});
+    const addresS = await Address.findOne({});
+    const subCount = await Mail.count({});
+
+    const cCount = await coupon.countDocuments();
+    const pcount = await Product.countDocuments();
+    const fiftyOffProductsCount = await Product.count({
+      isFiftyOff: true,
+    });
+
+
+
+
+    res.render("admin/users", {
+      adminCount,
+      hero,
+      ad50,
+      currentPage,
+      pages,
+      cCount,
+      pcount,
+      orderCount,
+      fiftyOffProductsCount,
+      addresS,
+      subCount,
+      siteLogo,
+      user,
+      userCount,
+      supaAdminCount,
+      semiAdminCount,
+      supaAdminCountPct,
+      semiAdminCountPct,
+      userQueryRes,
+ });
+
+
+  } catch (e) {
+    console.log(e)
+  }
+})
+
+// making a user an admin
+router.post('/user-role-admin/:id',ensureAuthenticated, adminAuth, supaAdminAuth,async(req,res)=>{
+  try{
+let  user=await User.findOne({_id:req.params.id})
+if (user){
+user.isAdmin=true
+user=await user.save()
+let sms =
+  `Hello ${user.name},welcome on board!.You are now an admin at yuta-mart.Please make sure to be responsible for this great role,Feel free to contact CEO if you have any issue(s)
+  Regards,YUTA-FAMILY`;
+smsSender(sms,user.phone)
+
+req.flash("success_msg", `[${user}]'s admin badge is revoked,an sms prompt is sent!`);
+
+res.redirect('/admin/get-users');
+
+
+}
+else{
+  return  res.redirect('/admin/get-users');
+
+
+}
+  }catch(e){
+    console.log(e)
+
+  }
+})
+
+// revoking  admin priviledge
+
+router.post('/user-role-admin-false/:id',ensureAuthenticated, adminAuth, supaAdminAuth,async(req,res)=>{
+  try{
+let  user=await User.findOne({_id:req.params.id})
+if (user){
+user.isAdmin=false
+user=await user.save()
+let sms =
+  `Hello ${user.name},We are really sorry to tell you that your contract with Yuta-Admin has been revoked,good luck with your future endeavours,Feel free to contact CEO if you have any issue(s)
+  Regards, YUTA-FAMILY`;
+smsSender(sms,user.phone)
+
+req.flash("success_msg", `${user} is now an admin,an sms prompt is sent!`);
+
+res.redirect('/admin/get-users');
+
+}
+else{
+  return  res.redirect('/admin/get-users');
+
+
+}
+  }catch(e){
+    console.log(e)
+
+  }
+})
+
+// making a user SUPA admin
+router.post('/user-role-supa-admin/:id',ensureAuthenticated, adminAuth, supaAdminAuth,async(req,res)=>{
+  try{
+let  user=await User.findOne({_id:req.params.id})
+if (user){
+user.isSupaAdmin=true
+user=await user.save()
+let sms =
+  `Hello ${user.name},Welcome to the HIGHEST rank  in YUTAMART(SUPA ADMIN),as a super admin,you have a greater responsiblity.Please be cautious not to do things outside your scope,failure to do so may attract a temporal or permanent BAN from your priviledges.Feel free to contact CEO if you have any issue(s)
+  Regards,YUTA-FAMILY`;;
+smsSender(sms,user.phone)
+
+req.flash("success_msg", `[${user}]'s admin badge is revoked,an sms prompt is sent!`);
+
+res.redirect('/admin/get-users');
+
+
+}
+else{
+  return  res.redirect('/admin/get-users');
+
+
+}
+  }catch(e){
+    console.log(e)
+
+  }
+})
+// revoking a user SUPA admin
+router.post('/user-role-supa-admin-false/:id',ensureAuthenticated, adminAuth, supaAdminAuth,async(req,res)=>{
+  try{
+let  user=await User.findOne({_id:req.params.id})
+if (user){
+user.isSupaAdmin=false
+user=await user.save()
+let sms =
+  `Hello ${user.name},You just lost your SUPER-ADMIN BADGE.Feel free to contact CEO if you have any issue(s)
+  Regards,YUTA-FAMILY`;
+smsSender(sms,user.phone)
+
+req.flash("success_msg", `[${user}]'s admin badge is revoked,an sms prompt is sent!`);
+
+res.redirect('/admin/get-users');
+
+
+}
+else{
+  return  res.redirect('/admin/get-users');
+
+
+}
+  }catch(e){
+    console.log(e)
+
+  }
+})
+// making a user SEMI admin
+router.post('/user-role-semi-admin/:id',ensureAuthenticated, adminAuth, supaAdminAuth,async(req,res)=>{
+  try{
+let  user=await User.findOne({_id:req.params.id})
+if (user){
+user.isSemiAdmin=true
+user=await user.save()
+
+  let sms =
+  `Hello ${user.name},You just got another rank on Yuta-mart,As part of being an admin,you can now interact with Yuta-products,among others which may be added soon.Please be cautious not to do things outside your scope,failure to do so may attract a temporal or permanent BAN from your priviledges.Feel free to contact CEO if you have any issue(s)
+  Regards,YUTA-FAMILY`
+smsSender(sms,user.phone)
+
+req.flash("success_msg", `[${user}]'s admin badge is revoked,an sms prompt is sent!`);
+
+res.redirect('/admin/get-users');
+
+
+}
+else{
+  return  res.redirect('/admin/get-users');
+
+
+}
+  }catch(e){
+    console.log(e)
+
+  }
+})
+// making a user SEMI admin
+router.post('/user-role-semi-admin-false/:id',ensureAuthenticated, adminAuth, supaAdminAuth,async(req,res)=>{
+  try{
+let  user=await User.findOne({_id:req.params.id})
+if (user){
+user.isSemiAdmin=false;
+user=await user.save()
+let sms =
+  `Hello ${user.name}You just lost your SEMI-ADMIN badge.Feel free to contact CEO if you have any issue(s)
+  Regards,YUTA-FAMILY`;
+smsSender(sms,user.phone)
+
+req.flash("success_msg", `[${user}]'s admin badge is revoked,an sms prompt is sent!`);
+
+res.redirect('/admin/get-users');
+
+
+}
+else{
+  return  res.redirect('/admin/get-users');
+
+
+}
+  }catch(e){
+    console.log(e)
+
+  }
+})
+
+router.delete('/delete-user/:id/delete',ensureAuthenticated, adminAuth, supaAdminAuth,async(req,res)=>{
+  try{
+    let user =await User.findById(req.params.id)
+
+    await User.findByIdAndDelete(req.params.id);
+    req.flash(
+      "success_msg",
+      `order with id ${user.name} has been deleted successfully`
+    );
+    res.redirect(req.headers.referer);
+  }catch(e){
+    
+  }
+})
+
+router.get("/",ensureAuthenticated, adminAuth, async (req, res) => {
   try {
     req.session.currentUrl = req.originalUrl;
 
@@ -123,23 +447,19 @@ router.get("/", ensureAuthenticated, adminAuth, async (req, res) => {
       req.flash("error_msg", "please re-login");
       res.redirect("/users/login");
     }
-    //getting total sale
+
     let totalSales = await Order.aggregate([
       { $group: { _id: null, totalsale: { $sum: "$cart.totalCost" } } },
     ]);
-    // getting total product's views
+
     let totalProductViews = await Product.aggregate([
       { $group: { _id: null, totalproductviews: { $sum: "$viewCount" } } },
     ]);
-   
-  
-    // if (!totalSales || totalSales.length <= 0) {
-    //   totalSales = 0;
-    // } else {
-    //   totalSales = totalSales[0].totalsale;
-    // }
-    !totalSales || totalSales.length <= 0? totalSales = 0: totalSales = totalSales[0].totalsale;
-    !totalProductViews || totalProductViews.length <= 0?totalProductViews=0:totalProductViews=totalProductViews[0].totalproductviews
+
+
+
+    !totalSales || totalSales.length <= 0 ? totalSales = 0 : totalSales = totalSales[0].totalsale;
+    !totalProductViews || totalProductViews.length <= 0 ? totalProductViews = 0 : totalProductViews = totalProductViews[0].totalproductviews
     // console.log('totalProductViews '+totalProductViews)
     let monthlyUsers = [];
     //new members
@@ -207,12 +527,12 @@ router.get("/", ensureAuthenticated, adminAuth, async (req, res) => {
     let slotsLeft = "";
 
     let smsBalUrl = `https://sms.textcus.com/api/balance?apikey=${apiKey}`;
-    try{
+    try {
       let resp = await axios.get(smsBalUrl);
       slotsLeft = resp.data["SMS balance"];
     }
-    catch(e){
-      slotsLeft="Too Many Request,Please Try Again Later"
+    catch (e) {
+      slotsLeft = "Too Many Request,Please Try Again Later"
     }
 
 
@@ -246,7 +566,7 @@ router.get("/", ensureAuthenticated, adminAuth, async (req, res) => {
   }
 });
 
-router.get("/dp-change", ensureAuthenticated, adminAuth, async (req, res) => {
+router.get("/dp-change", ensureAuthenticated, adminAuth,supaAdminAuth, async (req, res) => {
   req.session.currentUrl = req.originalUrl;
 
   // console.log(" HERE "+lOgo)
@@ -283,7 +603,7 @@ router.get("/dp-change", ensureAuthenticated, adminAuth, async (req, res) => {
   });
 });
 
-router.post("/change-dp", ensureAuthenticated, adminAuth, async (req, res) => {
+router.post("/change-dp", ensureAuthenticated, adminAuth, supaAdminAuth,async (req, res) => {
   let lOgo = await Logo.findOne({});
   let siteLogo = lOgo ? lOgo.url : " ";
 
@@ -305,7 +625,7 @@ router.post("/change-dp", ensureAuthenticated, adminAuth, async (req, res) => {
   req.flash("success_msg", "Successfully updated your DP!");
   res.redirect("/admin/");
 });
-router.get("/logo-change", ensureAuthenticated, adminAuth, async (req, res) => {
+router.get("/logo-change", ensureAuthenticated, adminAuth, supaAdminAuth,async (req, res) => {
   req.session.currentUrl = req.originalUrl;
 
   let lOgo = await Logo.findOne({});
@@ -346,6 +666,7 @@ router.post(
   "/logo-change",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
   async (req, res) => {
     let user = req.user;
     if (!user) {
@@ -388,16 +709,16 @@ router.get(
   adminAuth,
   async (req, res) => {
     try {
-      let currentUrl=req.originalUrl
+      let currentUrl = req.originalUrl
       let currentPage = parseInt(req.query.page) || 1;
-    let itemPerPage = 35;
-    const pcount = await Product.countDocuments();
+      let itemPerPage = 35;
+      const pcount = await Product.countDocuments();
 
-    let pages = Math.ceil(pcount / itemPerPage);
+      let pages = Math.ceil(pcount / itemPerPage);
 
-   
 
-      let isSingleProduct=false
+
+      let isSingleProduct = false
       req.session.currentUrl = req.originalUrl;
 
       let lOgo = await Logo.findOne({});
@@ -426,15 +747,15 @@ router.get(
       const category = await Category.findOne({ name: search });
 
       if (product) {
-        isSingleProduct=true
+        isSingleProduct = true
         msg.push("Search results for " + search);
-      } 
-      else if(category){
-        isSingleProduct=false
-        
+      }
+      else if (category) {
+        isSingleProduct = false
+
         msg.push("Search results for " + search);
-        return res.redirect('/admin/shop/'+category.slug)
-      
+        return res.redirect('/admin/shop/' + category.slug)
+
 
       }
       else {
@@ -508,7 +829,7 @@ router.get("/product/:slug", ensureAuthenticated, adminAuth, async (req, res) =>
       siteLogo,
       user,
     });
-  } catch (e) {}
+  } catch (e) { }
 });
 
 //changing orderstatus after delivery
@@ -516,6 +837,7 @@ router.post(
   "/order-delivered/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
   async (req, res) => {
     sgMail.setApiKey(sendGridApiKey);
     const order = await Order.findById(req.params.id).populate("user");
@@ -1165,6 +1487,7 @@ router.post(
   "/order-not-delivered/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
   async (req, res) => {
     const order = await Order.findById(req.params.id);
     order.Delivered = false;
@@ -1183,6 +1506,7 @@ router.post(
   "/order-not-paid/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
   async (req, res) => {
     const order = await Order.findById(req.params.id);
 
@@ -1203,6 +1527,7 @@ router.post(
   "/order-paid/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
   async (req, res) => {
     const order = await Order.findById(req.params.id);
 
@@ -1222,6 +1547,7 @@ router.post(
   "/product-to-donko/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
   async (req, res) => {
     const product = await Product.findById(req.params.id);
     product.isFiftyOff = true;
@@ -1240,6 +1566,7 @@ router.post(
   "/donko-to-previous/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
   async (req, res) => {
     const product = await Product.findById(req.params.id);
     product.isFiftyOff = false;
@@ -1254,7 +1581,7 @@ router.post(
 );
 
 //custom discount from admin
-router.get("/discount", ensureAuthenticated, adminAuth, async (req, res) => {
+router.get("/discount", ensureAuthenticated, adminAuth, supaAdminAuth,async (req, res) => {
   let lOgo = await Logo.findOne({});
   req.session.currentUrl = req.originalUrl;
 
@@ -1299,6 +1626,7 @@ router.get(
   "/discount/edit/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
   async (req, res) => {
     req.session.currentUrl = req.originalUrl;
 
@@ -1345,6 +1673,8 @@ router.post(
   "/discount/edit/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
+
   async (req, res) => {
     let product = await Product.findById(req.params.id);
 
@@ -1398,6 +1728,8 @@ router.delete(
   "/coupon/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
+
   async (req, res) => {
     const coupon = await Coupon.findByIdAndDelete(req.params.id);
     req.flash("sucess_msg", `${coupon.code} is successfully deleted`);
@@ -1407,7 +1739,9 @@ router.delete(
 );
 
 //coupon generation route
-router.get("/coupon", ensureAuthenticated, adminAuth, async (req, res) => {
+router.get("/coupon", ensureAuthenticated, adminAuth, 
+supaAdminAuth,
+async (req, res) => {
   req.session.currentUrl = req.originalUrl;
 
   let lOgo = await Logo.findOne({});
@@ -1464,7 +1798,9 @@ router.get("/coupon", ensureAuthenticated, adminAuth, async (req, res) => {
   });
 });
 
-router.post("/coupon", ensureAuthenticated, adminAuth, async (req, res) => {
+router.post("/coupon", ensureAuthenticated, adminAuth, 
+supaAdminAuth,
+async (req, res) => {
   let lOgo = await Logo.findOne({});
 
   let siteLogo = lOgo ? lOgo.url : " ";
@@ -1545,7 +1881,11 @@ router.post("/coupon", ensureAuthenticated, adminAuth, async (req, res) => {
 });
 
 // POST  ADDING PRODUCT
-router.post("/upload", ensureAuthenticated, adminAuth, async (req, res) => {
+router.post("/upload", ensureAuthenticated, adminAuth, 
+semiAdminAuth,
+
+
+async (req, res) => {
   let lOgo = await Logo.findOne({});
 
   let siteLogo = lOgo ? lOgo.url : " ";
@@ -1737,7 +2077,9 @@ router.post("/upload", ensureAuthenticated, adminAuth, async (req, res) => {
   }
 });
 
-router.get("/add-product", ensureAuthenticated, adminAuth, async (req, res) => {
+router.get("/add-product", ensureAuthenticated, adminAuth,
+semiAdminAuth,
+async (req, res) => {
   req.session.currentUrl = req.originalUrl;
 
   let lOgo = await Logo.findOne({});
@@ -1785,6 +2127,8 @@ router.get(
   "/add-category",
   ensureAuthenticated,
   adminAuth,
+  semiAdminAuth,
+ 
   async (req, res) => {
     req.session.currentUrl = req.originalUrl;
 
@@ -1835,6 +2179,8 @@ router.get(
   "/category/edit/:id",
   ensureAuthenticated,
   adminAuth,
+  semiAdminAuth,
+
   async (req, res) => {
     req.session.currentUrl = req.originalUrl;
 
@@ -1890,6 +2236,9 @@ router.get(
   "/edit/category",
   ensureAuthenticated,
   adminAuth,
+  semiAdminAuth,
+
+
   async (req, res) => {
     let lOgo = await Logo.findOne({});
     let siteLogo = lOgo ? lOgo.url : " ";
@@ -1940,6 +2289,9 @@ router.put(
   "/category/edit/:id",
   ensureAuthenticated,
   adminAuth,
+  semiAdminAuth,
+
+
   async (req, res) => {
     let lOgo = await Logo.findOne({});
     let siteLogo = lOgo ? lOgo.url : " ";
@@ -2025,7 +2377,7 @@ router.put(
             res.redirect("/admin/edit/category");
           });
         }
-      } catch (e) {}
+      } catch (e) { }
     });
   }
 );
@@ -2035,6 +2387,8 @@ router.delete(
   "/category/delete/:id",
   ensureAuthenticated,
   adminAuth,
+  semiAdminAuth,
+
   async (req, res) => {
     const { id } = req.params;
     Category.findByIdAndDelete({ _id: id }).then((deleted) => {
@@ -2049,6 +2403,8 @@ router.post(
   "/add-category",
   ensureAuthenticated,
   adminAuth,
+  semiAdminAuth,
+
   async (req, res) => {
     let lOgo = await Logo.findOne({});
     let siteLogo = lOgo ? lOgo.url : " ";
@@ -2117,7 +2473,7 @@ router.post(
             `You Have Successfully Added  a new Category, ${newCategory.name}`
           );
           res.redirect("/admin/edit/category");
-        } catch (e) {}
+        } catch (e) { }
       });
     }
   }
@@ -2129,7 +2485,7 @@ router.get(
   adminAuth,
   async (req, res) => {
     req.session.currentUrl = req.originalUrl;
-    let {currentUrl}=req.session
+    let { currentUrl } = req.session
 
     let lOgo = await Logo.findOne({});
     let siteLogo = lOgo ? lOgo.url : " ";
@@ -2139,7 +2495,7 @@ router.get(
       req.flash("error_msg", "please re-login");
       res.redirect("/users/login");
     }
-    
+
     let fiftyOffProductsCount = await Product.count({ isFiftyOff: true });
     const subCount = await Mail.count({});
 
@@ -2191,6 +2547,8 @@ router.get(
   "/product/:id/edit/",
   ensureAuthenticated,
   adminAuth,
+  semiAdminAuth,
+
   async (req, res) => {
     let lOgo = await Logo.findOne({});
     let siteLogo = lOgo ? lOgo.url : " ";
@@ -2243,6 +2601,8 @@ router.get(
   "/product-lte/:id/edit",
   ensureAuthenticated,
   adminAuth,
+  semiAdminAuth,
+
   async (req, res) => {
     let lOgo = await Logo.findOne({});
     let siteLogo = lOgo ? lOgo.url : " ";
@@ -2295,6 +2655,8 @@ router.post(
   "/product/:id/edit/",
   ensureAuthenticated,
   adminAuth,
+  semiAdminAuth,
+
   async (req, res) => {
     let lOgo = await Logo.findOne({});
     let siteLogo = lOgo ? lOgo.url : " ";
@@ -2483,6 +2845,8 @@ router.post(
   "/product/:id/edit-lte/",
   ensureAuthenticated,
   adminAuth,
+  semiAdminAuth,
+
   async (req, res) => {
     let lOgo = await Logo.findOne({});
     let siteLogo = lOgo ? lOgo.url : " ";
@@ -2638,6 +3002,8 @@ router.delete(
   "/product/:id/edit/",
   ensureAuthenticated,
   adminAuth,
+  semiAdminAuth,
+
   async (req, res) => {
     Product.findByIdAndDelete({ _id: req.params.id }).then((product) => {
       product.remove();
@@ -2701,7 +3067,11 @@ router.get(
 );
 
 //handling orders
-router.get("/orders", ensureAuthenticated, adminAuth, async (req, res) => {
+router.get("/orders", ensureAuthenticated, adminAuth, 
+supaAdminAuth,
+
+async (req, res) => {
+  
   let lOgo = await Logo.findOne({});
   let siteLogo = lOgo ? lOgo.url : " ";
   req.session.currentUrl = req.originalUrl;
@@ -2734,7 +3104,7 @@ router.get("/orders", ensureAuthenticated, adminAuth, async (req, res) => {
     .sort({ updatedAt: -1 })
     .exec(function (err, docs) {
       orderQueryRes = docs;
-      // console.log(orderQueryRes);
+
     });
 
   let DeliveredOrders = await Order.count({ Delivered: true });
@@ -2766,7 +3136,6 @@ router.get("/orders", ensureAuthenticated, adminAuth, async (req, res) => {
     user,
   });
 
-  //res.send("hi")
 });
 
 //single order
@@ -2774,6 +3143,8 @@ router.get(
   "/order-info/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
+
   async (req, res) => {
     let lOgo = await Logo.findOne({});
     let siteLogo = lOgo ? lOgo.url : " ";
@@ -2820,6 +3191,8 @@ router.get(
   "/order-info-print/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
+
   async (req, res) => {
     let lOgo = await Logo.findOne({});
     let siteLogo = lOgo ? lOgo.url : " ";
@@ -2855,7 +3228,10 @@ router.get(
   }
 );
 
-router.get("/hero", ensureAuthenticated, adminAuth, async (req, res) => {
+router.get("/hero", ensureAuthenticated, adminAuth,
+supaAdminAuth,
+
+async (req, res) => {
   let lOgo = await Logo.findOne({});
   let siteLogo = lOgo ? lOgo.url : " ";
   req.session.currentUrl = req.originalUrl;
@@ -2892,7 +3268,9 @@ router.get("/hero", ensureAuthenticated, adminAuth, async (req, res) => {
   });
 });
 
-router.post("/hero", ensureAuthenticated, adminAuth, async (req, res) => {
+router.post("/hero", ensureAuthenticated, adminAuth, 
+supaAdminAuth,
+async (req, res) => {
   let lOgo = await Logo.findOne({});
   let siteLogo = lOgo ? lOgo.url : " ";
 
@@ -2997,7 +3375,9 @@ router.post("/hero", ensureAuthenticated, adminAuth, async (req, res) => {
 });
 
 //editing homePage
-router.get("/hero-edit", ensureAuthenticated, adminAuth, async (req, res) => {
+router.get("/hero-edit", ensureAuthenticated, adminAuth,
+supaAdminAuth,
+async (req, res) => {
   try {
     req.session.currentUrl = req.originalUrl;
 
@@ -3033,13 +3413,15 @@ router.get("/hero-edit", ensureAuthenticated, adminAuth, async (req, res) => {
       siteLogo,
       user,
     });
-  } catch (e) {}
+  } catch (e) { }
 });
 
 router.post(
   "/hero-edit/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
+
   async (req, res) => {
     try {
       let lOgo = await Logo.findOne({});
@@ -3124,10 +3506,10 @@ router.post(
 
             homePage = await homePage.save();
             res.redirect("/admin/");
-          } catch (e) {}
+          } catch (e) { }
         });
       }
-    } catch (e) {}
+    } catch (e) { }
   }
 );
 
@@ -3135,16 +3517,19 @@ router.delete(
   "/delete-hero/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
+
   async (req, res) => {
     try {
       let hero = await Hero.deleteOne({ _id: req.params.id });
       req.flash("success_msg", `successfully deleted homepagebulder`);
       res.redirect("/admin");
-    } catch (e) {}
+    } catch (e) { }
   }
 );
 
-router.get("/post-ad", ensureAuthenticated, async (req, res) => {
+router.get("/post-ad", ensureAuthenticated,adminAuth, supaAdminAuth,
+async (req, res) => {
   req.session.currentUrl = req.originalUrl;
 
   let lOgo = await Logo.findOne({});
@@ -3181,7 +3566,8 @@ router.get("/post-ad", ensureAuthenticated, async (req, res) => {
   });
 });
 
-router.post("/post-ad", ensureAuthenticated, adminAuth, async (req, res) => {
+router.post("/post-ad", ensureAuthenticated, adminAuth,   supaAdminAuth,
+async (req, res) => {
   let lOgo = await Logo.findOne({});
   let siteLogo = lOgo ? lOgo.url : " ";
 
@@ -3267,7 +3653,10 @@ router.post("/post-ad", ensureAuthenticated, adminAuth, async (req, res) => {
   }
 });
 
-router.get("/edit-ad", ensureAuthenticated, adminAuth, async (req, res) => {
+router.get("/edit-ad", ensureAuthenticated, adminAuth,
+supaAdminAuth,
+
+async (req, res) => {
   let lOgo = await Logo.findOne({});
   let siteLogo = lOgo ? lOgo.url : " ";
   req.session.currentUrl = req.originalUrl;
@@ -3310,6 +3699,8 @@ router.post(
   "/edit-ad/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
+
   async (req, res) => {
     let lOgo = await Logo.findOne({});
     let siteLogo = lOgo ? lOgo.url : " ";
@@ -3390,6 +3781,8 @@ router.delete(
   "/delete-ad/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
+
   async (req, res) => {
     await Ad.findByIdAndDelete({ _id: req.params.id });
     req.flash("success_msg", "Cover Info Successfully Delted!");
@@ -3398,7 +3791,10 @@ router.delete(
   }
 );
 
-router.get("/add-address", ensureAuthenticated, adminAuth, async (req, res) => {
+router.get("/add-address", ensureAuthenticated, adminAuth, 
+supaAdminAuth,
+
+async (req, res) => {
   let lOgo = await Logo.findOne({});
   let siteLogo = lOgo ? lOgo.url : " ";
   req.session.currentUrl = req.originalUrl;
@@ -3438,6 +3834,8 @@ router.post(
   "/add-address",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
+
   async (req, res) => {
     let lOgo = await Logo.findOne({});
     let siteLogo = lOgo ? lOgo.url : " ";
@@ -3529,6 +3927,8 @@ router.get(
   "/edit-address",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
+
   async (req, res) => {
     let lOgo = await Logo.findOne({});
     let siteLogo = lOgo ? lOgo.url : " ";
@@ -3572,6 +3972,8 @@ router.post(
   "/edit-address",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
+
   async (req, res) => {
     let lOgo = await Logo.findOne({});
     let siteLogo = lOgo ? lOgo.url : " ";
@@ -3653,6 +4055,8 @@ router.delete(
   "/delete-address/:id",
   ensureAuthenticated,
   adminAuth,
+  supaAdminAuth,
+
   async (req, res) => {
     await Address.findByIdAndDelete({ _id: req.params.id });
     req.flash("success_msg", "Delete Address...");
@@ -3660,7 +4064,9 @@ router.delete(
   }
 );
 
-router.get("/stocks", ensureAuthenticated, adminAuth, async (req, res) => {
+router.get("/stocks", ensureAuthenticated, adminAuth,  semiAdminAuth,
+
+async (req, res) => {
   req.session.currentUrl = req.originalUrl;
 
   let lOgo = await Logo.findOne({});
@@ -3711,7 +4117,8 @@ router.get("/stocks", ensureAuthenticated, adminAuth, async (req, res) => {
   });
 });
 
-router.get("/subscribers", ensureAuthenticated, adminAuth, async (req, res) => {
+router.get("/subscribers", ensureAuthenticated, adminAuth,
+supaAdminAuth, async (req, res) => {
   let lOgo = await Logo.findOne({});
   let siteLogo = lOgo ? lOgo.url : " ";
   req.session.currentUrl = req.originalUrl;
