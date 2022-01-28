@@ -185,7 +185,7 @@ router.get("/get-users", ensureAuthenticated, adminAuth, supaAdminAuth,async (re
     let user = req.user;
     if (!user) {
       req.flash("error_msg", "please re-login");
-      res.redirect("/users/login");
+      res.redirect(req.headers.referer);
     }
     // main-logic(start)
     let userCount = await User.countDocuments()
@@ -261,12 +261,13 @@ smsSender(sms,user.phone)
 
 req.flash("success_msg", `[${user}]'s admin badge is revoked,an sms prompt is sent!`);
 
-res.redirect('/admin/get-users');
+res.redirect(req.headers.referer);
+
 
 
 }
 else{
-  return  res.redirect('/admin/get-users');
+  return        res.redirect(req.headers.referer);
 
 
 }
@@ -291,11 +292,13 @@ smsSender(sms,user.phone)
 
 req.flash("success_msg", `${user} is now an admin,an sms prompt is sent!`);
 
-res.redirect('/admin/get-users');
+res.redirect(req.headers.referer);
+
 
 }
 else{
-  return  res.redirect('/admin/get-users');
+  return        res.redirect(req.headers.referer);
+
 
 
 }
@@ -319,12 +322,13 @@ smsSender(sms,user.phone)
 
 req.flash("success_msg", `[${user}]'s admin badge is revoked,an sms prompt is sent!`);
 
-res.redirect('/admin/get-users');
+res.redirect(req.headers.referer);
 
 
 }
 else{
-  return  res.redirect('/admin/get-users');
+  return        res.redirect(req.headers.referer);
+
 
 
 }
@@ -347,12 +351,13 @@ smsSender(sms,user.phone)
 
 req.flash("success_msg", `[${user}]'s admin badge is revoked,an sms prompt is sent!`);
 
-res.redirect('/admin/get-users');
+res.redirect(req.headers.referer);
+
 
 
 }
 else{
-  return  res.redirect('/admin/get-users');
+  return        res.redirect(req.headers.referer);
 
 
 }
@@ -376,12 +381,13 @@ smsSender(sms,user.phone)
 
 req.flash("success_msg", `[${user}]'s admin badge is revoked,an sms prompt is sent!`);
 
-res.redirect('/admin/get-users');
+res.redirect(req.headers.referer);
 
 
 }
 else{
-  return  res.redirect('/admin/get-users');
+  return       res.redirect(req.headers.referer);
+
 
 
 }
@@ -404,12 +410,14 @@ smsSender(sms,user.phone)
 
 req.flash("success_msg", `[${user}]'s admin badge is revoked,an sms prompt is sent!`);
 
-res.redirect('/admin/get-users');
+res.redirect(req.headers.referer);
+
 
 
 }
 else{
-  return  res.redirect('/admin/get-users');
+  return        res.redirect(req.headers.referer);
+
 
 
 }
