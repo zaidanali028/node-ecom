@@ -2802,17 +2802,18 @@ featuredCategoryPoducts.featuredProducts.length==0?pass :ftp.push(featuredCatego
   }
 });
 
-router.get('/suggest',async(req,res)=>{
+router.get('/suggest',(req,res)=>{
   try{
-    searchList=[]
+    setTimeout(async()=>{
+      searchList=[]
     const categories = await Category.find({}).sort({ name: 1 });
     categories.forEach(category=>searchList.push(category.name))
     const products = await Product.find({}).sort({ name: 1 });
     products.forEach(product=>searchList.push(product.name))
 
-    console.log(req.query)
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(searchList.filter(value => value.includes(req.query.q))));
+    },1500)
 
 
   }
