@@ -1,5 +1,6 @@
 // background: #7971ea; }
 // 34272d7xxxxx
+// mongod --ipv6 
 require("dotenv").config();
 const express = require("express");
 const app = express();

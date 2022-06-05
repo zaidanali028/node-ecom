@@ -23,7 +23,7 @@ const { initializePayment, verifyPayment } = require("../../config/paystack")(
 );
 const sgMail = require("@sendgrid/mail");
 const sendGridApiKey = process.env.SENDGRID_API_KEY;
-constsmsApiKey = process.env.SMS_API_KEY;
+const smsApiKey = process.env.SMS_API_KEY;
 const axios=require('axios')
 
 PUBLIC_KEY = process.env.PUBLIC_KEY;

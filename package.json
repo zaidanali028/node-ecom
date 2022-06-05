@@ -6,6 +6,7 @@
   "dependencies": {
     "@sendgrid/mail": "^7.4.4",
     "bcryptjs": "^2.4.3",
+    "bytes": "^3.1.2",
     "cloudinary": "^1.23.0",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^4.4.1",
@@ -42,8 +43,11 @@
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
+    "passport-oauth2": "^1.6.1",
     "serve-favicon": "^2.5.0",
     "sib-api-v3-sdk": "^8.2.1",
+    "sift": "^16.0.0",
+    "speakingurl": "^14.0.1",
     "toastr": "^2.1.4",
     "validatorjs": "^3.22.1",
     "xml-js": "^1.6.11"
