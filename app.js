@@ -6,7 +6,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const methodOverride = require("method-override");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 1100;
 const flash = require("connect-flash");
 const session = require("express-session");
 const ejs = require("ejs");
@@ -16,6 +16,7 @@ const favicon = require("serve-favicon");
 const cookieParser = require("cookie-parser");
 const async = require("async");
 const morgan = require("morgan");
+const compression = require("compression");
 var MongoStore = require("connect-mongo");
 
 app.get("/sitemap.xml",  (req, res) =>res.send(`<?xml version="1.0" encoding="UTF-8"?>
@@ -1661,6 +1662,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // flash message
 app.use(flash());
+app.use(compression());
 
 //static files
 app.use(express.static(path.join(__dirname, "public")));

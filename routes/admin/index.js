@@ -2507,17 +2507,17 @@ router.get(
     let fiftyOffProductsCount = await Product.count({ isFiftyOff: true });
     const subCount = await Mail.count({});
 
-    //implementing pagination
-    let currentPage = parseInt(req.query.page) || 1;
-    let itemPerPage = 35;
-    const pcount = await Product.countDocuments();
+    // //implementing pagination
+    // let currentPage = parseInt(req.query.page) || 1;
+    // let itemPerPage = 35;
+    // const pcount = await Product.countDocuments();
 
-    let pages = Math.ceil(pcount / itemPerPage);
+    // let pages = Math.ceil(pcount / itemPerPage);
 
-    const products = await Product.find({})
-      .sort({ createdAt: -1 })
-      .skip(itemPerPage * currentPage - itemPerPage)
-      .limit(itemPerPage);
+    // const products = await Product.find({})
+    //   .sort({ createdAt: -1 })
+    //   .skip(itemPerPage * currentPage - itemPerPage)
+    //   .limit(itemPerPage);
 
     const orderCount = await Order.countDocuments();
     const hero = await Hero.findOne({});
