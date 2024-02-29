@@ -6,7 +6,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const methodOverride = require("method-override");
-const port = process.env.PORT || 1100;
+const port = process.env.PORT || 1000;
 const flash = require("connect-flash");
 const session = require("express-session");
 const ejs = require("ejs");
@@ -14,7 +14,7 @@ const mongoose = require("mongoose");
 const uploader = require("express-fileupload");
 const favicon = require("serve-favicon");
 const cookieParser = require("cookie-parser");
-const async = require("async");
+const async = require("async"); 
 const morgan = require("morgan");
 const compression = require("compression");
 var MongoStore = require("connect-mongo");
@@ -29,1592 +29,1592 @@ app.get("/sitemap.xml",  (req, res) =>res.send(`<?xml version="1.0" encoding="UT
 
 
 <url>
-  <loc>https://yuta-mart.com/</loc>
+  <loc>http://127.0.0.1:1100/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/users/register</loc>
+  <loc>http://127.0.0.1:1100/users/register</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/users/login</loc>
+  <loc>http://127.0.0.1:1100/users/login</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/my-cart</loc>
+  <loc>http://127.0.0.1:1100/my-cart</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop</loc>
+  <loc>http://127.0.0.1:1100/shop</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shipping</loc>
+  <loc>http://127.0.0.1:1100/shipping</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/contact</loc>
+  <loc>http://127.0.0.1:1100/contact</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/about</loc>
+  <loc>http://127.0.0.1:1100/about</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/books/</loc>
+  <loc>http://127.0.0.1:1100/shop/books/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/classy-watches/</loc>
+  <loc>http://127.0.0.1:1100/shop/classy-watches/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/digital-accessorise/</loc>
+  <loc>http://127.0.0.1:1100/shop/digital-accessorise/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/electronics/</loc>
+  <loc>http://127.0.0.1:1100/shop/electronics/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/furniture/</loc>
+  <loc>http://127.0.0.1:1100/shop/furniture/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/kids/</loc>
+  <loc>http://127.0.0.1:1100/shop/kids/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/men-s-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop/men-s-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/phones/</loc>
+  <loc>http://127.0.0.1:1100/shop/phones/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/services/</loc>
+  <loc>http://127.0.0.1:1100/shop/services/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/slippers/</loc>
+  <loc>http://127.0.0.1:1100/shop/slippers/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/sneakers/</loc>
+  <loc>http://127.0.0.1:1100/shop/sneakers/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/t-shirts/</loc>
+  <loc>http://127.0.0.1:1100/shop/t-shirts/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/unisex/</loc>
+  <loc>http://127.0.0.1:1100/shop/unisex/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/women-corner/</loc>
+  <loc>http://127.0.0.1:1100/shop/women-corner/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-moncler-round-neck-shirt/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-moncler-round-neck-shirt/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-designer-jeans-jacket-8/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-designer-jeans-jacket-8/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-designer-jeans-jacket-black/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-designer-jeans-jacket-black/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-lastic-jeans-casual-wear-TKsT6tQ6E/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-lastic-jeans-casual-wear-TKsT6tQ6E/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-lastic-jeans-casual-wear/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-lastic-jeans-casual-wear/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-lastic-jeans-luis-vuitton-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-lastic-jeans-luis-vuitton-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-lastic-jeans-bandana-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-lastic-jeans-bandana-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-lastic-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-lastic-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-men-s-slim-fit-lastic-designer-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-men-s-slim-fit-lastic-designer-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-versace-men-s-slim-fit-designer-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-versace-men-s-slim-fit-designer-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-men-s-slim-fit-designer-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-men-s-slim-fit-designer-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/ribbed-slim-fit-knitted-pullover-turtleneck-sweater-ash/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/ribbed-slim-fit-knitted-pullover-turtleneck-sweater-ash/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/ribbed-slim-fit-knitted-pullover-turtleneck-sweater-white/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/ribbed-slim-fit-knitted-pullover-turtleneck-sweater-white/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/ribbed-slim-fit-knitted-pullover-turtleneck-sweater-black/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/ribbed-slim-fit-knitted-pullover-turtleneck-sweater-black/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/mens-ribbed-slim-fit-knitted-pullover-turtleneck-sweater/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/mens-ribbed-slim-fit-knitted-pullover-turtleneck-sweater/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-wakanda-forever-shirt-round-neck-white/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-wakanda-forever-shirt-round-neck-white/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-wakanda-forever-shirt-round-neck-black/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-wakanda-forever-shirt-round-neck-black/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-rolex-quartz-watch-silver-and-blue/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-rolex-quartz-watch-silver-and-blue/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/montblanc-quartz-watch-gold/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/montblanc-quartz-watch-gold/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fosili-touch-led-watch-gold/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fosili-touch-led-watch-gold/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-designer-casio-watch-gold/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-designer-casio-watch-gold/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/no-limits/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/no-limits/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/cashflow-quadrant/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/cashflow-quadrant/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-power-of-habit/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-power-of-habit/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/who-took-my-money/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/who-took-my-money/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/to-sell-is-human/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/to-sell-is-human/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-business-of-changing-world/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-business-of-changing-world/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-innovators-dilemma/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-innovators-dilemma/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-1-page-marketing-plan/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-1-page-marketing-plan/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-5-love-languages-of-singles/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-5-love-languages-of-singles/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-5-love-languages-of-teenagers/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-5-love-languages-of-teenagers/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-10x-rules/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-10x-rules/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-15-invaluable-of-growth/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-15-invaluable-of-growth/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-big-nine/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-big-nine/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-intelligent-investor/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-intelligent-investor/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-next-factory-of-the-world/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-next-factory-of-the-world/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-power-of-your-words/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-power-of-your-words/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-prosperity-paradox/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-prosperity-paradox/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-rules-of-entrepreneurship/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-rules-of-entrepreneurship/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-rules-of-life/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-rules-of-life/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-shirt-highly-authentic-designer-top/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-shirt-highly-authentic-designer-top/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-louis-vuitton-shirt-highly-authentic-designer-top/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-louis-vuitton-shirt-highly-authentic-designer-top/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lastic-palm-angels-shirt-highly-authentic-designer-top-B0P7Zrv0M/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lastic-palm-angels-shirt-highly-authentic-designer-top-B0P7Zrv0M/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lastic-palm-angels-shirt-highly-authentic-designer-top/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lastic-palm-angels-shirt-highly-authentic-designer-top/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/celebrity-designer-unisex-fashion-shirt/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/celebrity-designer-unisex-fashion-shirt/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-rules-of-management-EHLxHrmxv/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-rules-of-management-EHLxHrmxv/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/think-and-grow-rich-oC9ejY-nt/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/think-and-grow-rich-oC9ejY-nt/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/think-like-an-entrepreneur-act-like-a-ceo/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/think-like-an-entrepreneur-act-like-a-ceo/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/tools-of-titans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/tools-of-titans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/turbo-strategy/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/turbo-strategy/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/unshakeable/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/unshakeable/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-rules-to-break/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-rules-to-break/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/when-kingdom-clash/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/when-kingdom-clash/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/who-stole-my-pension/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/who-stole-my-pension/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/why-nation-fail/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/why-nation-fail/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/worry-free-living/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/worry-free-living/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/business-the-speed-of-thought/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/business-the-speed-of-thought/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fighting-corruption-is-dangerous/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fighting-corruption-is-dangerous/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/berk-slippers-7kOwEoFRd/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/berk-slippers-7kOwEoFRd/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/berk-slippers-v0W5OzpBj/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/berk-slippers-v0W5OzpBj/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/air-jordan-4-sneaker/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/air-jordan-4-sneaker/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/official-polo-long-and-short-sleeve-shirts/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/official-polo-long-and-short-sleeve-shirts/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/dior-shorts-fir-men-and-women-dJgKlRpF-/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/dior-shorts-fir-men-and-women-dJgKlRpF-/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/dior-shorts-fir-men-and-women/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/dior-shorts-fir-men-and-women/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/quality-designer-air-jordan-sneakers/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/quality-designer-air-jordan-sneakers/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-nike-airforce-black/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-nike-airforce-black/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/jeep-khaki-trousers/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/jeep-khaki-trousers/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/nixon-watch/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/nixon-watch/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lastic-nike-jacket-and-trouser-highly-authentic-designer-top-n-down/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lastic-nike-jacket-and-trouser-highly-authentic-designer-top-n-down/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-air-jordan-sneakers/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-air-jordan-sneakers/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/quality-designer-jeans-shirt/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/quality-designer-jeans-shirt/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/slim-fit-designer-men-s-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/slim-fit-designer-men-s-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/how-to-win-friends-and-influence-people/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/how-to-win-friends-and-influence-people/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-rules-of-wealth/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-rules-of-wealth/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/eat-that-frog/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/eat-that-frog/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-millionaire-fastlane/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-millionaire-fastlane/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/think-and-grow-rich/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/think-and-grow-rich/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/leadership/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/leadership/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-millionaire-mind/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-millionaire-mind/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-rules-of-people/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-rules-of-people/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-7-habits-of-highly-effective-people/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-7-habits-of-highly-effective-people/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/9-things-successful-people-do-differently/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/9-things-successful-people-do-differently/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-rules-of-management/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-rules-of-management/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/3-things-successful-people-do/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/3-things-successful-people-do/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/dior-slim-fit-fashion-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/dior-slim-fit-fashion-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/louise-vuitton-jeans-slim-fit-designer-men-s-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/louise-vuitton-jeans-slim-fit-designer-men-s-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top-QptWwiy7b/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top-QptWwiy7b/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lastic-louise-vuitton-shirt-highly-authentic-designer-top/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lastic-louise-vuitton-shirt-highly-authentic-designer-top/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lastic-bulbery-shirt-highly-authentic-designer-top/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lastic-bulbery-shirt-highly-authentic-designer-top/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/i-think-of-myself-quality-designer-men-s-fashion-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/i-think-of-myself-quality-designer-men-s-fashion-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/gucci-men-s-casual-wear/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/gucci-men-s-casual-wear/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lacoste-t-shirts/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lacoste-t-shirts/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/modern-fashion-designer-palm-angels-round-neck-shirt/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/modern-fashion-designer-palm-angels-round-neck-shirt/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/casio-watch-wooden-designer-watch/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/casio-watch-wooden-designer-watch/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-louis-vuitton-fashion-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-louis-vuitton-fashion-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-branded-palm-angels-round-neck-shirt/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-branded-palm-angels-round-neck-shirt/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-fashion-casual-outfit-men-s-wear/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-fashion-casual-outfit-men-s-wear/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/quality-jeans-fit-for-men-casual-outfit-for-men/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/quality-jeans-fit-for-men-casual-outfit-for-men/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-louis-vuitton-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-louis-vuitton-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-polo-t-shirt-ralph-lauren/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-polo-t-shirt-ralph-lauren/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/lacoste-long-hand-top/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/lacoste-long-hand-top/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/offItems</loc>
+  <loc>http://127.0.0.1:1100/offItems</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/users/forgot</loc>
+  <loc>http://127.0.0.1:1100/users/forgot</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-moncler-round-neck-shirt</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-moncler-round-neck-shirt</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-designer-jeans-jacket-8</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-designer-jeans-jacket-8</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-designer-jeans-jacket-black</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-designer-jeans-jacket-black</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-lastic-jeans-casual-wear-TKsT6tQ6E</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-lastic-jeans-casual-wear-TKsT6tQ6E</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-lastic-jeans-casual-wear</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-lastic-jeans-casual-wear</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-lastic-jeans-ash/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-lastic-jeans-ash/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-lastic-jeans-ash</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-lastic-jeans-ash</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-lastic-jeans-luis-vuitton-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-lastic-jeans-luis-vuitton-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-lastic-jeans-bandana-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-lastic-jeans-bandana-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-lastic-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-lastic-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-men-s-slim-fit-lastic-designer-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-men-s-slim-fit-lastic-designer-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop?page=2</loc>
+  <loc>http://127.0.0.1:1100/shop?page=2</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop?page=3</loc>
+  <loc>http://127.0.0.1:1100/shop?page=3</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop?page=4</loc>
+  <loc>http://127.0.0.1:1100/shop?page=4</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop?page=5</loc>
+  <loc>http://127.0.0.1:1100/shop?page=5</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop?page=13</loc>
+  <loc>http://127.0.0.1:1100/shop?page=13</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/books</loc>
+  <loc>http://127.0.0.1:1100/shop/books</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/classy-watches</loc>
+  <loc>http://127.0.0.1:1100/shop/classy-watches</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/digital-accessorise</loc>
+  <loc>http://127.0.0.1:1100/shop/digital-accessorise</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/electronics</loc>
+  <loc>http://127.0.0.1:1100/shop/electronics</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/furniture</loc>
+  <loc>http://127.0.0.1:1100/shop/furniture</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/kids</loc>
+  <loc>http://127.0.0.1:1100/shop/kids</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/men-s-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop/men-s-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/phones</loc>
+  <loc>http://127.0.0.1:1100/shop/phones</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/services</loc>
+  <loc>http://127.0.0.1:1100/shop/services</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/slippers</loc>
+  <loc>http://127.0.0.1:1100/shop/slippers</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/sneakers</loc>
+  <loc>http://127.0.0.1:1100/shop/sneakers</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/t-shirts</loc>
+  <loc>http://127.0.0.1:1100/shop/t-shirts</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/unisex</loc>
+  <loc>http://127.0.0.1:1100/shop/unisex</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/women-corner</loc>
+  <loc>http://127.0.0.1:1100/shop/women-corner</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/books?page=2</loc>
+  <loc>http://127.0.0.1:1100/shop/books?page=2</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/books?page=3</loc>
+  <loc>http://127.0.0.1:1100/shop/books?page=3</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/books?page=4</loc>
+  <loc>http://127.0.0.1:1100/shop/books?page=4</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/books?page=5</loc>
+  <loc>http://127.0.0.1:1100/shop/books?page=5</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-rolex-quartz-leather-watch-gold-with-blackleather/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-rolex-quartz-leather-watch-gold-with-blackleather/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/casio-watch-gold-7oOXb3l_P/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/casio-watch-gold-7oOXb3l_P/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/bvot-4g-portable-wifi-router-white/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/bvot-4g-portable-wifi-router-white/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/men-s-jeans?page=2</loc>
+  <loc>http://127.0.0.1:1100/shop/men-s-jeans?page=2</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/berk-slippers/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/berk-slippers/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-gucci-slipper-s/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-gucci-slipper-s/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-gum-made-gucci-benga-slippers/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-gum-made-gucci-benga-slippers/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-air-jordan-13-sneakers-YRagz_FCh/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-air-jordan-13-sneakers-YRagz_FCh/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-air-jordan-13-sneakers/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-air-jordan-13-sneakers/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-nike-airforce/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-nike-airforce/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/high-quality-designer-air-force-sneaker/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/high-quality-designer-air-force-sneaker/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-dior-lacoste-original-t-shirt-znupESFjM/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-dior-lacoste-original-t-shirt-znupESFjM/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-dior-lacoste-original-t-shirt/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-dior-lacoste-original-t-shirt/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-dior-lacoste-t-shirt/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-dior-lacoste-t-shirt/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/t-shirts?page=2</loc>
+  <loc>http://127.0.0.1:1100/shop/t-shirts?page=2</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/t-shirts?page=3</loc>
+  <loc>http://127.0.0.1:1100/shop/t-shirts?page=3</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/t-shirts?page=4</loc>
+  <loc>http://127.0.0.1:1100/shop/t-shirts?page=4</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-usa-branded-2in1-jacket/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-usa-branded-2in1-jacket/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/classic-women-designer-straight-dress/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/classic-women-designer-straight-dress/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-summer-designer-men-s-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-summer-designer-men-s-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/offItems?page=2</loc>
+  <loc>http://127.0.0.1:1100/offItems?page=2</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-versace-men-s-slim-fit-designer-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-versace-men-s-slim-fit-designer-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-men-s-slim-fit-designer-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-men-s-slim-fit-designer-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/ribbed-slim-fit-knitted-pullover-turtleneck-sweater-ash</loc>
+  <loc>http://127.0.0.1:1100/shop-product/ribbed-slim-fit-knitted-pullover-turtleneck-sweater-ash</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/ribbed-slim-fit-knitted-pullover-turtleneck-sweater-white</loc>
+  <loc>http://127.0.0.1:1100/shop-product/ribbed-slim-fit-knitted-pullover-turtleneck-sweater-white</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/ribbed-slim-fit-knitted-pullover-turtleneck-sweater-black</loc>
+  <loc>http://127.0.0.1:1100/shop-product/ribbed-slim-fit-knitted-pullover-turtleneck-sweater-black</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/mens-ribbed-slim-fit-knitted-pullover-turtleneck-sweater</loc>
+  <loc>http://127.0.0.1:1100/shop-product/mens-ribbed-slim-fit-knitted-pullover-turtleneck-sweater</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/bvot-4g-portable-wifi-router-white</loc>
+  <loc>http://127.0.0.1:1100/shop-product/bvot-4g-portable-wifi-router-white</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-wakanda-forever-shirt-round-neck-white</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-wakanda-forever-shirt-round-neck-white</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-wakanda-forever-shirt-round-neck-black</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-wakanda-forever-shirt-round-neck-black</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-rolex-quartz-leather-watch-gold-with-blackleather</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-rolex-quartz-leather-watch-gold-with-blackleather</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop?page=1</loc>
+  <loc>http://127.0.0.1:1100/shop?page=1</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop?page=6</loc>
+  <loc>http://127.0.0.1:1100/shop?page=6</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-rolex-quartz-watch-silver-and-blue</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-rolex-quartz-watch-silver-and-blue</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/montblanc-quartz-watch-gold</loc>
+  <loc>http://127.0.0.1:1100/shop-product/montblanc-quartz-watch-gold</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fosili-touch-led-watch-gold</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fosili-touch-led-watch-gold</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/casio-watch-gold-7oOXb3l_P</loc>
+  <loc>http://127.0.0.1:1100/shop-product/casio-watch-gold-7oOXb3l_P</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-designer-casio-watch-gold</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-designer-casio-watch-gold</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/classic-women-designer-straight-dress</loc>
+  <loc>http://127.0.0.1:1100/shop-product/classic-women-designer-straight-dress</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-dior-lacoste-original-t-shirt-znupESFjM</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-dior-lacoste-original-t-shirt-znupESFjM</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-dior-lacoste-original-t-shirt</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-dior-lacoste-original-t-shirt</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-dior-lacoste-t-shirt</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-dior-lacoste-t-shirt</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/no-limits</loc>
+  <loc>http://127.0.0.1:1100/shop-product/no-limits</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop?page=7</loc>
+  <loc>http://127.0.0.1:1100/shop?page=7</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/cashflow-quadrant</loc>
+  <loc>http://127.0.0.1:1100/shop-product/cashflow-quadrant</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-power-of-habit</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-power-of-habit</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/who-took-my-money</loc>
+  <loc>http://127.0.0.1:1100/shop-product/who-took-my-money</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/to-sell-is-human</loc>
+  <loc>http://127.0.0.1:1100/shop-product/to-sell-is-human</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-business-of-changing-world</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-business-of-changing-world</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-innovators-dilemma</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-innovators-dilemma</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-1-page-marketing-plan</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-1-page-marketing-plan</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-5-love-languages-of-singles</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-5-love-languages-of-singles</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-5-love-languages-of-teenagers</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-5-love-languages-of-teenagers</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-10x-rules</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-10x-rules</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop?page=8</loc>
+  <loc>http://127.0.0.1:1100/shop?page=8</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-15-invaluable-of-growth</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-15-invaluable-of-growth</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-big-nine</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-big-nine</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-intelligent-investor</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-intelligent-investor</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-next-factory-of-the-world</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-next-factory-of-the-world</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-power-of-your-words</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-power-of-your-words</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-prosperity-paradox</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-prosperity-paradox</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-rules-of-entrepreneurship</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-rules-of-entrepreneurship</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-rules-of-life</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-rules-of-life</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-shirt-highly-authentic-designer-top</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-shirt-highly-authentic-designer-top</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-louis-vuitton-shirt-highly-authentic-designer-top</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-louis-vuitton-shirt-highly-authentic-designer-top</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop?page=9</loc>
+  <loc>http://127.0.0.1:1100/shop?page=9</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-branded-palm-angels-round-neck-shirt</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-branded-palm-angels-round-neck-shirt</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-fashion-casual-outfit-men-s-wear</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-fashion-casual-outfit-men-s-wear</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/mba-lakers-quality-shirts/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/mba-lakers-quality-shirts/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/mba-lakers-quality-shirts</loc>
+  <loc>http://127.0.0.1:1100/shop-product/mba-lakers-quality-shirts</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/quality-jeans-fit-for-men-casual-outfit-for-men</loc>
+  <loc>http://127.0.0.1:1100/shop-product/quality-jeans-fit-for-men-casual-outfit-for-men</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-louis-vuitton-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-louis-vuitton-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-polo-t-shirt-ralph-lauren</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-polo-t-shirt-ralph-lauren</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/lacoste-long-hand-top</loc>
+  <loc>http://127.0.0.1:1100/shop-product/lacoste-long-hand-top</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop?page=10</loc>
+  <loc>http://127.0.0.1:1100/shop?page=10</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop?page=11</loc>
+  <loc>http://127.0.0.1:1100/shop?page=11</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop?page=12</loc>
+  <loc>http://127.0.0.1:1100/shop?page=12</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/books?page=1</loc>
+  <loc>http://127.0.0.1:1100/shop/books?page=1</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-quality-branded-channel-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-quality-branded-channel-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-quality-slim-fit-men-s-jeans/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-quality-slim-fit-men-s-jeans/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/men-s-jeans?page=1</loc>
+  <loc>http://127.0.0.1:1100/shop/men-s-jeans?page=1</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop/t-shirts?page=1</loc>
+  <loc>http://127.0.0.1:1100/shop/t-shirts?page=1</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/arsenal-fc-away-kit-21-22/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/arsenal-fc-away-kit-21-22/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/paris-saint-german-home-kit-21-22-Dj1rpMX8x/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/paris-saint-german-home-kit-21-22-Dj1rpMX8x/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/paris-saint-german-away-kit-21-22/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/paris-saint-german-away-kit-21-22/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-fashion-casual-outfit-Pq85QkOVG/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-fashion-casual-outfit-Pq85QkOVG/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/chrome-quality-t-shirt/</loc>
+  <loc>http://127.0.0.1:1100/shop-product/chrome-quality-t-shirt/</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/offItems?page=1</loc>
+  <loc>http://127.0.0.1:1100/offItems?page=1</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lastic-palm-angels-shirt-highly-authentic-designer-top-B0P7Zrv0M</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lastic-palm-angels-shirt-highly-authentic-designer-top-B0P7Zrv0M</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lastic-palm-angels-shirt-highly-authentic-designer-top</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lastic-palm-angels-shirt-highly-authentic-designer-top</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/celebrity-designer-unisex-fashion-shirt</loc>
+  <loc>http://127.0.0.1:1100/shop-product/celebrity-designer-unisex-fashion-shirt</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-rules-of-management-EHLxHrmxv</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-rules-of-management-EHLxHrmxv</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/think-and-grow-rich-oC9ejY-nt</loc>
+  <loc>http://127.0.0.1:1100/shop-product/think-and-grow-rich-oC9ejY-nt</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/think-like-an-entrepreneur-act-like-a-ceo</loc>
+  <loc>http://127.0.0.1:1100/shop-product/think-like-an-entrepreneur-act-like-a-ceo</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/tools-of-titans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/tools-of-titans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/turbo-strategy</loc>
+  <loc>http://127.0.0.1:1100/shop-product/turbo-strategy</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/unshakeable</loc>
+  <loc>http://127.0.0.1:1100/shop-product/unshakeable</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-rules-to-break</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-rules-to-break</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/when-kingdom-clash</loc>
+  <loc>http://127.0.0.1:1100/shop-product/when-kingdom-clash</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/who-stole-my-pension</loc>
+  <loc>http://127.0.0.1:1100/shop-product/who-stole-my-pension</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/why-nation-fail</loc>
+  <loc>http://127.0.0.1:1100/shop-product/why-nation-fail</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/worry-free-living</loc>
+  <loc>http://127.0.0.1:1100/shop-product/worry-free-living</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/business-the-speed-of-thought</loc>
+  <loc>http://127.0.0.1:1100/shop-product/business-the-speed-of-thought</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fighting-corruption-is-dangerous</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fighting-corruption-is-dangerous</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/berk-slippers-7kOwEoFRd</loc>
+  <loc>http://127.0.0.1:1100/shop-product/berk-slippers-7kOwEoFRd</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/berk-slippers-v0W5OzpBj</loc>
+  <loc>http://127.0.0.1:1100/shop-product/berk-slippers-v0W5OzpBj</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/berk-slippers</loc>
+  <loc>http://127.0.0.1:1100/shop-product/berk-slippers</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-air-jordan-13-sneakers-YRagz_FCh</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-air-jordan-13-sneakers-YRagz_FCh</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-air-jordan-13-sneakers</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-air-jordan-13-sneakers</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/air-jordan-4-sneaker</loc>
+  <loc>http://127.0.0.1:1100/shop-product/air-jordan-4-sneaker</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/official-polo-long-and-short-sleeve-shirts</loc>
+  <loc>http://127.0.0.1:1100/shop-product/official-polo-long-and-short-sleeve-shirts</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/dior-shorts-fir-men-and-women-dJgKlRpF-</loc>
+  <loc>http://127.0.0.1:1100/shop-product/dior-shorts-fir-men-and-women-dJgKlRpF-</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/dior-shorts-fir-men-and-women</loc>
+  <loc>http://127.0.0.1:1100/shop-product/dior-shorts-fir-men-and-women</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/quality-designer-air-jordan-sneakers</loc>
+  <loc>http://127.0.0.1:1100/shop-product/quality-designer-air-jordan-sneakers</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-nike-airforce-black</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-nike-airforce-black</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/jeep-khaki-trousers</loc>
+  <loc>http://127.0.0.1:1100/shop-product/jeep-khaki-trousers</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/nixon-watch</loc>
+  <loc>http://127.0.0.1:1100/shop-product/nixon-watch</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-usa-branded-2in1-jacket</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-usa-branded-2in1-jacket</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-nike-airforce</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-nike-airforce</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lastic-nike-jacket-and-trouser-highly-authentic-designer-top-n-down</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lastic-nike-jacket-and-trouser-highly-authentic-designer-top-n-down</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-air-jordan-sneakers</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-air-jordan-sneakers</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/quality-designer-jeans-shirt</loc>
+  <loc>http://127.0.0.1:1100/shop-product/quality-designer-jeans-shirt</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/slim-fit-designer-men-s-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/slim-fit-designer-men-s-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/how-to-win-friends-and-influence-people</loc>
+  <loc>http://127.0.0.1:1100/shop-product/how-to-win-friends-and-influence-people</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-rules-of-wealth</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-rules-of-wealth</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/eat-that-frog</loc>
+  <loc>http://127.0.0.1:1100/shop-product/eat-that-frog</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-millionaire-fastlane</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-millionaire-fastlane</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/think-and-grow-rich</loc>
+  <loc>http://127.0.0.1:1100/shop-product/think-and-grow-rich</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/leadership</loc>
+  <loc>http://127.0.0.1:1100/shop-product/leadership</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-millionaire-mind</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-millionaire-mind</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-rules-of-people</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-rules-of-people</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-7-habits-of-highly-effective-people</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-7-habits-of-highly-effective-people</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/9-things-successful-people-do-differently</loc>
+  <loc>http://127.0.0.1:1100/shop-product/9-things-successful-people-do-differently</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/the-rules-of-management</loc>
+  <loc>http://127.0.0.1:1100/shop-product/the-rules-of-management</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/3-things-successful-people-do</loc>
+  <loc>http://127.0.0.1:1100/shop-product/3-things-successful-people-do</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/dior-slim-fit-fashion-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/dior-slim-fit-fashion-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/louise-vuitton-jeans-slim-fit-designer-men-s-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/louise-vuitton-jeans-slim-fit-designer-men-s-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top-QptWwiy7b</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top-QptWwiy7b</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lastic-louise-vuitton-shirt-highly-authentic-designer-top</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lastic-louise-vuitton-shirt-highly-authentic-designer-top</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lastic-bulbery-shirt-highly-authentic-designer-top</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lastic-bulbery-shirt-highly-authentic-designer-top</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/i-think-of-myself-quality-designer-men-s-fashion-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/i-think-of-myself-quality-designer-men-s-fashion-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lastic-dior-shirt-highly-authentic-designer-top</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-gucci-slipper-s</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-gucci-slipper-s</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-gum-made-gucci-benga-slippers</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-gum-made-gucci-benga-slippers</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-summer-designer-men-s-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-summer-designer-men-s-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/high-quality-designer-air-force-sneaker</loc>
+  <loc>http://127.0.0.1:1100/shop-product/high-quality-designer-air-force-sneaker</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/arsenal-fc-away-kit-21-22</loc>
+  <loc>http://127.0.0.1:1100/shop-product/arsenal-fc-away-kit-21-22</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/paris-saint-german-home-kit-21-22-Dj1rpMX8x</loc>
+  <loc>http://127.0.0.1:1100/shop-product/paris-saint-german-home-kit-21-22-Dj1rpMX8x</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/paris-saint-german-away-kit-21-22</loc>
+  <loc>http://127.0.0.1:1100/shop-product/paris-saint-german-away-kit-21-22</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-fashion-casual-outfit-Pq85QkOVG</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-fashion-casual-outfit-Pq85QkOVG</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/gucci-men-s-casual-wear</loc>
+  <loc>http://127.0.0.1:1100/shop-product/gucci-men-s-casual-wear</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/chrome-quality-t-shirt</loc>
+  <loc>http://127.0.0.1:1100/shop-product/chrome-quality-t-shirt</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-quality-branded-channel-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-quality-branded-channel-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/fashion-quality-slim-fit-men-s-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/fashion-quality-slim-fit-men-s-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/original-lacoste-t-shirts</loc>
+  <loc>http://127.0.0.1:1100/shop-product/original-lacoste-t-shirts</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/modern-fashion-designer-palm-angels-round-neck-shirt</loc>
+  <loc>http://127.0.0.1:1100/shop-product/modern-fashion-designer-palm-angels-round-neck-shirt</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/casio-watch-wooden-designer-watch</loc>
+  <loc>http://127.0.0.1:1100/shop-product/casio-watch-wooden-designer-watch</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://yuta-mart.com/shop-product/men-s-slim-fit-louis-vuitton-fashion-jeans</loc>
+  <loc>http://127.0.0.1:1100/shop-product/men-s-slim-fit-louis-vuitton-fashion-jeans</loc>
   <lastmod>2022-01-16T01:15:26+00:00</lastmod>
   <priority>0.41</priority>
 </url>
@@ -1627,7 +1627,8 @@ app.get("/sitemap.xml",  (req, res) =>res.send(`<?xml version="1.0" encoding="UT
 const dbUrI =
   process.env.NODE_ENV === "production"
     ? process.env.DB_URL
-    : "mongodb://localhost:27017/eshop-update";
+    // : "mongodb://localhost:27017/eshop-update";
+    : process.env.DB_URL
     // : process.env.DB_URL
     
 
@@ -1757,7 +1758,7 @@ app.use("/", homeRoutes);
 
 app.get('*', function(req, res){
   res.render('admin/page404');
-});
+}); 
 app.listen(port, () => {
   console.log(`server running on port ${port}`);
 });

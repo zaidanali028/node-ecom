@@ -2508,25 +2508,25 @@ router.get(
     const subCount = await Mail.count({});
 
     // //implementing pagination
-    // let currentPage = parseInt(req.query.page) || 1;
-    // let itemPerPage = 35;
-    // const pcount = await Product.countDocuments();
+    let currentPage = parseInt(req.query.page) || 1;
+    let itemPerPage = 35;
+    const pcount = await Product.countDocuments();
 
-    // let pages = Math.ceil(pcount / itemPerPage);
+    let pages = Math.ceil(pcount / itemPerPage);
 
-    // const products = await Product.find({})
-    //   .sort({ createdAt: -1 })
-    //   .skip(itemPerPage * currentPage - itemPerPage)
-    //   .limit(itemPerPage);
+    const products = await Product.find({})
+      .sort({ createdAt: -1 })
+      .skip(itemPerPage * currentPage - itemPerPage)
+      .limit(itemPerPage);
 
     const orderCount = await Order.countDocuments();
     const hero = await Hero.findOne({});
     let ad50 = await Ad.findOne({});
     const addresS = await Address.findOne({});
 
-    const Products = await Product.find({})
-      .populate("category")
-      .sort({ createdAt: -1 });
+    // const products = await Product.find({})
+    //   .populate("category")
+    //   .sort({ createdAt: -1 });
     const cartCount = await Cart.countDocuments();
     const cCount = await Coupon.countDocuments();
 
