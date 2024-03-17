@@ -1,17 +1,17 @@
 // background: #7971ea; }
 // 34272d7xxxxx
-// mongod --ipv6 
+// mongod --ipv6   
 require("dotenv").config();
 const express = require("express");
-const app = express();
+const app = express();  
 const path = require("path");
 const methodOverride = require("method-override");
-const port = process.env.PORT || 1000;
+const port = process.env.PORT || 1100;
 const flash = require("connect-flash");
 const session = require("express-session");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
-const uploader = require("express-fileupload");
+const uploader = require("express-fileupload"); 
 const favicon = require("serve-favicon");
 const cookieParser = require("cookie-parser");
 const async = require("async"); 
@@ -1625,11 +1625,11 @@ app.get("/sitemap.xml",  (req, res) =>res.send(`<?xml version="1.0" encoding="UT
 // app.set('trust proxy', true);
 
 const dbUrI =
-  process.env.NODE_ENV === "production"
-    ? process.env.DB_URL
+ // process.env.NODE_ENV === "production"
+   // ? process.env.DB_URL
     // : "mongodb://localhost:27017/eshop-update";
-    : process.env.DB_URL
-    // : process.env.DB_URL
+   // : process.env.DB_URL
+    process.env.DB_URL
     
 
 app.enable("trust proxy"); // trust all
