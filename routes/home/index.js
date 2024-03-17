@@ -1094,15 +1094,15 @@ router.post("/checkout", async (req, res) => {
                 let sms =
                       `An Order  has been placed by ${order.name} with the Id [${order._id}],Kindly Hop Onto The Admin Portal And Do The Needful`;
                     let senderEncode = encodeURI(sms);
-
+  
                     recipient = '+233554381698';
                     senderEncode = encodeURI(sender);
                     let messageEncode = encodeURI(sms);
 
                     let url = `https://sms.textcus.com/api/send?apikey=${smsApiKey}&destination=${recipient}&source=${senderEncode}&dlr=0&type=0&message=${messageEncode}`;
-                    axios.get(url).then((resp) => {
-                      console.log(resp);
-                    });
+                    // axios.get(url).then((resp) => {
+                    //   console.log(resp); 
+                    // }); 
 
                     // for user(customer)
         
