@@ -13,11 +13,11 @@ const ejs = require("ejs");
 const mongoose = require("mongoose");
 const uploader = require("express-fileupload"); 
 const favicon = require("serve-favicon");
-const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser"); 
 const async = require("async"); 
 const morgan = require("morgan");
 const compression = require("compression");
-var MongoStore = require("connect-mongo");
+var MongoStore = require("connect-mongo");   
 
 app.get("/sitemap.xml",  (req, res) =>res.send(`<?xml version="1.0" encoding="UTF-8"?>
 <urlset
